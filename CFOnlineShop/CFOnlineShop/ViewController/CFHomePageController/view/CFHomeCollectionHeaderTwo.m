@@ -10,6 +10,7 @@
 #import "CFHomeHeaderTwoCell.h"
 #import "UIView+Extension.h"
 #import "FSBaseModel.h"
+#import "UIImageView+SDWebImage.h"
 
 #define kItemHeight 80
 
@@ -66,9 +67,9 @@
     _url = url;
     
     if ([url containsString:@"http"]) {
-//        [self.logoView setImage:url placeholder:@"background_dark"];
+        [self.logoView setImage:url placeholder:@"background_dark"];
     }else {
-//        self.logoView.image = [UIImage imageNamed:url];
+        self.logoView.image = [UIImage imageNamed:url];
     }
 }
 

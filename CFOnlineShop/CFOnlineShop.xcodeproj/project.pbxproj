@@ -43,6 +43,7 @@
 		DD561DB32296655600DE4DAF /* CollectionCatHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB22296655600DE4DAF /* CollectionCatHeader.m */; };
 		DD561DB72296D0A900DE4DAF /* FSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB62296D0A900DE4DAF /* FSBaseModel.m */; };
 		DD561DBA2296D1F800DE4DAF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB92296D1F800DE4DAF /* UIView+Extension.m */; };
+		DD561DBD2296D52000DE4DAF /* UIImageView+SDWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DBC2296D52000DE4DAF /* UIImageView+SDWebImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +122,8 @@
 		DD561DB62296D0A900DE4DAF /* FSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseModel.m; sourceTree = "<group>"; };
 		DD561DB82296D1F800DE4DAF /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		DD561DB92296D1F800DE4DAF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		DD561DBB2296D52000DE4DAF /* UIImageView+SDWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+SDWebImage.h"; sourceTree = "<group>"; };
+		DD561DBC2296D52000DE4DAF /* UIImageView+SDWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+SDWebImage.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +327,8 @@
 				0CCF56AE20FF139300B8FE09 /* CALayer+CFAnimation.m */,
 				DD561DB82296D1F800DE4DAF /* UIView+Extension.h */,
 				DD561DB92296D1F800DE4DAF /* UIView+Extension.m */,
+				DD561DBB2296D52000DE4DAF /* UIImageView+SDWebImage.h */,
+				DD561DBC2296D52000DE4DAF /* UIImageView+SDWebImage.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -522,6 +527,7 @@
 				0CCF56BB20FF34F600B8FE09 /* PurchaseCarAnimationTool.m in Sources */,
 				0C82C8572105ABCD0063735E /* CFHomeCollectionHeaderTwo.m in Sources */,
 				DD561DB32296655600DE4DAF /* CollectionCatHeader.m in Sources */,
+				DD561DBD2296D52000DE4DAF /* UIImageView+SDWebImage.m in Sources */,
 				0CCF56AF20FF139300B8FE09 /* CALayer+CFAnimation.m in Sources */,
 				0CCF56B320FF291900B8FE09 /* UIColor+CFColor.m in Sources */,
 				0C80ACAE21018A3800703876 /* LPSemiModalView.m in Sources */,

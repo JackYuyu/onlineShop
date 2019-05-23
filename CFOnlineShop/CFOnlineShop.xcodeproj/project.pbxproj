@@ -41,6 +41,8 @@
 		DD561DAD2296492C00DE4DAF /* CategoryInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DAC2296492C00DE4DAF /* CategoryInfoController.m */; };
 		DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DAF22964B8F00DE4DAF /* HomeCollectionCatCell.m */; };
 		DD561DB32296655600DE4DAF /* CollectionCatHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB22296655600DE4DAF /* CollectionCatHeader.m */; };
+		DD561DB72296D0A900DE4DAF /* FSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB62296D0A900DE4DAF /* FSBaseModel.m */; };
+		DD561DBA2296D1F800DE4DAF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB92296D1F800DE4DAF /* UIView+Extension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +117,10 @@
 		DD561DAF22964B8F00DE4DAF /* HomeCollectionCatCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionCatCell.m; sourceTree = "<group>"; };
 		DD561DB12296655600DE4DAF /* CollectionCatHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionCatHeader.h; sourceTree = "<group>"; };
 		DD561DB22296655600DE4DAF /* CollectionCatHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionCatHeader.m; sourceTree = "<group>"; };
+		DD561DB52296D0A900DE4DAF /* FSBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseModel.h; sourceTree = "<group>"; };
+		DD561DB62296D0A900DE4DAF /* FSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseModel.m; sourceTree = "<group>"; };
+		DD561DB82296D1F800DE4DAF /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		DD561DB92296D1F800DE4DAF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +272,7 @@
 		0CCF568720FEE0BC00B8FE09 /* CFHomePageController */ = {
 			isa = PBXGroup;
 			children = (
+				DD561DB42296D08D00DE4DAF /* model */,
 				0CCF56B420FF2A3600B8FE09 /* view */,
 				0CCF569F20FEE3A200B8FE09 /* CFHomePageController.h */,
 				0CCF56A020FEE3A200B8FE09 /* CFHomePageController.m */,
@@ -315,6 +322,8 @@
 				0CCF56B120FF291900B8FE09 /* UIColor+CFColor.m */,
 				0CCF56AD20FF139300B8FE09 /* CALayer+CFAnimation.h */,
 				0CCF56AE20FF139300B8FE09 /* CALayer+CFAnimation.m */,
+				DD561DB82296D1F800DE4DAF /* UIView+Extension.h */,
+				DD561DB92296D1F800DE4DAF /* UIView+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -364,6 +373,15 @@
 				B00E58A4A62D2AAF5A92469E /* libPods-CFOnlineShop.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD561DB42296D08D00DE4DAF /* model */ = {
+			isa = PBXGroup;
+			children = (
+				DD561DB52296D0A900DE4DAF /* FSBaseModel.h */,
+				DD561DB62296D0A900DE4DAF /* FSBaseModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -489,6 +507,7 @@
 				0CA8CB5421085FF200DC7DF6 /* CFShoppingCartCell2.m in Sources */,
 				0C73E088211849D700D413A4 /* CFOthersController.m in Sources */,
 				0CCF56A120FEE3A200B8FE09 /* CFHomePageController.m in Sources */,
+				DD561DB72296D0A900DE4DAF /* FSBaseModel.m in Sources */,
 				DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */,
 				0C4754FA21006E0A007DC738 /* CFRefreshHeader.m in Sources */,
 				0C4754F7210033BE007DC738 /* CFHomeCollectionHeader.m in Sources */,
@@ -499,6 +518,7 @@
 				0C80ACB22101A92D00703876 /* CFSegmentedControl.m in Sources */,
 				0CCF569820FEE27A00B8FE09 /* CFBaseController.m in Sources */,
 				0CCF566220FED2F800B8FE09 /* AppDelegate.m in Sources */,
+				DD561DBA2296D1F800DE4DAF /* UIView+Extension.m in Sources */,
 				0CCF56BB20FF34F600B8FE09 /* PurchaseCarAnimationTool.m in Sources */,
 				0C82C8572105ABCD0063735E /* CFHomeCollectionHeaderTwo.m in Sources */,
 				DD561DB32296655600DE4DAF /* CollectionCatHeader.m in Sources */,

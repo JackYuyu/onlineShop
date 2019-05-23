@@ -61,7 +61,7 @@
     _bottomLine = [[UIView alloc] initWithFrame:CGRectMake(bottomLineEdge, self.mj_h - 4, self.mj_w/_numOfMenu - bottomLineEdge*2, 4)];
     _bottomLine.backgroundColor = kOrangeColor;
     _bottomLine.layer.cornerRadius = 2;
-    _bottomLine.hidden=YES;
+//    _bottomLine.hidden=YES;
     [self addSubview:_bottomLine];
     
     _titles = [tempTitles copy];

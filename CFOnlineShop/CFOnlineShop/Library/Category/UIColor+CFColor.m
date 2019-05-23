@@ -2,7 +2,7 @@
 //  UIColor+CFColor.m
 //  SixTeenHourShoppingMall
 //
-//  Created by chenfeng on 2018/3/29.
+//  Created by 俞渊华 on 2018/3/29.
 //  Copyright © 2018年 TuoYuanCulture. All rights reserved.
 //
 

@@ -3,7 +3,7 @@
 //  CFOnlineShop
 //
 //  Created by app on 2019/5/23.
-//  Copyright © 2019年 chenfeng. All rights reserved.
+//  Copyright © 2019年 俞渊华. All rights reserved.
 //
 
 #import "HomeCollectionCatCell.h"

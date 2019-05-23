@@ -3,7 +3,7 @@
 //  CFOnlineShop
 //
 //  Created by app on 2019/5/23.
-//  Copyright © 2019年 chenfeng. All rights reserved.
+//  Copyright © 2019年 俞渊华. All rights reserved.
 //
 
 #import "CategoryInfoController.h"
@@ -16,11 +16,15 @@
 #import "CFDetailInfoController.h"
 #import "HomeCollectionCatCell.h"
 #import "CollectionCatHeader.h"
+#import "CFSegmentedControl.h"
 
-@interface CategoryInfoController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface CategoryInfoController ()<UICollectionViewDelegate,UICollectionViewDataSource,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIImageView *searchImageView;
 @property (nonatomic, assign) CGFloat headerOffsetY;
+@property (nonatomic, strong) NSArray *segmentTitles;
+@property (nonatomic, strong) CFSegmentedControl *segmentedControl;
+
 @end
 
 @implementation CategoryInfoController
@@ -28,12 +32,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _segmentTitles = @[@"综合",@"销量",@"价格",@"筛选"];
+
     self.navigationBgView.backgroundColor = kWhiteColor;
     self.navigationBgView.alpha = 0;
     [self showLeftBackButton];
 
     [self setUI];
 }
+- (void)setSegmentedControl
+{
+    //注意宽度要留够，不然title显示不完，title宽度是计算出来的。代码并不复杂，可以根据需要去内部进行修改
+    _segmentedControl = [[CFSegmentedControl alloc] initWithFrame:CGRectMake(Main_Screen_Width/2 - (60 * [_segmentTitles count])/2, TopHeight - 40, 60 * [_segmentTitles count], 40)];
+    _segmentedControl.delegate = self;
+    _segmentedControl.dataSource = self;
+    _segmentedControl.alpha = 1;
+    [self.navigationView addSubview:_segmentedControl];
+}
+#pragma mark -- SegmentedControlDelegate & datasource
+
+- (NSArray *)getSegmentedControlTitles
+{
+    return _segmentTitles;
+}
+
+- (void)control:(CFSegmentedControl *)control didSelectAtIndex:(NSInteger)index
+{
+    NSLog(@"");
+//    [_bgScrollView setContentOffset:CGPointMake(Main_Screen_Width * index, 0) animated:YES];
+}
+
 
 - (void)setUI
 {
@@ -165,8 +193,14 @@
     else if (kind == UICollectionElementKindSectionHeader && indexPath.section == 1){
         
         CFHomeCollectionHeaderTwo *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header2" forIndexPath:indexPath];
+        headerView->_noticeView1.hidden=YES;
+        
+        _segmentedControl = [[CFSegmentedControl alloc] initWithFrame:CGRectMake(Main_Screen_Width/2 - (60 * [_segmentTitles count])/2, -5, 60 * [_segmentTitles count], 40)];
+        _segmentedControl.delegate = self;
+        _segmentedControl.dataSource = self;
+        _segmentedControl.alpha = 1;
+        [headerView addSubview:_segmentedControl];
         reusableview = headerView;
-        reusableview.hidden=YES;
     }
     
     return reusableview;

@@ -176,7 +176,7 @@
        return CGSizeMake(Main_Screen_Width, Main_Screen_Width/16*7);
     }
     
-    return CGSizeMake(Main_Screen_Width, 30);
+    return CGSizeMake(Main_Screen_Width, 80);
 }
 
 #pragma mark -- UICollectionViewDelegateFlowLayout

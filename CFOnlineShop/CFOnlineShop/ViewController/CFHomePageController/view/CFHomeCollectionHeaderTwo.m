@@ -91,18 +91,18 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        GYRollingNoticeView *noticeView = [[GYRollingNoticeView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, kItemHeight)];
+        GYRollingNoticeView *noticeView = [[GYRollingNoticeView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 80)];
         noticeView.dataSource = self;
         noticeView.delegate = self;
         [self addSubview:noticeView];
         
         noticeView.backgroundColor = [UIColor lightGrayColor];
         
-        _arr1 = @[@"小米千元全面屏：抱歉，久等！625献上",
-                  @"可怜狗狗被抛弃，苦苦等候主人半年",
-                  @"三星中端新机改名，全面屏火力全开",
-                  @"学会这些，这5种花不用去花店买了",
-                  @"华为nova2S发布，剧透了荣耀10？"
+        _arr1 = @[@"",
+                  @"",
+                  @"",
+                  @"",
+                  @""
                   ];
         
         _noticeView1 = noticeView;
@@ -170,14 +170,14 @@
     if (rollingView == _noticeView1) {
         if (index < 3) {
             GYNoticeViewCell *cell = [rollingView dequeueReusableCellWithIdentifier:@"GYNoticeViewCell"];
-            cell.textLabel.text = [NSString stringWithFormat:@"第2种cell %@", _arr1[index]];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", _arr1[index]];
             cell.contentView.backgroundColor = kWhiteColor;
             
             return cell;
         }else {
             
             CFHomeHeaderTwoCell *cell = [rollingView dequeueReusableCellWithIdentifier:@"CFHomeHeaderTwoCell"];
-            cell.textLabel.text = [NSString stringWithFormat:@"第1种cell %@", _arr1[index]];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", _arr1[index]];
             cell.contentView.backgroundColor = kWhiteColor;
             return cell;
         }

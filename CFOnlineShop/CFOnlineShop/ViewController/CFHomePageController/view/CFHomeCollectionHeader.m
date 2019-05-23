@@ -17,6 +17,7 @@
     if (self) {
         
         NSArray *array = @[@"advertisement_1",@"advertisement_2",@"advertisement_3"];
+        CGRect a=self.frame;
         //本地加载图片的轮播器
         SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:self.frame imageNamesGroup:array];
         cycleScrollView.backgroundColor = kWhiteColor;

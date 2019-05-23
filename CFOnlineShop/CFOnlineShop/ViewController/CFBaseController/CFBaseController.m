@@ -90,7 +90,7 @@
 - (void)showLeftBackButton
 {
     _leftButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    _leftButton.frame = CGRectMake(15, StatusBarHeight + 5, 45, 35);
+    _leftButton.frame = CGRectMake(15, StatusBarHeight + 5, 55, 45);
     [_leftButton setImage:[UIImage imageNamed:@"back_btn"] forState:(UIControlStateNormal)];
     [_leftButton addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
     [_navigationView addSubview:_leftButton];

@@ -19,11 +19,11 @@
         self.layer.cornerRadius = 4;
         self.backgroundColor = kWhiteColor;
         
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,self.mj_w, self.mj_w)];
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,self.mj_w, self.mj_h)];
+        _imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:_imageView];
         
-        _titleStr = [[UILabel alloc] initWithFrame:CGRectMake(15, self.mj_w + 15, self.mj_w - 30, 20)];
+        _titleStr = [[UILabel alloc] initWithFrame:CGRectMake(self.mj_h+15, self.mj_h - 15, self.mj_h - 30, 20)];
         _titleStr.font = SYSTEMFONT(14);
         _titleStr.textColor = KDarkTextColor;
         [self.contentView addSubview:_titleStr];

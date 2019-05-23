@@ -1,4 +1,22 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - DZNEmptyDataSet (1.8.1)
+  - Masonry (1.1.0)
+  - MBProgressHUD (1.1.0)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.15.3)
   - RollingNotice (1.0.3)
@@ -9,13 +27,23 @@ PODS:
   - SDWebImage/Core (4.3.3)
 
 DEPENDENCIES:
+  - AFNetworking (~> 3.2.1)
+  - DZNEmptyDataSet (~> 1.8.1)
+  - Masonry (~> 1.1.0)
+  - MBProgressHUD (~> 1.1.0)
   - MJExtension (~> 3.0.10)
+  - MJExtension (~> 3.0.13)
   - MJRefresh (~> 3.1.12)
   - RollingNotice
   - SDCycleScrollView (~> 1.75)
+  - SDWebImage (~> 4.3.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - DZNEmptyDataSet
+    - Masonry
+    - MBProgressHUD
     - MJExtension
     - MJRefresh
     - RollingNotice
@@ -23,12 +51,16 @@ SPEC REPOS:
     - SDWebImage
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   RollingNotice: e3816103994edff79cec06494b35eb546ead3112
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
 
-PODFILE CHECKSUM: 3b38aab36c4d7cf3a0d833dd73148cd231767149
+PODFILE CHECKSUM: b8d1d1fd6897e58cbe5d3d875eac15e1feaaba17
 
 COCOAPODS: 1.5.3

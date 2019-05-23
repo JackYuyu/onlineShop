@@ -14,6 +14,7 @@
 #import "CFHomeCollectionHeaderTwo.h"
 #import "CFRefreshHeader.h"
 #import "CFDetailInfoController.h"
+#import "CategoryInfoController.h"
 
 @interface CFHomePageController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -102,7 +103,7 @@
     if (section == 0) {
         return 0;
     }
-    return 10;
+    return 6;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -112,7 +113,7 @@
     
     cell.titleStr.text = @"测试商品";
     
-    NSString *imageName = [NSString stringWithFormat:@"commodity_%ld",(long)indexPath.row + 1];
+    NSString *imageName = [NSString stringWithFormat:@"catcommodity_%ld",(long)indexPath.row + 1];
     
     cell.imageView.image = [UIImage imageNamed:imageName];
     
@@ -193,7 +194,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger itemCount = 2;
-    return CGSizeMake((Main_Screen_Width - 25)/itemCount, (Main_Screen_Width - 25)/itemCount + 80);
+    return CGSizeMake((Main_Screen_Width - 25)/1, 210);
 }
 
 //距离collectionview的上下左右边距
@@ -209,8 +210,9 @@
     
     NSString *imageName = [NSString stringWithFormat:@"commodity_%ld",(long)indexPath.row + 1];
     
-    CFDetailInfoController *vc = [[CFDetailInfoController alloc] init];
-    vc.image = [UIImage imageNamed:imageName];
+//    CFDetailInfoController *vc = [[CFDetailInfoController alloc] init];
+//    vc.image = [UIImage imageNamed:imageName];
+    CategoryInfoController* vc =[CategoryInfoController new];
     [self.navigationController pushViewController:vc animated:YES];
     
 }

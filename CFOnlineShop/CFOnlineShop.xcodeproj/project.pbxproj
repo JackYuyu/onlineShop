@@ -38,6 +38,9 @@
 		0CCF56B720FF2ABA00B8FE09 /* CFHomeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF56B620FF2ABA00B8FE09 /* CFHomeCollectionCell.m */; };
 		0CCF56BB20FF34F600B8FE09 /* PurchaseCarAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF56BA20FF34F600B8FE09 /* PurchaseCarAnimationTool.m */; };
 		7BEFEDDEC4BED6E666013D81 /* libPods-CFOnlineShop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00E58A4A62D2AAF5A92469E /* libPods-CFOnlineShop.a */; };
+		DD561DAD2296492C00DE4DAF /* CategoryInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DAC2296492C00DE4DAF /* CategoryInfoController.m */; };
+		DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DAF22964B8F00DE4DAF /* HomeCollectionCatCell.m */; };
+		DD561DB32296655600DE4DAF /* CollectionCatHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB22296655600DE4DAF /* CollectionCatHeader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +109,12 @@
 		9AE53557BFFF0C38A40C3C2E /* Pods-CFOnlineShop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CFOnlineShop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CFOnlineShop/Pods-CFOnlineShop.debug.xcconfig"; sourceTree = "<group>"; };
 		B00E58A4A62D2AAF5A92469E /* libPods-CFOnlineShop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CFOnlineShop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FDD9F89AD4DBDD8DB7EFE2 /* Pods-CFOnlineShop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CFOnlineShop.release.xcconfig"; path = "Pods/Target Support Files/Pods-CFOnlineShop/Pods-CFOnlineShop.release.xcconfig"; sourceTree = "<group>"; };
+		DD561DAB2296492C00DE4DAF /* CategoryInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryInfoController.h; sourceTree = "<group>"; };
+		DD561DAC2296492C00DE4DAF /* CategoryInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryInfoController.m; sourceTree = "<group>"; };
+		DD561DAE22964B8F00DE4DAF /* HomeCollectionCatCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCollectionCatCell.h; sourceTree = "<group>"; };
+		DD561DAF22964B8F00DE4DAF /* HomeCollectionCatCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionCatCell.m; sourceTree = "<group>"; };
+		DD561DB12296655600DE4DAF /* CollectionCatHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionCatHeader.h; sourceTree = "<group>"; };
+		DD561DB22296655600DE4DAF /* CollectionCatHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionCatHeader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +269,8 @@
 				0CCF56B420FF2A3600B8FE09 /* view */,
 				0CCF569F20FEE3A200B8FE09 /* CFHomePageController.h */,
 				0CCF56A020FEE3A200B8FE09 /* CFHomePageController.m */,
+				DD561DAB2296492C00DE4DAF /* CategoryInfoController.h */,
+				DD561DAC2296492C00DE4DAF /* CategoryInfoController.m */,
 				0C4754FB21008BCA007DC738 /* CFDetailInfoController.h */,
 				0C4754FC21008BCA007DC738 /* CFDetailInfoController.m */,
 				0C73E0802118433200D413A4 /* CFDetailViewController.h */,
@@ -313,8 +324,12 @@
 			children = (
 				0CCF56B520FF2ABA00B8FE09 /* CFHomeCollectionCell.h */,
 				0CCF56B620FF2ABA00B8FE09 /* CFHomeCollectionCell.m */,
+				DD561DAE22964B8F00DE4DAF /* HomeCollectionCatCell.h */,
+				DD561DAF22964B8F00DE4DAF /* HomeCollectionCatCell.m */,
 				0C4754F5210033BE007DC738 /* CFHomeCollectionHeader.h */,
 				0C4754F6210033BE007DC738 /* CFHomeCollectionHeader.m */,
+				DD561DB12296655600DE4DAF /* CollectionCatHeader.h */,
+				DD561DB22296655600DE4DAF /* CollectionCatHeader.m */,
 				0C4754F821006E0A007DC738 /* CFRefreshHeader.h */,
 				0C4754F921006E0A007DC738 /* CFRefreshHeader.m */,
 				0C82C8552105ABCD0063735E /* CFHomeCollectionHeaderTwo.h */,
@@ -468,11 +483,13 @@
 				0CCF56A420FEE46B00B8FE09 /* CFPersonalCenterController.m in Sources */,
 				0CA8CB5121085F9C00DC7DF6 /* CFShoppingCartCell1.m in Sources */,
 				0CCF567020FED2F900B8FE09 /* main.m in Sources */,
+				DD561DAD2296492C00DE4DAF /* CategoryInfoController.m in Sources */,
 				0C79152721095E0A00D23547 /* CFShoppingCartHeaderView.m in Sources */,
 				0CCF56B720FF2ABA00B8FE09 /* CFHomeCollectionCell.m in Sources */,
 				0CA8CB5421085FF200DC7DF6 /* CFShoppingCartCell2.m in Sources */,
 				0C73E088211849D700D413A4 /* CFOthersController.m in Sources */,
 				0CCF56A120FEE3A200B8FE09 /* CFHomePageController.m in Sources */,
+				DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */,
 				0C4754FA21006E0A007DC738 /* CFRefreshHeader.m in Sources */,
 				0C4754F7210033BE007DC738 /* CFHomeCollectionHeader.m in Sources */,
 				0C33B89C210707B600A18FD8 /* CFEditCollectionCell.m in Sources */,
@@ -484,6 +501,7 @@
 				0CCF566220FED2F800B8FE09 /* AppDelegate.m in Sources */,
 				0CCF56BB20FF34F600B8FE09 /* PurchaseCarAnimationTool.m in Sources */,
 				0C82C8572105ABCD0063735E /* CFHomeCollectionHeaderTwo.m in Sources */,
+				DD561DB32296655600DE4DAF /* CollectionCatHeader.m in Sources */,
 				0CCF56AF20FF139300B8FE09 /* CALayer+CFAnimation.m in Sources */,
 				0CCF56B320FF291900B8FE09 /* UIColor+CFColor.m in Sources */,
 				0C80ACAE21018A3800703876 /* LPSemiModalView.m in Sources */,

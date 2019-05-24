@@ -32,6 +32,7 @@
     [self setBgUI];
     [self setHeaderAndFooterView];
     [self setBottomView];
+    [self setUpLeftTwoButton];
     
 }
 
@@ -143,7 +144,31 @@
     [bottomView addSubview:addimButton];
     
 }
-
+#pragma mark - 收藏 购物车
+- (void)setUpLeftTwoButton
+{
+    NSArray *imagesNor = @[@"tabr_07shoucang_up",@"tabr_08gouwuche"];
+    NSArray *imagesSel = @[@"tabr_07shoucang_down",@"tabr_08gouwuche"];
+    CGFloat buttonW = Main_Screen_Width * 0.2;
+    CGFloat buttonH = _bottomHeight;
+    CGFloat buttonY = Main_Screen_Height - buttonH;
+    
+    for (NSInteger i = 0; i < imagesNor.count; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:imagesNor[i]] forState:UIControlStateNormal];
+        button.backgroundColor = KBackgroundColor;
+        [button setImage:[UIImage imageNamed:imagesSel[i]] forState:UIControlStateSelected];
+        button.tag = i;
+        [button addTarget:self action:@selector(bottomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        CGFloat buttonX = (buttonW * i);
+        button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
+        
+        [self.view addSubview:button];
+    }
+}
+-(void)bottomButtonClick:(UIButton*)sender
+{
+}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat offset = scrollView.contentOffset.y;

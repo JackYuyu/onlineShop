@@ -90,8 +90,9 @@
 - (void)showLeftBackButton
 {
     _leftButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    _leftButton.frame = CGRectMake(15, StatusBarHeight + 5, 55, 45);
-    [_leftButton setImage:[UIImage imageNamed:@"back_btn"] forState:(UIControlStateNormal)];
+    _leftButton.frame = CGRectMake(15, StatusBarHeight, 55, 45);
+//    [_leftButton setBackgroundColor:[UIColor blueColor]];
+    [_leftButton setImage:[UIImage imageNamed:@"navigation_back_hl"] forState:(UIControlStateNormal)];
     [_leftButton addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
     [_navigationView addSubview:_leftButton];
 }

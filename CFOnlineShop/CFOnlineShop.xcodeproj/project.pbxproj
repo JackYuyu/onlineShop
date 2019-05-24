@@ -49,6 +49,7 @@
 		DD561DC92297A28D00DE4DAF /* ZWProgressCenterBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DC52297A28D00DE4DAF /* ZWProgressCenterBtn.m */; };
 		DD561DCA2297A28D00DE4DAF /* ZWProgressPointBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DC72297A28D00DE4DAF /* ZWProgressPointBtn.m */; };
 		DD561DCE2297DDF200DE4DAF /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DCD2297DDF200DE4DAF /* PPNumberButton.m */; };
+		DD561DD22297E16500DE4DAF /* DCFeatureChoseTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DD12297E16500DE4DAF /* DCFeatureChoseTopCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +140,8 @@
 		DD561DC72297A28D00DE4DAF /* ZWProgressPointBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWProgressPointBtn.m; sourceTree = "<group>"; };
 		DD561DCC2297DDF200DE4DAF /* PPNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNumberButton.h; sourceTree = "<group>"; };
 		DD561DCD2297DDF200DE4DAF /* PPNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNumberButton.m; sourceTree = "<group>"; };
+		DD561DD02297E16500DE4DAF /* DCFeatureChoseTopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCFeatureChoseTopCell.h; sourceTree = "<group>"; };
+		DD561DD12297E16500DE4DAF /* DCFeatureChoseTopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCFeatureChoseTopCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +358,7 @@
 		0CCF56B420FF2A3600B8FE09 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				DD561DCF2297E16500DE4DAF /* TableView */,
 				0CCF56B520FF2ABA00B8FE09 /* CFHomeCollectionCell.h */,
 				0CCF56B620FF2ABA00B8FE09 /* CFHomeCollectionCell.m */,
 				DD561DAE22964B8F00DE4DAF /* HomeCollectionCatCell.h */,
@@ -428,6 +432,15 @@
 				DD561DCD2297DDF200DE4DAF /* PPNumberButton.m */,
 			);
 			path = PPNumberButton;
+			sourceTree = "<group>";
+		};
+		DD561DCF2297E16500DE4DAF /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				DD561DD02297E16500DE4DAF /* DCFeatureChoseTopCell.h */,
+				DD561DD12297E16500DE4DAF /* DCFeatureChoseTopCell.m */,
+			);
+			path = TableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -558,6 +571,7 @@
 				DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */,
 				0C4754FA21006E0A007DC738 /* CFRefreshHeader.m in Sources */,
 				0C4754F7210033BE007DC738 /* CFHomeCollectionHeader.m in Sources */,
+				DD561DD22297E16500DE4DAF /* DCFeatureChoseTopCell.m in Sources */,
 				DD561DC92297A28D00DE4DAF /* ZWProgressCenterBtn.m in Sources */,
 				0C33B89C210707B600A18FD8 /* CFEditCollectionCell.m in Sources */,
 				0C79152E2109BDBE00D23547 /* CFTabBarController.m in Sources */,

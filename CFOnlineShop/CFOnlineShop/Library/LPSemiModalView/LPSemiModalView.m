@@ -7,14 +7,22 @@
 
 #import "LPSemiModalView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PPNumberButton.h"
+#import "DCFeatureChoseTopCell.h"
 
-@interface LPSemiModalView ()
+@interface LPSemiModalView ()<PPNumberButtonDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) UIControl *closeControl;
 @property (strong, nonatomic) UIImageView *maskImageView;
 @property (nonatomic, strong) UIViewController *baseViewController;
+/* tableView */
+@property (strong , nonatomic)UITableView *tableView;
 
+@property (weak , nonatomic)DCFeatureChoseTopCell *cell;
 @end
+
+static NSInteger num_;
+static NSString *const DCFeatureChoseTopCellID = @"DCFeatureChoseTopCell";
 
 @implementation LPSemiModalView
 
@@ -29,7 +37,113 @@
         return image;
     }
 }
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.scrollEnabled = NO;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [self addSubview:_tableView];
+        [_tableView registerClass:[DCFeatureChoseTopCell class] forCellReuseIdentifier:DCFeatureChoseTopCellID];
+    }
+    return _tableView;
+}
+#pragma mark - <UITableViewDataSource>
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DCFeatureChoseTopCell *cell = [tableView dequeueReusableCellWithIdentifier:DCFeatureChoseTopCellID forIndexPath:indexPath];
+    _cell = cell;
+//    if (_seleArray.count != _featureAttr.count && _lastSeleArray.count != _featureAttr.count) {
+        cell.chooseAttLabel.textColor = [UIColor redColor];
+        cell.chooseAttLabel.text = @"有货";
+//    }else {
+//        cell.chooseAttLabel.textColor = [UIColor darkGrayColor];
+//        NSString *attString = (_seleArray.count == _featureAttr.count) ? [_seleArray componentsJoinedByString:@"，"] : [_lastSeleArray componentsJoinedByString:@"，"];
+//        cell.chooseAttLabel.text = [NSString stringWithFormat:@"已选属性：%@",attString];
+//    }
+    
+    cell.goodPriceLabel.text = [NSString stringWithFormat:@"¥ %@",@"12"];
+//    [cell.goodImageView sd_setImageWithURL:[NSURL URLWithString:_goodImageView]];
+    [cell.goodImageView setImage:[UIImage imageNamed:@"commodity_7"]];
+    __weak typeof(self) weakSelf = self;
+    cell.crossButtonClickBlock = ^{
+        [weakSelf dismissFeatureViewControllerWithTag:100];
+    };
+    return cell;
+}
+#pragma mark - 退出当前界面
+- (void)dismissFeatureViewControllerWithTag:(NSInteger)tag
+{
+    [self close];
+}
+-(void)setup{
+    self.tableView.frame = CGRectMake(0, Main_Screen_Height-300, Main_Screen_Width, 300-50);
+    self.tableView.rowHeight = 100;
+}
+#pragma mark - 底部按钮
+- (void)setUpBottonView
+{
+    NSArray *titles = @[@"确定"];
+    CGFloat buttonH = 50;
+    CGFloat buttonW = Main_Screen_Width / titles.count;
+    CGFloat buttonY = Main_Screen_Height - buttonH;
+    for (NSInteger i = 0; i < titles.count; i++) {
+        UIButton *buttton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [buttton setTitle:titles[i] forState:0];
+        buttton.backgroundColor = (i == 0) ? [UIColor redColor] : [UIColor orangeColor];
+        CGFloat buttonX = buttonW * i;
+        buttton.tag = i;
+        buttton.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
+        [self addSubview:buttton];
+        [buttton addTarget:self action:@selector(buttomButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    UILabel *numLabel = [UILabel new];
+    numLabel.text = @"数量";
+    numLabel.font = [UIFont systemFontOfSize:14];
+    [self addSubview:numLabel];
+    numLabel.frame = CGRectMake(10, Main_Screen_Height-100, 50, 35);
+    
+    PPNumberButton *numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(CGRectGetMaxX(numLabel.frame), numLabel.frame.origin.y, 110, numLabel.frame.size.height)];
+    numberButton.shakeAnimation = YES;
+    numberButton.minValue = 1;
+    numberButton.inputFieldFont = 23;
+    numberButton.increaseTitle = @"＋";
+    numberButton.decreaseTitle = @"－";
+    num_ = (_lastNum == 0) ?  1 : [_lastNum integerValue];
+    numberButton.currentNumber = num_;
+    numberButton.delegate = self;
+    
+    numberButton.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
+        num_ = num;
+    };
+    [self addSubview:numberButton];
+    
+    UIView* line=[[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.tableView.frame)-150, Main_Screen_Width, 0.5)];
+    [line setBackgroundColor:[UIColor lightGrayColor]];
+    [self addSubview:line];
+}
+
+#pragma mark - 底部按钮点击
+- (void)buttomButtonClick:(UIButton *)button
+{
+//    if (_seleArray.count != _featureAttr.count && _lastSeleArray.count != _featureAttr.count) {//未选择全属性警告
+//        [SVProgressHUD showInfoWithStatus:@"请选择全属性"];
+//        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+//        [SVProgressHUD dismissWithDelay:1.0];
+//        return;
+//    }
+    
+    [self dismissFeatureViewControllerWithTag:button.tag];
+    
+}
 - (void)open
 {
     if (!self.narrowedOff) {
@@ -82,6 +196,8 @@
             }
         }];
     }
+    [self setup];
+    [self setUpBottonView];
 }
 
 - (void)close

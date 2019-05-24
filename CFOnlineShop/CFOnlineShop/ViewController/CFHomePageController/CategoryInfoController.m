@@ -194,11 +194,13 @@
         
         CFHomeCollectionHeaderTwo *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header2" forIndexPath:indexPath];
         headerView->_noticeView1.hidden=YES;
+        headerView->_uv.hidden=YES;
         
         _segmentedControl = [[CFSegmentedControl alloc] initWithFrame:CGRectMake(Main_Screen_Width/2 - (60 * [_segmentTitles count])/2, -5, 60 * [_segmentTitles count], 40)];
         _segmentedControl.delegate = self;
         _segmentedControl.dataSource = self;
         _segmentedControl.alpha = 1;
+        _segmentedControl.bottomLine.hidden=YES;//分类二级不显示下划线
         [headerView addSubview:_segmentedControl];
         reusableview = headerView;
     }

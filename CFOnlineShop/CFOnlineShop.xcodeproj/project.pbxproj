@@ -44,6 +44,11 @@
 		DD561DB72296D0A900DE4DAF /* FSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB62296D0A900DE4DAF /* FSBaseModel.m */; };
 		DD561DBA2296D1F800DE4DAF /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB92296D1F800DE4DAF /* UIView+Extension.m */; };
 		DD561DBD2296D52000DE4DAF /* UIImageView+SDWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DBC2296D52000DE4DAF /* UIImageView+SDWebImage.m */; };
+		DD561DC022979E0800DE4DAF /* HomeCheckController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DBF22979E0800DE4DAF /* HomeCheckController.m */; };
+		DD561DC82297A28D00DE4DAF /* ZWBackGroundProgressPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DC32297A28D00DE4DAF /* ZWBackGroundProgressPointView.m */; };
+		DD561DC92297A28D00DE4DAF /* ZWProgressCenterBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DC52297A28D00DE4DAF /* ZWProgressCenterBtn.m */; };
+		DD561DCA2297A28D00DE4DAF /* ZWProgressPointBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DC72297A28D00DE4DAF /* ZWProgressPointBtn.m */; };
+		DD561DCE2297DDF200DE4DAF /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DCD2297DDF200DE4DAF /* PPNumberButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +129,16 @@
 		DD561DB92296D1F800DE4DAF /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		DD561DBB2296D52000DE4DAF /* UIImageView+SDWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+SDWebImage.h"; sourceTree = "<group>"; };
 		DD561DBC2296D52000DE4DAF /* UIImageView+SDWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+SDWebImage.m"; sourceTree = "<group>"; };
+		DD561DBE22979E0800DE4DAF /* HomeCheckController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCheckController.h; sourceTree = "<group>"; };
+		DD561DBF22979E0800DE4DAF /* HomeCheckController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCheckController.m; sourceTree = "<group>"; };
+		DD561DC22297A28D00DE4DAF /* ZWBackGroundProgressPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWBackGroundProgressPointView.h; sourceTree = "<group>"; };
+		DD561DC32297A28D00DE4DAF /* ZWBackGroundProgressPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWBackGroundProgressPointView.m; sourceTree = "<group>"; };
+		DD561DC42297A28D00DE4DAF /* ZWProgressCenterBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWProgressCenterBtn.h; sourceTree = "<group>"; };
+		DD561DC52297A28D00DE4DAF /* ZWProgressCenterBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWProgressCenterBtn.m; sourceTree = "<group>"; };
+		DD561DC62297A28D00DE4DAF /* ZWProgressPointBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWProgressPointBtn.h; sourceTree = "<group>"; };
+		DD561DC72297A28D00DE4DAF /* ZWProgressPointBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWProgressPointBtn.m; sourceTree = "<group>"; };
+		DD561DCC2297DDF200DE4DAF /* PPNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNumberButton.h; sourceTree = "<group>"; };
+		DD561DCD2297DDF200DE4DAF /* PPNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNumberButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +259,8 @@
 		0CCF568020FEDD6E00B8FE09 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				DD561DCB2297DDF200DE4DAF /* PPNumberButton */,
+				DD561DC12297A28D00DE4DAF /* ZWProgressPointBtn */,
 				0C33B8992107079700A18FD8 /* CFEditCollectionCell */,
 				0C80ACAF2101A8BF00703876 /* CFSegmentedControl */,
 				0C80ACAB21018A3800703876 /* LPSemiModalView */,
@@ -289,6 +306,8 @@
 				0C73E0842118499500D413A4 /* CFActivityController.m */,
 				0C73E086211849D700D413A4 /* CFOthersController.h */,
 				0C73E087211849D700D413A4 /* CFOthersController.m */,
+				DD561DBE22979E0800DE4DAF /* HomeCheckController.h */,
+				DD561DBF22979E0800DE4DAF /* HomeCheckController.m */,
 			);
 			path = CFHomePageController;
 			sourceTree = "<group>";
@@ -387,6 +406,28 @@
 				DD561DB62296D0A900DE4DAF /* FSBaseModel.m */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		DD561DC12297A28D00DE4DAF /* ZWProgressPointBtn */ = {
+			isa = PBXGroup;
+			children = (
+				DD561DC22297A28D00DE4DAF /* ZWBackGroundProgressPointView.h */,
+				DD561DC32297A28D00DE4DAF /* ZWBackGroundProgressPointView.m */,
+				DD561DC42297A28D00DE4DAF /* ZWProgressCenterBtn.h */,
+				DD561DC52297A28D00DE4DAF /* ZWProgressCenterBtn.m */,
+				DD561DC62297A28D00DE4DAF /* ZWProgressPointBtn.h */,
+				DD561DC72297A28D00DE4DAF /* ZWProgressPointBtn.m */,
+			);
+			path = ZWProgressPointBtn;
+			sourceTree = "<group>";
+		};
+		DD561DCB2297DDF200DE4DAF /* PPNumberButton */ = {
+			isa = PBXGroup;
+			children = (
+				DD561DCC2297DDF200DE4DAF /* PPNumberButton.h */,
+				DD561DCD2297DDF200DE4DAF /* PPNumberButton.m */,
+			);
+			path = PPNumberButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -508,6 +549,7 @@
 				0CCF567020FED2F900B8FE09 /* main.m in Sources */,
 				DD561DAD2296492C00DE4DAF /* CategoryInfoController.m in Sources */,
 				0C79152721095E0A00D23547 /* CFShoppingCartHeaderView.m in Sources */,
+				DD561DCA2297A28D00DE4DAF /* ZWProgressPointBtn.m in Sources */,
 				0CCF56B720FF2ABA00B8FE09 /* CFHomeCollectionCell.m in Sources */,
 				0CA8CB5421085FF200DC7DF6 /* CFShoppingCartCell2.m in Sources */,
 				0C73E088211849D700D413A4 /* CFOthersController.m in Sources */,
@@ -516,14 +558,18 @@
 				DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */,
 				0C4754FA21006E0A007DC738 /* CFRefreshHeader.m in Sources */,
 				0C4754F7210033BE007DC738 /* CFHomeCollectionHeader.m in Sources */,
+				DD561DC92297A28D00DE4DAF /* ZWProgressCenterBtn.m in Sources */,
 				0C33B89C210707B600A18FD8 /* CFEditCollectionCell.m in Sources */,
 				0C79152E2109BDBE00D23547 /* CFTabBarController.m in Sources */,
 				0CCF569B20FEE2F800B8FE09 /* CFShoppingCartController.m in Sources */,
+				DD561DC022979E0800DE4DAF /* HomeCheckController.m in Sources */,
 				0C73E0822118433200D413A4 /* CFDetailViewController.m in Sources */,
 				0C80ACB22101A92D00703876 /* CFSegmentedControl.m in Sources */,
 				0CCF569820FEE27A00B8FE09 /* CFBaseController.m in Sources */,
 				0CCF566220FED2F800B8FE09 /* AppDelegate.m in Sources */,
+				DD561DC82297A28D00DE4DAF /* ZWBackGroundProgressPointView.m in Sources */,
 				DD561DBA2296D1F800DE4DAF /* UIView+Extension.m in Sources */,
+				DD561DCE2297DDF200DE4DAF /* PPNumberButton.m in Sources */,
 				0CCF56BB20FF34F600B8FE09 /* PurchaseCarAnimationTool.m in Sources */,
 				0C82C8572105ABCD0063735E /* CFHomeCollectionHeaderTwo.m in Sources */,
 				DD561DB32296655600DE4DAF /* CollectionCatHeader.m in Sources */,

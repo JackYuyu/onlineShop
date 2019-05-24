@@ -49,7 +49,7 @@
 
 - (void)setBgUI
 {
-    _bottomHeight = TabbarHeight;
+    _bottomHeight = 55;
     
     //存放tableView和webView，tableview在上面，webview在下面
     _bigView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, (Main_Screen_Height - _bottomHeight) * 2)];
@@ -125,13 +125,22 @@
     [self.view addSubview:bottomView];
     
     UIButton *addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    addButton.frame = CGRectMake(bottomView.mj_w/2, 0, bottomView.mj_w/2, _bottomHeight);
-    addButton.backgroundColor = kRedColor;
+    addButton.frame = CGRectMake(bottomView.mj_w/2, 0, bottomView.mj_w/4, _bottomHeight);
+    addButton.backgroundColor = RGBCOLOR(250, 112, 60);
     addButton.titleLabel.font = SYSTEMFONT(16);
     [addButton setTitle:@"加入购物车" forState:(UIControlStateNormal)];
     [addButton setTitleColor:kWhiteColor forState:(UIControlStateNormal)];
     [addButton addTarget:self action:@selector(addAction) forControlEvents:(UIControlEventTouchUpInside)];
     [bottomView addSubview:addButton];
+    
+    UIButton *addimButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    addimButton.frame = CGRectMake(bottomView.mj_w*3/4, 0, bottomView.mj_w/4, _bottomHeight);
+    addimButton.backgroundColor = kRedColor;
+    addimButton.titleLabel.font = SYSTEMFONT(16);
+    [addimButton setTitle:@"立即购买" forState:(UIControlStateNormal)];
+    [addimButton setTitleColor:kWhiteColor forState:(UIControlStateNormal)];
+    [addimButton addTarget:self action:@selector(addAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [bottomView addSubview:addimButton];
     
 }
 

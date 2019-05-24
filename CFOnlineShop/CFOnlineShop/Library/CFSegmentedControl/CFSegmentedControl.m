@@ -19,7 +19,6 @@
 @property (nonatomic, copy) NSArray *titles;
 
 @property (nonatomic, copy) NSArray *bgLayers;
-@property (nonatomic, strong) UIView *bottomLine;//底部滑动横线
 
 @end
 

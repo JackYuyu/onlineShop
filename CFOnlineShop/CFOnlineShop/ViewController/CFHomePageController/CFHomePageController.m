@@ -15,6 +15,7 @@
 #import "CFRefreshHeader.h"
 #import "CFDetailInfoController.h"
 #import "CategoryInfoController.h"
+#import "HomeCheckController.h"
 
 @interface CFHomePageController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -93,6 +94,15 @@
     
 }
 
+#pragma mark - <FSHomeBannerHeaderDelegate>
+
+- (void)header:(CFHomeCollectionHeaderTwo *)header DidSelectAtSubClass:(NSInteger *)subClass {
+    
+    if (subClass==0) {
+        HomeCheckController* hcc=[HomeCheckController new];
+        [self.navigationController pushViewController:hcc animated:YES];
+    }
+}
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -163,6 +173,7 @@
     else if (kind == UICollectionElementKindSectionHeader && indexPath.section == 1){
         
         CFHomeCollectionHeaderTwo *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header2" forIndexPath:indexPath];
+        headerView.delegate=self;
         reusableview = headerView;
     }
 

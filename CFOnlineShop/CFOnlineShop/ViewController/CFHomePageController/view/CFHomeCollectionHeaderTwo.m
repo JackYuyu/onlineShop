@@ -82,6 +82,7 @@
 @property (nonatomic, strong) UIView *contentView;
 
 @property (nonatomic, strong) NSArray <FSBaseModel *> *customImages;
+@property (nonatomic, strong) NSMutableArray* buttons;
 @end
 
 @implementation CFHomeCollectionHeaderTwo
@@ -94,7 +95,7 @@
         GYRollingNoticeView *noticeView = [[GYRollingNoticeView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 80)];
         noticeView.dataSource = self;
         noticeView.delegate = self;
-        [self addSubview:noticeView];
+//        [self addSubview:noticeView];
         
         noticeView.backgroundColor = [UIColor lightGrayColor];
         
@@ -113,20 +114,47 @@
         
         CGFloat height = self.contentView.height;
         CGFloat width = Main_Screen_Width / 4;
-        
+        _uv=[[UIView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 80)];
+        UITapGestureRecognizer* rec=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleCellTapAction:)];
+        [_uv addGestureRecognizer:rec];
+        self.buttons=[[NSMutableArray alloc] init];
             [self.customImages enumerateObjectsUsingBlock:^(FSBaseModel * _Nonnull object, NSUInteger idx, BOOL * _Nonnull stop) {
                 FSBaseModel *mode = self.customImages[idx];
                 FSItemButton *button = [FSItemButton new];
                 button.url = mode.image;
                 button.title = mode.title;
                 button.frame = CGRectMake(width * idx, 0, width, height);
-                [self addSubview:button];
+                [_uv addSubview:button];
                 button.tag = idx;
+                [self.buttons addObject: button];
                 [button addTarget:self action:@selector(subClassDidEvent:) forControlEvents:UIControlEventTouchUpInside];
             }];
-        
+        [self addSubview:_uv];
+
     }
     return self;
+}
+- (void)handleCellTapAction:(UITapGestureRecognizer *)selfTap{
+    
+    
+    
+    CGPoint selectPoint = [selfTap locationInView:self];
+    
+    NSLog(@"%@",[NSValue valueWithCGPoint:selectPoint]);
+    
+    //CGRectContainsPoint(CGRect rect, <#CGPoint point#>)判断某个点是否包含在某个CGRect区域内
+    CGFloat height = kItemHeight;
+    CGFloat width = Main_Screen_Width / 4;
+    for (UIButton* b in self.buttons) {
+        CGRect a=CGRectMake(b.origin.x, 0, width, height);
+        
+        if (CGRectContainsPoint(a, selectPoint)) {
+            NSLog(@"%i",b.tag);
+            if (self.delegate && [self.delegate respondsToSelector:@selector(header:DidSelectAtSubClass:)]) {
+                        [self.delegate header:self DidSelectAtSubClass:b.tag];
+                    }
+        }
+    }
 }
 - (UIView *)contentView {
     
@@ -141,16 +169,17 @@
     
     if (!_customImages) {
         
-        _customImages = @[[FSBaseModel initImage:@"ic_home_hot" title:@"Hot"],
-                          [FSBaseModel initImage:@"ic_home_dongtai" title:@"Dynamic"],
-                          [FSBaseModel initImage:@"ic_home_zhengce" title:@"Regulations"],
-                          [FSBaseModel initImage:@"ic_home_more" title:@"More"]];
+        _customImages = @[[FSBaseModel initImage:@"icon_nav_01_new" title:@"签到有礼"],
+                          [FSBaseModel initImage:@"icon_nav_03_new" title:@"特价专区"],
+                          [FSBaseModel initImage:@"icon_nav_04_new" title:@"超级品牌"],
+                          [FSBaseModel initImage:@"icon_nav_01" title:@"中秋特惠"]];
     }
     return _customImages;
 }
 #pragma mark - Action
 
 - (void)subClassDidEvent:(UIButton *)button {
+    NSLog(@"");
 //    FSHomeSubClass *sub = self.items[button.tag];
 //
 //    if (self.delegate && [self.delegate respondsToSelector:@selector(header:DidSelectAtSubClass:)]) {

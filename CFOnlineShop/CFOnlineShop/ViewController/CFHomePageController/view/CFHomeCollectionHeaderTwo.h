@@ -9,10 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "GYRollingNoticeView.h"
 
+@class CFHomeCollectionHeaderTwo;
+@protocol FSHomeBannerHeaderDelegate <NSObject>
+@optional
+- (void)header:(CFHomeCollectionHeaderTwo *)header DidSelectAtSubClass:(NSInteger *)subClass;
+
+@end
 @interface CFHomeCollectionHeaderTwo : UICollectionReusableView
 {
     NSArray *_arr1;
     @public
     GYRollingNoticeView *_noticeView1;
+    UIView* _uv;
 }
+@property (nonatomic, weak) id<FSHomeBannerHeaderDelegate> delegate;
+
 @end

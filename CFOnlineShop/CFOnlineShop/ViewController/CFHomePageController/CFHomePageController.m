@@ -32,6 +32,7 @@
     // Do any additional setup after loading the view.
     
     [self setUI];
+    [self postUI];
 }
 
 - (void)setUI
@@ -93,7 +94,19 @@
     }];
     
 }
-
+-(void)postUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"http://192.168.0.198:8080/renren-fast/mall/goodsinfo/list"] params:params success:^(id responseObj) {
+        NSLog(@"");
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
 #pragma mark - <FSHomeBannerHeaderDelegate>
 
 - (void)header:(CFHomeCollectionHeaderTwo *)header DidSelectAtSubClass:(NSInteger *)subClass {

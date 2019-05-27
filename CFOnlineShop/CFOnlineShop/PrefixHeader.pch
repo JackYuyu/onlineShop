@@ -18,4 +18,5 @@
 #import "MJRefresh.h"
 #import "CategoryHeader.h"
 #import <Masonry.h>
+#import "HttpTool.h"
 #endif /* PrefixHeader_pch */

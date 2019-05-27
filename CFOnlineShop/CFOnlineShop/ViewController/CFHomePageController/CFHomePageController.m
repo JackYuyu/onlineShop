@@ -62,6 +62,7 @@
     [_collectionView registerClass:[CFHomeCollectionCell class] forCellWithReuseIdentifier:@"CollectionCell"];
     [_collectionView registerClass:[CFHomeCollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
     [_collectionView registerClass:[CFHomeCollectionHeaderTwo class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header2"];
+    [_collectionView registerClass:[CFHomeCollectionHeaderTwo class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head"];
     [self.view addSubview:_collectionView];
     
     //去掉顶部偏移
@@ -106,7 +107,7 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 2;
+    return 3;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -176,6 +177,12 @@
         headerView.delegate=self;
         reusableview = headerView;
     }
+    else
+    {
+        CFHomeCollectionHeaderTwo *head = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head" forIndexPath:indexPath];
+
+        reusableview=head;
+    }
 
     return reusableview;
 }
@@ -204,6 +211,9 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section==2) {
+        return CGSizeMake((Main_Screen_Width - 25)/2, (Main_Screen_Width - 25)/2);
+    }
     NSInteger itemCount = 2;
     return CGSizeMake((Main_Screen_Width - 25)/1, 210);
 }

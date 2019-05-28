@@ -16,6 +16,8 @@
 #import "CFDetailInfoController.h"
 #import "CategoryInfoController.h"
 #import "HomeCheckController.h"
+#import "CFHomeCollectionHeaderthree.h"
+#import "HomeCollectionCatCell.h"
 
 @interface CFHomePageController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -61,9 +63,11 @@
     _collectionView.delegate = self;
     _collectionView.backgroundColor = kClearColor;
     [_collectionView registerClass:[CFHomeCollectionCell class] forCellWithReuseIdentifier:@"CollectionCell"];
+    [_collectionView registerClass:[HomeCollectionCatCell class] forCellWithReuseIdentifier:@"CollectionCatCell"];
+
     [_collectionView registerClass:[CFHomeCollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
     [_collectionView registerClass:[CFHomeCollectionHeaderTwo class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header2"];
-    [_collectionView registerClass:[CFHomeCollectionHeaderTwo class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head"];
+    [_collectionView registerClass:[CFHomeCollectionHeaderthree class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head"];
     [self.view addSubview:_collectionView];
     
     //去掉顶部偏移
@@ -102,7 +106,7 @@
                              @"page" : @"1",
                              @"limits": @"10"
                              };
-    [HttpTool get:[NSString stringWithFormat:@"http://192.168.0.198:8080/renren-fast/mall/goodsinfo/list"] params:params success:^(id responseObj) {
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsinfo/list"] params:params success:^(id responseObj) {
         NSLog(@"");
     } failure:^(NSError *error) {
         NSLog(@"");
@@ -131,10 +135,10 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.section==1||indexPath.section==0) {
+
     static NSString *collectionCell = @"CollectionCell";
     CFHomeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCell forIndexPath:indexPath];
-    
     cell.titleStr.text = @"测试商品";
     
     NSString *imageName = [NSString stringWithFormat:@"catcommodity_%ld",(long)indexPath.row + 1];
@@ -172,6 +176,49 @@
     };
     
     return cell;
+    }
+    else
+    {
+        static NSString *collectionCell = @"CollectionCatCell";
+        HomeCollectionCatCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCell forIndexPath:indexPath];
+        cell.titleStr.text = @"测试商品";
+        
+        NSString *imageName = [NSString stringWithFormat:@"commodity_%ld",(long)indexPath.row + 1];
+        
+        cell.imageView.image = [UIImage imageNamed:imageName];
+        
+        /// 点击事件
+        cell.addToShoppingCar = ^(UIImageView *imageView){
+            
+            UICollectionViewCell * wCell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+            CGRect rect = wCell.frame;
+            
+            /// 获取当前cell 相对于self.view 当前的坐标
+            rect.origin.y          = rect.origin.y - collectionView.contentOffset.y;
+            
+            CGRect imageViewRect   = imageView.frame;
+            imageViewRect.origin.x = rect.origin.x;
+            imageViewRect.origin.y = rect.origin.y + imageViewRect.origin.y;
+            
+            [[PurchaseCarAnimationTool shareTool] startAnimationandView:imageView
+                                                                   rect:imageViewRect
+                                                            finisnPoint:CGPointMake(ScreenWidth / 4 * 2.5, ScreenHeight - 49)
+                                                            finishBlock:^(BOOL finish) {
+                                                                
+                                                                if ([self.tabBarController isKindOfClass:[CFTabBarController class]]) {
+                                                                    
+                                                                    CFTabBarController *tabBar = (CFTabBarController *)self.tabBarController;
+                                                                    
+                                                                    UIButton *tabbarBtn = tabBar.tabBarItemView.subviews[3];
+                                                                    
+                                                                    [PurchaseCarAnimationTool shakeAnimation:tabbarBtn];
+                                                                }
+                                                                
+                                                            }];
+        };
+        
+        return cell;
+    }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
@@ -192,7 +239,7 @@
     }
     else
     {
-        CFHomeCollectionHeaderTwo *head = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head" forIndexPath:indexPath];
+        CFHomeCollectionHeaderthree *head = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"head" forIndexPath:indexPath];
 
         reusableview=head;
     }
@@ -206,7 +253,9 @@
     if (section == 0) {
        return CGSizeMake(Main_Screen_Width, Main_Screen_Width/16*7);
     }
-    
+    if (section==2) {
+        return CGSizeMake(Main_Screen_Width, 60);
+    }
     return CGSizeMake(Main_Screen_Width, 80);
 }
 
@@ -225,7 +274,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==2) {
-        return CGSizeMake((Main_Screen_Width - 25)/2, (Main_Screen_Width - 25)/2);
+        return CGSizeMake((Main_Screen_Width - 25)/2, (Main_Screen_Width - 25)/2+80);
     }
     NSInteger itemCount = 2;
     return CGSizeMake((Main_Screen_Width - 25)/1, 210);
@@ -244,10 +293,18 @@
     
     NSString *imageName = [NSString stringWithFormat:@"commodity_%ld",(long)indexPath.row + 1];
     
+    if (indexPath.section==2) {
+            CFDetailInfoController *vc = [[CFDetailInfoController alloc] init];
+            vc.image = [UIImage imageNamed:imageName];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 //    CFDetailInfoController *vc = [[CFDetailInfoController alloc] init];
 //    vc.image = [UIImage imageNamed:imageName];
+    else
+    {
     CategoryInfoController* vc =[CategoryInfoController new];
     [self.navigationController pushViewController:vc animated:YES];
+    }
     
 }
 

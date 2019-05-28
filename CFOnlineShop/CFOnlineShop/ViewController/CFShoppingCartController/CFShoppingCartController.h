@@ -7,6 +7,7 @@
 //
 
 #import "CFBaseController.h"
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 @interface CFShoppingCartController : CFBaseController
 

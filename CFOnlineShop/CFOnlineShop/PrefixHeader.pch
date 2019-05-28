@@ -19,4 +19,6 @@
 #import "CategoryHeader.h"
 #import <Masonry.h>
 #import "HttpTool.h"
+#import <MBProgressHUD.h>
+#import "CFBaseController.h"
 #endif /* PrefixHeader_pch */

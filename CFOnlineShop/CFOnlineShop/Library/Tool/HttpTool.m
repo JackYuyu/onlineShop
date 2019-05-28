@@ -26,7 +26,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     // 2.发送GET请求
-    [mgr GET:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [mgr GET:[NSString stringWithFormat:@"%@/%@", kBaseUrl, url] parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -60,7 +60,7 @@
     [newdic setValue:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]] forKey:@"timestamp"];
 
     // 2.发送POST请求
-    [mgr POST:[NSString stringWithFormat:@"%@/%@", @"", url] parameters:newdic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [mgr POST:[NSString stringWithFormat:@"%@/%@", kBaseUrl, url] parameters:newdic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             
@@ -82,6 +82,39 @@
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         }
     }];
+}
+//参数放在body里面
++ (void)postWithUrl:(NSString *)url body:(NSData *)body showLoading:(BOOL)show success:(void(^)(NSDictionary *response))success failure:(void(^)(NSError *error))failure
+{
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/%@", kBaseUrl, url];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:requestUrl parameters:nil error:nil];
+    request.timeoutInterval= 10;
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // 设置body
+    [request setHTTPBody:body];
+    
+    AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
+    responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+                                                 @"text/html",
+                                                 @"text/json",
+                                                 @"text/javascript",
+                                                 @"text/plain",
+                                                 nil];
+    manager.responseSerializer = responseSerializer;
+    
+    [[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (!error) {
+            success(responseObject);
+            if (show) {
+            }
+            
+        } else {
+            failure(error);
+        }
+    }] resume];
 }
 
 @end

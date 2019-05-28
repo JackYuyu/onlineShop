@@ -12,7 +12,7 @@
 #import "CFDetailViewController.h"
 #import "CFActivityController.h"
 #import "CFOthersController.h"
-
+#import "FSSettlementViewController.h"
 
 @interface CFDetailInfoController ()<CFSegmentedControlDataSource,CFSegmentedControlDelegate,UIScrollViewDelegate>
 
@@ -73,6 +73,10 @@
 {
     _narrowedModalView = [[LPSemiModalView alloc] initWithSize:CGSizeMake(Main_Screen_Width, 300) andBaseViewController:self.navigationController];
     _narrowedModalView.contentView.backgroundColor = kWhiteColor;
+    _narrowedModalView.block = ^{
+        FSSettlementViewController* confirmOrder=[[FSSettlementViewController alloc] initWithNibName:@"FSSettlementViewController" bundle:nil];
+        [self.navigationController pushViewController:confirmOrder animated:YES];
+    };
     
     //显示内容在contentView上添加
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(_narrowedModalView.contentView.mj_w/2 - 50, 100, 100, 20)];

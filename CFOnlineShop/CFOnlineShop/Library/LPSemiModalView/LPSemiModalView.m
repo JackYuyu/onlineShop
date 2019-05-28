@@ -9,6 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PPNumberButton.h"
 #import "DCFeatureChoseTopCell.h"
+#import "FSSettlementViewController.h"
+#import "FSShopCartList.h"
 
 @interface LPSemiModalView ()<PPNumberButtonDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -222,7 +224,20 @@ static NSString *const DCFeatureChoseTopCellID = @"DCFeatureChoseTopCell";
             }
             if (self.baseViewController) {
                 if (self.baseViewController.navigationController) {
+                    if (self.block) {
+                        FSSettlementViewController* confirmOrder=[[FSSettlementViewController alloc] initWithNibName:@"FSSettlementViewController" bundle:nil];
+                        FSShopCartList *newCart = [FSShopCartList new];
+                        newCart.num = [NSString stringWithFormat:@"%ld", 1.0];
+                        newCart.img = @"commodity_7";
+                        newCart.name = @"测试商品";
+                        newCart.idField = @"11111";
+                        confirmOrder.dataSource = [NSMutableArray arrayWithObjects:newCart, nil];
+                        [self.baseViewController.navigationController pushViewController:confirmOrder animated:YES];
+                    }
+                    else
+                    {
                     [self transNavigationBarToHide:NO];
+                    }
                 }
                 [self.baseViewController.view sendSubviewToBack:self];
             }

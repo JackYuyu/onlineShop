@@ -7,6 +7,7 @@
 //
 
 #import "CFPersonalCenterController.h"
+#import "DCLoginViewController.h"
 
 @interface CFPersonalCenterController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -14,6 +15,8 @@
 }
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *myTitles;
+@property (nonatomic, strong) NSArray *myIcons;
 
 @end
 
@@ -24,6 +27,9 @@
     // Do any additional setup after loading the view.
     
     [self setTitle:@"我的"];
+    _myTitles = @[@"绑定手机号",@"全部订单",@"我的积分",@"我的金币",@"我的足迹",@"我的收藏",@"我的消息",@"设置"];
+    _myIcons = @[@"icon_my_01",@"icon_my_02",@"icon_my_03",@"icon_my_03",@"icon_my_04",@"icon_my_05",@"icon_my_06",@"icon_my_07"];
+
     self.navigationView.backgroundColor = kWhiteColor;
     [self setUI];
 }
@@ -45,10 +51,10 @@
     bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,-200, Main_Screen_Width, 200)];
 
     //bgImageView.contentMode = UIViewContentModeScaleAspectFill;//添加了这个属性表示等比例缩放，否则只缩放高度
-    bgImageView.image = [UIImage imageNamed:@"advertisement_1"];
+    bgImageView.image = [self createImageWithColor:RGBCOLOR(250, 107, 69)];
     [_tableView addSubview:bgImageView];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, -70, 60, 60)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(Main_Screen_Width/2-30, -130, 60, 60)];
     imageView.image = [UIImage imageNamed:@"user_image"];
     imageView.backgroundColor = kWhiteColor;
     [_tableView addSubview:imageView];
@@ -58,7 +64,7 @@
     imageView.layer.borderColor = KLineGrayColor.CGColor;
     imageView.layer.borderWidth = 1;
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(90, -40, 100, 20)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(Main_Screen_Width/2-50, -40, 100, 20)];
     label.backgroundColor = kWhiteColor;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = KDarkTextColor;
@@ -72,17 +78,29 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 16;
+    if (section==0) {
+        return 6;
+    }
+    else
+    {
+    return 2;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    if (indexPath.row==0&&indexPath.section==0) {
+        return 80;
+    }
+    else
+    {
+    return 60;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,20 +109,46 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     }
-    
-    cell.textLabel.font = SYSTEMFONT(16);
+    [cell.imageView setImage:[UIImage imageNamed:[_myIcons objectAtIndex:indexPath.row]]];
+    cell.textLabel.font = SYSTEMFONT(18);
     cell.textLabel.textColor = KDarkTextColor;
-    cell.textLabel.text = @"哈哈哈哈哈啊哈哈";
-    
+    cell.textLabel.text = [_myTitles objectAtIndex:indexPath.row];
+    if (indexPath.section==1) {
+        cell.textLabel.text = [_myTitles objectAtIndex:indexPath.row+6];
+        [cell.imageView setImage:[UIImage imageNamed:[_myIcons objectAtIndex:indexPath.row+6]]];
+    }
+    if (indexPath.row==0&&indexPath.section==0) {
+        cell.detailTextLabel.text=@"绑定手机号可更好的让我们服务好您!";
+        cell.detailTextLabel.textColor=[UIColor lightGrayColor];
+    }
+    //调整cell.imageView大小
+    CGSize itemSize = CGSizeMake(25, 25);//希望显示的大小
+    UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+    CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+    [cell.imageView.image drawInRect:imageRect];
+    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     return cell;
 }
-
+//设置分区头视图高度
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 5;
+}
+//设置分区的头视图
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
+    view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    
+    return view;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    DCLoginViewController* login=[DCLoginViewController new];
+    [self.navigationController pushViewController:login animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -127,7 +171,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+//UIColor 转UIImage（UIImage+YYAdd.m也是这种实现）
+- (UIImage*) createImageWithColor: (UIColor*) color
+{
+    CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
+}
 /*
 #pragma mark - Navigation
 

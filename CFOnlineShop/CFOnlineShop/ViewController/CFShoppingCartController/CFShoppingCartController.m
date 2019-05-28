@@ -11,7 +11,7 @@
 #import "CFShoppingCartCell2.h"
 #import "CFShoppingCartHeaderView.h"
 
-@interface CFShoppingCartController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface CFShoppingCartController ()<UICollectionViewDelegate,UICollectionViewDataSource,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -39,6 +39,8 @@
     [_collectionView registerClass:[CFShoppingCartCell1 class] forCellWithReuseIdentifier:@"CollectionCell"];
     [_collectionView registerClass:[CFShoppingCartCell2 class] forCellWithReuseIdentifier:@"CollectionCell2"];
     [_collectionView registerClass:[CFShoppingCartHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    _collectionView.emptyDataSetSource=self;
+    _collectionView.emptyDataSetDelegate=self;
     [self.view addSubview:_collectionView];
     
     //去掉顶部偏移
@@ -57,9 +59,9 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (section == 0) {
-        return 5;
+        return 0;
     }
-    return 10;
+    return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -162,6 +164,31 @@
     NSLog(@"click collectionView row");
 }
 
+#pragma mark - <DZNEmptyDataSetSource>
+
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
+    NSString *buttonTitle = @"去逛逛";
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Light" size:17],
+                                 NSForegroundColorAttributeName: [UIColor blackColor]
+                                 };
+    return [[NSAttributedString alloc] initWithString:buttonTitle attributes:attributes];
+}
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [UIImage imageNamed:@"empty_cart"];
+}
+#pragma mark - <DZNEmptyDataSetDelegate>
+
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button {
+    // Do something
+//    [self refreshingAgain];
+}
+
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView {
+    
+    return Main_Screen_Width * 0.75;
+}
 #pragma mark --UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

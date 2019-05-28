@@ -19,6 +19,7 @@ typedef void (^SemiModalViewDidCloseBlock)();
 @property (nonatomic, assign) BOOL narrowedOff;
 
 @property (assign , nonatomic)NSString *lastNum;
+@property(copy, nonatomic)void (^block)();
 
 - (id)initWithSize:(CGSize)size andBaseViewController:(UIViewController *)baseViewController;
 - (void)close;

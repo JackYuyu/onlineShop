@@ -9,6 +9,8 @@
 #ifndef MacroDefinition_h
 #define MacroDefinition_h
 
+#define kBaseUrl @"http://192.168.0.158:8080"
+
 //获取AppDelegate
 #define kAppdelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 

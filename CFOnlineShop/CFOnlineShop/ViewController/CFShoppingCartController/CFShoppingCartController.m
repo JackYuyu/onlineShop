@@ -10,10 +10,14 @@
 #import "CFShoppingCartCell1.h"
 #import "CFShoppingCartCell2.h"
 #import "CFShoppingCartHeaderView.h"
+#import "productModel.h"
+#import "FSSettlementViewController.h"
 
 @interface CFShoppingCartController ()<UICollectionViewDelegate,UICollectionViewDataSource,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic,strong) NSMutableArray* productList;
+@property (nonatomic, assign) CGFloat bottomHeight;
 
 @end
 
@@ -26,9 +30,11 @@
     [self setTitle:@"购物车"];
     self.navigationView.backgroundColor = kWhiteColor;
     [self setCollectionView];
-    
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self postUI];
+}
 - (void)setCollectionView
 {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -50,7 +56,82 @@
     }
     
 }
+-(void)postUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsshoppingcar/querylist"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"list"];
+        _productList=[NSMutableArray new];
+        for (NSDictionary* products in responseObj[@"list"]) {
+            productModel* p=[productModel mj_objectWithKeyValues:products];
+            p.productName=[products objectForKey:@"name"];
+            p.productId=[products objectForKey:@"id"];
+            NSLog(@"");
+            [_productList addObject:p];
+        }
+        if ([_productList count]>0) {
+            [self setBottomView];
+        }
+        [_collectionView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postDelUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"goodsId" : @"",
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsshoppingcar/delete"] params:params success:^(id responseObj) {
+//        NSDictionary* a=responseObj[@"list"];
+        
+        [_collectionView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+- (void)setBottomView
+{
+    _bottomHeight = 55+TabbarHeight;
 
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, Main_Screen_Height - _bottomHeight, Main_Screen_Width, 55)];
+    bottomView.backgroundColor = [UIColor whiteColor];;
+    [self.view addSubview:bottomView];
+    
+    UIButton *addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    addButton.frame = CGRectMake(bottomView.mj_w/2, 0, bottomView.mj_w/4, 55);
+    addButton.backgroundColor = [UIColor whiteColor];
+    addButton.titleLabel.font = SYSTEMFONT(16);
+    [addButton setTitle:@"合计:150" forState:(UIControlStateNormal)];
+    [addButton setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
+    [addButton addTarget:self action:@selector(addAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [bottomView addSubview:addButton];
+    
+    UIButton *addimButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    addimButton.frame = CGRectMake(bottomView.mj_w*3/4, 0, bottomView.mj_w/4, 55);
+    addimButton.backgroundColor = kRedColor;
+    addimButton.titleLabel.font = SYSTEMFONT(16);
+    [addimButton setTitle:@"去结算" forState:(UIControlStateNormal)];
+    [addimButton setTitleColor:kWhiteColor forState:(UIControlStateNormal)];
+    [addimButton addTarget:self action:@selector(addAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [bottomView addSubview:addimButton];
+    
+}
+-(void)addAction
+{
+    FSSettlementViewController* confirmOrder=[[FSSettlementViewController alloc] initWithNibName:@"FSSettlementViewController" bundle:nil];
+    confirmOrder.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:confirmOrder animated:YES];
+}
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -59,7 +140,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (section == 0) {
-        return 0;
+        return [_productList count];
     }
     return 0;
 }
@@ -71,11 +152,12 @@
         static NSString *collectionCell = @"CollectionCell";
         CFShoppingCartCell1 *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCell forIndexPath:indexPath];
         [cell configCollectionCellType:(CFEditCollectionCellTypeWithDelete)];
-        
+        productModel* p=[_productList objectAtIndex:indexPath.row];
         //cell.backgroundColor = kRedColor;
-        cell.titleStr.text = @"测试商品";
+        cell.titleStr.text = p.productName;
         NSString *imageName = [NSString stringWithFormat:@"commodity_%ld",(long)indexPath.row + 1];
-        cell.imageView.image = [UIImage imageNamed:imageName];
+//        cell.imageView.image = [UIImage imageNamed:imageName];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:p.logo]];
         [cell setDeleteButtonAction:^(UIButton *button) {
             NSLog(@"删除操作");
         }];

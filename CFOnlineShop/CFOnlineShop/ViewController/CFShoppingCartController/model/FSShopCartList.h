@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FSShopCartList : NSObject
+@property (nonatomic, strong) NSString * goodsId;
+@property (nonatomic, strong) NSString * openId;
+@property (nonatomic, strong) NSString * goodsSkuId;
 
 @property (nonatomic, strong) NSString * buff;
 @property (nonatomic, strong) NSString * del;

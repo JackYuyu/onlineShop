@@ -1,12 +1,12 @@
 //
-//  CategoryInfoController.m
+//  ClassificationDetailController.m
 //  CFOnlineShop
 //
-//  Created by app on 2019/5/23.
-//  Copyright © 2019年 俞渊华. All rights reserved.
+//  Created by app on 2019/5/30.
+//  Copyright © 2019年 chenfeng. All rights reserved.
 //
 
-#import "CategoryInfoController.h"
+#import "ClassificationDetailController.h"
 #import "CFHomeCollectionCell.h"
 #import "PurchaseCarAnimationTool.h"
 #import "CFTabBarController.h"
@@ -19,7 +19,7 @@
 #import "CFSegmentedControl.h"
 #import "productModel.h"
 
-@interface CategoryInfoController ()<UICollectionViewDelegate,UICollectionViewDataSource,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
+@interface ClassificationDetailController ()<UICollectionViewDelegate,UICollectionViewDataSource,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIImageView *searchImageView;
 @property (nonatomic, assign) CGFloat headerOffsetY;
@@ -28,7 +28,7 @@
 @property (nonatomic,strong) NSMutableArray* productList;
 @end
 
-@implementation CategoryInfoController
+@implementation ClassificationDetailController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,7 +39,7 @@
     self.navigationBgView.backgroundColor = kWhiteColor;
     self.navigationBgView.alpha = 0;
     [self showLeftBackButton];
-
+    
     [self setUI];
     [self postUI];
 }
@@ -62,14 +62,14 @@
 - (void)control:(CFSegmentedControl *)control didSelectAtIndex:(NSInteger)index
 {
     NSLog(@"");
-//    [_bgScrollView setContentOffset:CGPointMake(Main_Screen_Width * index, 0) animated:YES];
+    //    [_bgScrollView setContentOffset:CGPointMake(Main_Screen_Width * index, 0) animated:YES];
 }
 
 -(void)postUI
 {
     NSMutableDictionary* dic=[NSMutableDictionary new];
     NSDictionary *params = @{
-                             @"brandId" : _brandId,
+                             @"categoryId" : _categoryId,
                              @"page" : @"1",
                              @"limits": @"10"
                              };
@@ -99,7 +99,7 @@
     _searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 30 , 0, -30);
     _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     //[searchBtn addTarget:self action:@selector(homePageSearchButtonClick) forControlEvents:UIControlEventTouchUpInside];
-//    [self.navigationView addSubview:_searchBtn];
+    //    [self.navigationView addSubview:_searchBtn];
     
     ViewRadius(_searchBtn, 15);
     
@@ -126,23 +126,23 @@
     WeakSelf(self);
     _collectionView.mj_header = [CFRefreshHeader headerWithRefreshingBlock:^{
         
-//        if (weakself.headerOffsetY < pass150Offset) {
-//
-//            [weakself.collectionView.mj_header endRefreshing];
-//
-//            UIAlertController *actionSheetController = [UIAlertController alertControllerWithTitle:@"谢谢惠顾" message:nil preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//            }];
-//            [actionSheetController addAction:confirm];
-//            [weakself presentViewController:actionSheetController animated:YES completion:nil];
-//        }
-//        else
-//        {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [weakself.collectionView.mj_header endRefreshing];
-            });
-//        }
+        //        if (weakself.headerOffsetY < pass150Offset) {
+        //
+        //            [weakself.collectionView.mj_header endRefreshing];
+        //
+        //            UIAlertController *actionSheetController = [UIAlertController alertControllerWithTitle:@"谢谢惠顾" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        //            UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //
+        //            }];
+        //            [actionSheetController addAction:confirm];
+        //            [weakself presentViewController:actionSheetController animated:YES completion:nil];
+        //        }
+        //        else
+        //        {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakself.collectionView.mj_header endRefreshing];
+        });
+        //        }
     }];
     
 }
@@ -215,7 +215,7 @@
         topicModel* t=[topicModel new];
         t.ad=_adList;
         headerView.model=t;
-//        reusableview.backgroundColor = kRedColor;
+        //        reusableview.backgroundColor = kRedColor;
     }
     else if (kind == UICollectionElementKindSectionHeader && indexPath.section == 1){
         
@@ -239,7 +239,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return CGSizeMake(Main_Screen_Width, Main_Screen_Width/16*7);
+        return CGSizeZero;
     }
     
     return CGSizeMake(Main_Screen_Width, 30);
@@ -282,7 +282,7 @@
     UIImageView* iv=[UIImageView new];
     [iv sd_setImageWithURL:[NSURL URLWithString:p.logo]];
     vc.image = iv.image;
-
+    
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -345,14 +345,5 @@
         }
     }
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

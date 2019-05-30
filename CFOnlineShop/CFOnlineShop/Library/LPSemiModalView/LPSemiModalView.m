@@ -144,7 +144,24 @@ static NSString *const DCFeatureChoseTopCellID = @"DCFeatureChoseTopCell";
 //    }
     
     [self dismissFeatureViewControllerWithTag:button.tag];
-    
+    [self postUI];
+}
+-(void)postUI
+{
+    _cartItem=[MySingleton sharedMySingleton].cartItem;
+    NSDictionary *params = @{
+                             @"goodsId" : _cartItem.goodsId,
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"goodsSkuId" : _cartItem.goodsSkuId,
+                             @"num": @"1"
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/goodsshoppingcar/save"] body:data showLoading:false success:^(NSDictionary *response) {
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
 }
 - (void)open
 {

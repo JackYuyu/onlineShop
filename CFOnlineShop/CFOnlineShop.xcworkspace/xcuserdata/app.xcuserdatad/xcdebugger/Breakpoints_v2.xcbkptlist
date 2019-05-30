@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CFOnlineShop/ViewController/CFHomePageController/CFDetailInfoController.m"
-            timestampString = "580722751.481792"
+            timestampString = "580913627.2366329"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "-setShadowAnimationView"
             landmarkType = "7">
          </BreakpointContent>
@@ -41,24 +41,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CFOnlineShop/ViewController/CFHomePageController/CFHomePageController.m"
-            timestampString = "580722751.4822741"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "-postUI"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "CFOnlineShop/ViewController/LoginViewController/DCLoginViewController.m"
-            timestampString = "580722751.482324"
+            timestampString = "580913627.236773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "173"
@@ -74,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CFOnlineShop/ViewController/LoginViewController/DCLoginViewController.m"
-            timestampString = "580722751.482371"
+            timestampString = "580913627.236828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "180"
@@ -90,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CFOnlineShop/ViewController/LoginViewController/DCLoginViewController.m"
-            timestampString = "580722751.4824131"
+            timestampString = "580913627.2368751"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "182"
@@ -105,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CFOnlineShop/ViewController/LoginViewController/DCVerificationView.m"
-            timestampString = "580722751.482455"
+            filePath = "CFOnlineShop/Library/LPSemiModalView/LPSemiModalView.m"
+            timestampString = "580913627.2369241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "-loginClick"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "-postUI"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -121,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CFOnlineShop/ViewController/LoginViewController/DCVerificationView.m"
-            timestampString = "580722751.482675"
+            filePath = "CFOnlineShop/Library/LPSemiModalView/LPSemiModalView.m"
+            timestampString = "580913627.236969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "-loginClick"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "-postUI"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

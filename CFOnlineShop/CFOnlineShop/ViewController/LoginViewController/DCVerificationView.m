@@ -64,7 +64,12 @@
 //        NSString * str  =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
 //        NSData * datas = [str dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        [MySingleton sharedMySingleton].openId=[jsonDict objectForKey:@"openid"];
         NSLog(@"");
+        NSString *passWord = [jsonDict objectForKey:@"openid"];
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        [user setObject:passWord forKey:@"openid"];
+        [user synchronize];
     } failure:^(NSError *error) {
         NSLog(@"");
     }];

@@ -9,13 +9,17 @@
 #import "CFClassificationController.h"
 #import "CFHomeCollectionHeader.h"
 #import "CFClassificationCell.h"
+#import "classifyModel.h"
+#import "ClassificationDetailController.h"
 
 @interface CFClassificationController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic, strong) UITableView *leftTableView;
-@property (nonatomic, strong) NSArray *leftData;
+@property (nonatomic, strong) NSMutableArray *leftData;
 @property (nonatomic, strong) UICollectionView *rightCollectionView;
 @property (nonatomic, assign) NSInteger selectIndex;
+@property (nonatomic, strong) NSString* code;
+@property (nonatomic, strong) NSMutableArray *rightData;
 
 @end
 
@@ -24,14 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _code=@"01";
     
     [self setTitle:@"分类"];
     self.navigationView.backgroundColor = kWhiteColor;
     
-    _leftData = @[@"推荐分类",@"男装",@"女装",@"电子",@"家具",@"美食",@"清洁",@"珠宝",@"办公",@"房产",@"儿童",@"鞋子",@"内衣",@"键盘",@"品牌",@"肉类",@"蔬菜",@"其他"];
-    
     [self setTableViewAndCollectionView];
-    
+    [self postUI];
+    [self postSubUI];
 }
 
 - (void)setTableViewAndCollectionView
@@ -49,7 +53,7 @@
     _rightCollectionView.delegate = self;
     _rightCollectionView.backgroundColor = kClearColor;
     [_rightCollectionView registerClass:[CFClassificationCell class] forCellWithReuseIdentifier:@"CollectionCell"];
-    [_rightCollectionView registerClass:[CFHomeCollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+//    [_rightCollectionView registerClass:[CFHomeCollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
     [self.view addSubview:_rightCollectionView];
     
     //去掉顶部偏移
@@ -59,7 +63,51 @@
         _rightCollectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
 }
-
+-(void)postUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodscategory/list"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"page"][@"list"];
+        _leftData = [NSMutableArray new];
+        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+            classifyModel* c=[classifyModel mj_objectWithKeyValues:products];
+//            p.productName=[products objectForKey:@"description"];
+//            p.productId=[products objectForKey:@"id"];
+            NSLog(@"");
+                        [_leftData addObject:c];
+        }
+        [_leftTableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postSubUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"code" : _code,
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodscategory/list"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"page"][@"list"];
+        _rightData = [NSMutableArray new];
+        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+            classifyModel* c=[classifyModel mj_objectWithKeyValues:products];
+                        c.categoryId=[products objectForKey:@"id"];
+            //            p.productId=[products objectForKey:@"id"];
+            NSLog(@"");
+            [_rightData addObject:c];
+        }
+        [_rightCollectionView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
 #pragma mark -- method
 
 - (void)leftTableViewOffsetWithIndexPath:(NSIndexPath *)indexPath
@@ -145,7 +193,8 @@
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = KDarkTextColor;
     label.font = SYSTEMFONT(14);
-    label.text = _leftData[indexPath.row];
+    classifyModel* c=_leftData[indexPath.row];
+    label.text = c.name;
     [cell.contentView addSubview:label];
     
     if (_selectIndex == indexPath.row) {
@@ -169,6 +218,9 @@
     [self leftTableViewOffsetWithIndexPath:indexPath];
     
     [self.leftTableView reloadData];
+    classifyModel* c=[_leftData objectAtIndex:indexPath.row];
+    _code=c.code;
+    [self postSubUI];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -178,43 +230,43 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 12;
+    return [_rightData count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *collectionCell = @"CollectionCell";
     CFClassificationCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCell forIndexPath:indexPath];
-    
-    cell.titleStr.text = @"测试商品";
+    classifyModel* c=[_rightData objectAtIndex:indexPath.row];
+    cell.titleStr.text = c.name;
     
     NSString *imageName = [NSString stringWithFormat:@"commodity_%ld",(long)indexPath.row%10 + 1];
     
-    cell.imageView.image = [UIImage imageNamed:imageName];
-    
+//    cell.imageView.image = [UIImage imageNamed:imageName];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:c.thumLogo]];
     return cell;
     
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    
-    UICollectionReusableView *reusableview = nil;
-    
-    if (kind == UICollectionElementKindSectionHeader){
-        
-        CFHomeCollectionHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-        reusableview = headerView;
-        reusableview.backgroundColor = kRedColor;
-    }
+//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+//
+//    UICollectionReusableView *reusableview = nil;
+//
+//    if (kind == UICollectionElementKindSectionHeader){
+//
+//        CFHomeCollectionHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+//        reusableview = headerView;
+//        reusableview.backgroundColor = kRedColor;
+//    }
+//
+//    return reusableview;
+//}
 
-    return reusableview;
-}
 
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-  return CGSizeMake(_rightCollectionView.mj_w, _rightCollectionView.mj_w/16*7);
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+//{
+//  return CGSizeMake(_rightCollectionView.mj_w, _rightCollectionView.mj_w/16*7);
+//}
 
 #pragma mark -- UICollectionViewDelegateFlowLayout
 
@@ -244,7 +296,10 @@
 #pragma mark --UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    ClassificationDetailController* cd=[ClassificationDetailController new];
+    classifyModel* c=[_rightData objectAtIndex:indexPath.row];
+    cd.categoryId=c.categoryId;
+    [self.navigationController pushViewController:cd animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

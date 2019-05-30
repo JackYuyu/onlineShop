@@ -57,6 +57,9 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(Main_Screen_Width/2-30, -130, 60, 60)];
     imageView.image = [UIImage imageNamed:@"user_image"];
     imageView.backgroundColor = kWhiteColor;
+    UIGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(menuTapped)];
+    [imageView addGestureRecognizer:tapGesture];
+    imageView.userInteractionEnabled=YES;
     [_tableView addSubview:imageView];
     
     imageView.layer.masksToBounds = YES;
@@ -72,6 +75,11 @@
     label.text = @"黄金脆皮鱼";
     [_tableView addSubview:label];
     
+}
+-(void)menuTapped
+{
+    DCLoginViewController* login=[DCLoginViewController new];
+    [self.navigationController pushViewController:login animated:YES];
 }
 
 #pragma mark -- UITableViewDelegate & dataSource
@@ -147,8 +155,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    DCLoginViewController* login=[DCLoginViewController new];
-    [self.navigationController pushViewController:login animated:YES];
+    
 }
 
 #pragma mark - UIScrollViewDelegate

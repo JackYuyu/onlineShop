@@ -18,12 +18,18 @@
 #import "HomeCheckController.h"
 #import "CFHomeCollectionHeaderthree.h"
 #import "HomeCollectionCatCell.h"
-
+#import "productModel.h"
+#import "topicModel.h"
+#import "HomeSpecialController.h"
+#import "SeachViewController.h"
 @interface CFHomePageController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIImageView *searchImageView;
 @property (nonatomic, assign) CGFloat headerOffsetY;
+@property (nonatomic, strong) NSMutableArray* recommendList;
+@property (nonatomic, strong) NSMutableArray* topicList;
+@property (nonatomic, strong) NSMutableArray* adList;
 
 @end
 
@@ -33,7 +39,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    _recommendList=[[NSMutableArray alloc] init];
+    _adList=[[NSMutableArray alloc] init];
+
     [self setUI];
+    [self postTopicUI];
     [self postUI];
 }
 
@@ -48,7 +58,7 @@
     _searchBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 20 , 0, -20);
     _searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 30 , 0, -30);
     _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    //[searchBtn addTarget:self action:@selector(homePageSearchButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [_searchBtn addTarget:self action:@selector(homePageSearchButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationView addSubview:_searchBtn];
     
     ViewRadius(_searchBtn, 15);
@@ -99,6 +109,34 @@
     }];
     
 }
+-(void)homePageSearchButtonClick
+{
+    SeachViewController* search=[SeachViewController new];
+    search.categoryId=@"上衣";
+    [self.navigationController pushViewController:search animated:YES];
+}
+-(void)postTopicUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodstopic/list"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"page"][@"list"];
+        _topicList=[[NSMutableArray alloc] init];
+
+        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+            topicModel* t=[topicModel mj_objectWithKeyValues:products];
+            NSLog(@"");
+            [_topicList addObject:t];
+            [_adList addObject:t.img];
+        }
+        [_collectionView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
 -(void)postUI
 {
     NSMutableDictionary* dic=[NSMutableDictionary new];
@@ -107,7 +145,15 @@
                              @"limits": @"10"
                              };
     [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsinfo/list"] params:params success:^(id responseObj) {
-        NSLog(@"");
+        NSDictionary* a=responseObj[@"page"][@"list"];
+        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+            productModel* p=[productModel mj_objectWithKeyValues:products];
+            p.productName=[products objectForKey:@"description"];
+            p.productId=[products objectForKey:@"id"];
+            NSLog(@"");
+             [_recommendList addObject:p];
+        }
+        [_collectionView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"");
     }];
@@ -115,10 +161,27 @@
 #pragma mark - <FSHomeBannerHeaderDelegate>
 
 - (void)header:(CFHomeCollectionHeaderTwo *)header DidSelectAtSubClass:(NSInteger *)subClass {
-    
     if (subClass==0) {
         HomeCheckController* hcc=[HomeCheckController new];
         [self.navigationController pushViewController:hcc animated:YES];
+    }
+    else if(subClass==1)
+    {
+        HomeSpecialController* hs=[HomeSpecialController new];
+        hs.categoryId=@"0";
+        [self.navigationController pushViewController:hs animated:YES];
+    }
+    else if(subClass==2)
+    {
+        HomeSpecialController* hs=[HomeSpecialController new];
+        hs.categoryId=@"1";
+        [self.navigationController pushViewController:hs animated:YES];
+    }
+    else if(subClass==3)
+    {
+        HomeSpecialController* hs=[HomeSpecialController new];
+        hs.categoryId=@"2";
+        [self.navigationController pushViewController:hs animated:YES];
     }
 }
 #pragma mark - UICollectionViewDataSource
@@ -131,7 +194,13 @@
     if (section == 0) {
         return 0;
     }
-    return 6;
+    if (section==1) {
+        return [_topicList count];
+    }
+    else
+    {
+        return [_recommendList count];
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -140,11 +209,13 @@
     static NSString *collectionCell = @"CollectionCell";
     CFHomeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCell forIndexPath:indexPath];
     cell.titleStr.text = @"测试商品";
-    
+    topicModel* p=[_topicList objectAtIndex:indexPath.row];
+
     NSString *imageName = [NSString stringWithFormat:@"catcommodity_%ld",(long)indexPath.row + 1];
     
-    cell.imageView.image = [UIImage imageNamed:imageName];
-    
+//    cell.imageView.image = [UIImage imageNamed:imageName];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:p.img]];
+
     /// 点击事件
     cell.addToShoppingCar = ^(UIImageView *imageView){
         
@@ -181,12 +252,13 @@
     {
         static NSString *collectionCell = @"CollectionCatCell";
         HomeCollectionCatCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCell forIndexPath:indexPath];
-        cell.titleStr.text = @"测试商品";
+        productModel* p=[_recommendList objectAtIndex:indexPath.row];
+        cell.titleStr.text = p.productName;
         
         NSString *imageName = [NSString stringWithFormat:@"commodity_%ld",(long)indexPath.row + 1];
         
-        cell.imageView.image = [UIImage imageNamed:imageName];
-        
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:p.logo]];
+
         /// 点击事件
         cell.addToShoppingCar = ^(UIImageView *imageView){
             
@@ -230,6 +302,9 @@
         CFHomeCollectionHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
         reusableview = headerView;
         reusableview.backgroundColor = kRedColor;
+        topicModel* t=[topicModel new];
+        t.ad=_adList;
+        [headerView setModel:t];
     }
     else if (kind == UICollectionElementKindSectionHeader && indexPath.section == 1){
         
@@ -295,14 +370,24 @@
     
     if (indexPath.section==2) {
             CFDetailInfoController *vc = [[CFDetailInfoController alloc] init];
-            vc.image = [UIImage imageNamed:imageName];
+        productModel* p=[_recommendList objectAtIndex:indexPath.row];
+        vc.productId=p.productId;
+        UIImageView* iv=[UIImageView new];
+        [iv sd_setImageWithURL:[NSURL URLWithString:p.logo]];
+        vc.image = iv.image;
+//            vc.image = [UIImage imageNamed:imageName];
         [self.navigationController pushViewController:vc animated:YES];
     }
 //    CFDetailInfoController *vc = [[CFDetailInfoController alloc] init];
 //    vc.image = [UIImage imageNamed:imageName];
     else
     {
+        topicModel* t=[_topicList objectAtIndex:indexPath.row];
     CategoryInfoController* vc =[CategoryInfoController new];
+        vc.brandId=t.brandId;
+        NSMutableArray* addetail=[NSMutableArray new];
+        [addetail addObject:[_adList objectAtIndex:indexPath.row]];
+        vc.adList=addetail;
     [self.navigationController pushViewController:vc animated:YES];
     }
     

@@ -7,7 +7,6 @@
 //
 
 #import "CollectionCatHeader.h"
-#import "SDCycleScrollView.h"
 
 @implementation CollectionCatHeader
 - (instancetype)initWithFrame:(CGRect)frame
@@ -18,15 +17,19 @@
         NSArray *array = @[@"catcommodity_6"];
         CGRect a=CGRectMake(0, TopHeight, Main_Screen_Width, Main_Screen_Width/16*7);
         //本地加载图片的轮播器
-        SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:self.frame imageNamesGroup:array];
-        cycleScrollView.backgroundColor = kWhiteColor;
-        cycleScrollView.autoScrollTimeInterval = 3;
-        cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
-        cycleScrollView.currentPageDotColor = kRedColor;
-        cycleScrollView.autoScroll=false;
-        [self addSubview:cycleScrollView];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:self.frame imageNamesGroup:array];
+        _cycleScrollView.backgroundColor = kWhiteColor;
+        _cycleScrollView.autoScrollTimeInterval = 3;
+        _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+        _cycleScrollView.currentPageDotColor = kRedColor;
+        _cycleScrollView.autoScroll=false;
+        [self addSubview:_cycleScrollView];
         
     }
     return self;
+}
+-(void)setModel:(topicModel *)model
+{
+    [_cycleScrollView setImageURLStringsGroup:model.ad];
 }
 @end

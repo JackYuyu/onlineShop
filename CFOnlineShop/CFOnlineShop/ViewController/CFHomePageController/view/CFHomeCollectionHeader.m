@@ -7,7 +7,6 @@
 //
 
 #import "CFHomeCollectionHeader.h"
-#import "SDCycleScrollView.h"
 
 @implementation CFHomeCollectionHeader
 
@@ -19,15 +18,18 @@
         NSArray *array = @[@"advertisement_1",@"advertisement_2",@"advertisement_3"];
         CGRect a=self.frame;
         //本地加载图片的轮播器
-        SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:self.frame imageNamesGroup:array];
-        cycleScrollView.backgroundColor = kWhiteColor;
-        cycleScrollView.autoScrollTimeInterval = 3;
-        cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFit;
-        cycleScrollView.currentPageDotColor = kRedColor;
-        [self addSubview:cycleScrollView];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:self.frame imageNamesGroup:array];
+        _cycleScrollView.backgroundColor = kWhiteColor;
+        _cycleScrollView.autoScrollTimeInterval = 3;
+        _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+        _cycleScrollView.currentPageDotColor = kRedColor;
+        [self addSubview:_cycleScrollView];
         
     }
     return self;
 }
-
+-(void)setModel:(topicModel *)model
+{
+        [_cycleScrollView setImageURLStringsGroup:model.ad];
+}
 @end

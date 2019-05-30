@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSString *productId;
 
 @property (nonatomic, strong) void (^addActionWithBlock)(void);
 

@@ -8,6 +8,8 @@
 
 #import "CFDetailViewController.h"
 //#import "CFDetailView.h"
+#import "productModel.h"
+#import "CFShoppingCartController.h"
 
 @interface CFDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -18,7 +20,8 @@
 @property (nonatomic, strong) UIScrollView *tempScrollView;
 //记录底部空间所需的高度
 @property (nonatomic, assign) CGFloat bottomHeight;
-
+@property (nonatomic, strong) NSArray *detailTitles;
+@property (nonatomic,strong)productModel* pmodel;
 //@property (nonatomic, strong) CFDetailView *detailView;
 
 @end
@@ -28,12 +31,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    _detailTitles = @[@"夏季印花棉修身默认套餐",@"商品评价(0)",@"商品信息",@"商品详情"];
+
     [self setBgUI];
     [self setHeaderAndFooterView];
     [self setBottomView];
     [self setUpLeftTwoButton];
-    
+    [self postUI];
+    [self postCommentUI];
+    [self postSkuUI];
+    [self postBrowseInfoUI];
+    [self postFavUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,7 +55,152 @@
     _webView = nil;
     NSLog(@"释放View");
 }
+-(void)postUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"id" : _productId,
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsinfo/list"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"page"][@"list"];
+        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+            productModel* p=[productModel mj_objectWithKeyValues:products];
+            p.productName=[products objectForKey:@"description"];
+            p.productId=[products objectForKey:@"id"];
+            _pmodel=p;
+            
+            FSShopCartList* cart =[FSShopCartList new];
+            cart.goodsId=p.productId;
+            cart.goodsSkuId=p.goodsSkuId;
+            [MySingleton sharedMySingleton].cartItem=cart;
+            NSLog(@"");
+//            [_productList addObject:p];
+        }
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postCommentUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"goodsId" : _productId,
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodscomment/list"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"page"][@"list"];
+        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+            //            productModel* p=[productModel mj_objectWithKeyValues:products];
+            //            p.productName=[products objectForKey:@"description"];
+            //            p.productId=[products objectForKey:@"id"];
+            NSLog(@"");
+            //            [_productList addObject:p];
+        }
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postFavUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"goodsId" : _productId,
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsfavorite/list"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"page"][@"list"];
+        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+            //            productModel* p=[productModel mj_objectWithKeyValues:products];
+            //            p.productName=[products objectForKey:@"description"];
+            //            p.productId=[products objectForKey:@"id"];
+            NSLog(@"");
+            //            [_productList addObject:p];
+        }
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postSkuUI
+{
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"goodsId" : _productId,
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodssku/list"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"page"][@"list"];
+        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+            //            productModel* p=[productModel mj_objectWithKeyValues:products];
+            //            p.productName=[products objectForKey:@"description"];
+            //            p.productId=[products objectForKey:@"id"];
+            NSLog(@"");
+            //            [_productList addObject:p];
+        }
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postBrowseInfoUI
+{
+    NSDictionary *params = @{
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"goodsId" : _productId,
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/userbrowseinfo/save"] body:data showLoading:false success:^(NSDictionary *response) {
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postAddFavUI
+{
+    NSDictionary *params = @{
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"goodsId" : _productId,
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/goodsfavorite/save"] body:data showLoading:false success:^(NSDictionary *response) {
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
 
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postDelFavUI
+{
+    NSDictionary *params = @{
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"goodsId" : _productId,
+                             @"page" : @"1",
+                             @"limits": @"10"
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/goodsfavorite/delete"] body:data showLoading:false success:^(NSDictionary *response) {
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
 - (void)setBgUI
 {
     _bottomHeight = 55;
@@ -168,6 +321,23 @@
 }
 -(void)bottomButtonClick:(UIButton*)sender
 {
+    if (sender.tag==0) {
+        if(sender.selected)
+        {
+            [self postDelFavUI];
+        }
+        else
+        {
+            [self postAddFavUI];
+        }
+        sender.selected=!sender.selected;
+//        [self postDelFavUI];
+
+    }
+    if (sender.tag==1) {
+        CFShoppingCartController* sc=[CFShoppingCartController new];
+        [self.navigationController pushViewController:sc animated:YES];
+    }
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -226,20 +396,53 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 1;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    if(section==1)
+        return 2;
+    else
+        return 1;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    if (indexPath.section==0) {
+        return 100;
+    }
+    else if (indexPath.section==1){
+        return 80;
+    }
+    else if (indexPath.section==2) {
+        return 80;
+    }
+    else{
+        
+    return 60;
+    }
 }
+//设置分区尾视图高度
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section>0) {
+        return 10;
+    }
+    else{
+        return 0.01;
+    }}
+//设置分区头视图高度
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
+    return 0.01;
+}
+//设置分区的尾视图
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 10)];
+    view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    return view;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identifier = @"identifier";
@@ -252,8 +455,10 @@
     
     cell.textLabel.font = SYSTEMFONT(16);
     cell.textLabel.textColor = KDarkTextColor;
-    cell.textLabel.text = @"哈哈哈哈哈啊哈哈";
-    
+    cell.textLabel.text = [_detailTitles objectAtIndex:indexPath.row+indexPath.section];
+    if (indexPath.section==0) {
+        cell.textLabel.text=_pmodel.productName;
+    }
     return cell;
 }
 

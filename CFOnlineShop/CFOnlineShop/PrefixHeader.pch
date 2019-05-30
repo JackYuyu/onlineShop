@@ -21,4 +21,6 @@
 #import "HttpTool.h"
 #import <MBProgressHUD.h>
 #import "CFBaseController.h"
+#import "UIImageView+WebCache.h"
+#import "MySingleton.h"
 #endif /* PrefixHeader_pch */

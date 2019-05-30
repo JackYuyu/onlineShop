@@ -62,6 +62,13 @@
 		DD759DB3229C16E900B71414 /* DCVerificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD759DB0229C16E800B71414 /* DCVerificationView.xib */; };
 		DD759DB4229C16E900B71414 /* DCVerificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD759DB2229C16E900B71414 /* DCVerificationView.m */; };
 		DD759DB7229CC48700B71414 /* UIView+DCRolling.m in Sources */ = {isa = PBXBuildFile; fileRef = DD759DB6229CC48700B71414 /* UIView+DCRolling.m */; };
+		DDE43130229E7E8600F58DEA /* productModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4312F229E7E8600F58DEA /* productModel.m */; };
+		DDE43133229F69E500F58DEA /* topicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE43132229F69E500F58DEA /* topicModel.m */; };
+		DDE43137229F875C00F58DEA /* classifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE43136229F875C00F58DEA /* classifyModel.m */; };
+		DDE4313A229FA70B00F58DEA /* ClassificationDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE43139229FA70B00F58DEA /* ClassificationDetailController.m */; };
+		DDE4313D229FB4A700F58DEA /* HomeSpecialController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4313C229FB4A700F58DEA /* HomeSpecialController.m */; };
+		DDE43140229FC14F00F58DEA /* MySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4313F229FC14F00F58DEA /* MySingleton.m */; };
+		DDE43143229FE00700F58DEA /* SeachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE43142229FE00700F58DEA /* SeachViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,6 +181,20 @@
 		DD759DB2229C16E900B71414 /* DCVerificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCVerificationView.m; sourceTree = "<group>"; };
 		DD759DB5229CC48700B71414 /* UIView+DCRolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DCRolling.h"; sourceTree = "<group>"; };
 		DD759DB6229CC48700B71414 /* UIView+DCRolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCRolling.m"; sourceTree = "<group>"; };
+		DDE4312E229E7E8600F58DEA /* productModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = productModel.h; sourceTree = "<group>"; };
+		DDE4312F229E7E8600F58DEA /* productModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = productModel.m; sourceTree = "<group>"; };
+		DDE43131229F69E500F58DEA /* topicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = topicModel.h; sourceTree = "<group>"; };
+		DDE43132229F69E500F58DEA /* topicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = topicModel.m; sourceTree = "<group>"; };
+		DDE43135229F875C00F58DEA /* classifyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = classifyModel.h; sourceTree = "<group>"; };
+		DDE43136229F875C00F58DEA /* classifyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = classifyModel.m; sourceTree = "<group>"; };
+		DDE43138229FA70B00F58DEA /* ClassificationDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassificationDetailController.h; sourceTree = "<group>"; };
+		DDE43139229FA70B00F58DEA /* ClassificationDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassificationDetailController.m; sourceTree = "<group>"; };
+		DDE4313B229FB4A700F58DEA /* HomeSpecialController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSpecialController.h; sourceTree = "<group>"; };
+		DDE4313C229FB4A700F58DEA /* HomeSpecialController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSpecialController.m; sourceTree = "<group>"; };
+		DDE4313E229FC14F00F58DEA /* MySingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySingleton.h; sourceTree = "<group>"; };
+		DDE4313F229FC14F00F58DEA /* MySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySingleton.m; sourceTree = "<group>"; };
+		DDE43141229FE00700F58DEA /* SeachViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeachViewController.h; sourceTree = "<group>"; };
+		DDE43142229FE00700F58DEA /* SeachViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeachViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +214,8 @@
 			children = (
 				0464A6E0229A33BC004381DF /* HttpTool.h */,
 				0464A6E1229A33BC004381DF /* HttpTool.m */,
+				DDE4313E229FC14F00F58DEA /* MySingleton.h */,
+				DDE4313F229FC14F00F58DEA /* MySingleton.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -327,10 +350,13 @@
 		0CCF568620FEE0BC00B8FE09 /* CFClassificationController */ = {
 			isa = PBXGroup;
 			children = (
+				DDE43134229F873300F58DEA /* model */,
 				0CCF569C20FEE37D00B8FE09 /* CFClassificationController.h */,
 				0CCF569D20FEE37D00B8FE09 /* CFClassificationController.m */,
 				0C33B8962106C02E00A18FD8 /* CFClassificationCell.h */,
 				0C33B8972106C02E00A18FD8 /* CFClassificationCell.m */,
+				DDE43138229FA70B00F58DEA /* ClassificationDetailController.h */,
+				DDE43139229FA70B00F58DEA /* ClassificationDetailController.m */,
 			);
 			path = CFClassificationController;
 			sourceTree = "<group>";
@@ -354,6 +380,10 @@
 				0C73E087211849D700D413A4 /* CFOthersController.m */,
 				DD561DBE22979E0800DE4DAF /* HomeCheckController.h */,
 				DD561DBF22979E0800DE4DAF /* HomeCheckController.m */,
+				DDE4313B229FB4A700F58DEA /* HomeSpecialController.h */,
+				DDE4313C229FB4A700F58DEA /* HomeSpecialController.m */,
+				DDE43141229FE00700F58DEA /* SeachViewController.h */,
+				DDE43142229FE00700F58DEA /* SeachViewController.m */,
 			);
 			path = CFHomePageController;
 			sourceTree = "<group>";
@@ -458,6 +488,10 @@
 			children = (
 				DD561DB52296D0A900DE4DAF /* FSBaseModel.h */,
 				DD561DB62296D0A900DE4DAF /* FSBaseModel.m */,
+				DDE4312E229E7E8600F58DEA /* productModel.h */,
+				DDE4312F229E7E8600F58DEA /* productModel.m */,
+				DDE43131229F69E500F58DEA /* topicModel.h */,
+				DDE43132229F69E500F58DEA /* topicModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -533,6 +567,15 @@
 				DD759DB0229C16E800B71414 /* DCVerificationView.xib */,
 			);
 			path = LoginViewController;
+			sourceTree = "<group>";
+		};
+		DDE43134229F873300F58DEA /* model */ = {
+			isa = PBXGroup;
+			children = (
+				DDE43135229F875C00F58DEA /* classifyModel.h */,
+				DDE43136229F875C00F58DEA /* classifyModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -656,6 +699,7 @@
 				0C79152D2109BDBE00D23547 /* CFTabBarItem.m in Sources */,
 				0CCF56A420FEE46B00B8FE09 /* CFPersonalCenterController.m in Sources */,
 				0CA8CB5121085F9C00DC7DF6 /* CFShoppingCartCell1.m in Sources */,
+				DDE43130229E7E8600F58DEA /* productModel.m in Sources */,
 				0CCF567020FED2F900B8FE09 /* main.m in Sources */,
 				DD561DAD2296492C00DE4DAF /* CategoryInfoController.m in Sources */,
 				0C79152721095E0A00D23547 /* CFShoppingCartHeaderView.m in Sources */,
@@ -663,7 +707,10 @@
 				0CCF56B720FF2ABA00B8FE09 /* CFHomeCollectionCell.m in Sources */,
 				0CA8CB5421085FF200DC7DF6 /* CFShoppingCartCell2.m in Sources */,
 				0C73E088211849D700D413A4 /* CFOthersController.m in Sources */,
+				DDE43133229F69E500F58DEA /* topicModel.m in Sources */,
+				DDE4313A229FA70B00F58DEA /* ClassificationDetailController.m in Sources */,
 				0CCF56A120FEE3A200B8FE09 /* CFHomePageController.m in Sources */,
+				DDE43137229F875C00F58DEA /* classifyModel.m in Sources */,
 				DD561DB72296D0A900DE4DAF /* FSBaseModel.m in Sources */,
 				DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */,
 				0C4754FA21006E0A007DC738 /* CFRefreshHeader.m in Sources */,
@@ -675,7 +722,9 @@
 				0C33B89C210707B600A18FD8 /* CFEditCollectionCell.m in Sources */,
 				0C79152E2109BDBE00D23547 /* CFTabBarController.m in Sources */,
 				0CCF569B20FEE2F800B8FE09 /* CFShoppingCartController.m in Sources */,
+				DDE43143229FE00700F58DEA /* SeachViewController.m in Sources */,
 				DD561DC022979E0800DE4DAF /* HomeCheckController.m in Sources */,
+				DDE43140229FC14F00F58DEA /* MySingleton.m in Sources */,
 				0C73E0822118433200D413A4 /* CFDetailViewController.m in Sources */,
 				DD759DA9229BC5E000B71414 /* FSShopCartList.m in Sources */,
 				0C80ACB22101A92D00703876 /* CFSegmentedControl.m in Sources */,
@@ -694,6 +743,7 @@
 				0CCF56AF20FF139300B8FE09 /* CALayer+CFAnimation.m in Sources */,
 				0CCF56B320FF291900B8FE09 /* UIColor+CFColor.m in Sources */,
 				0C80ACAE21018A3800703876 /* LPSemiModalView.m in Sources */,
+				DDE4313D229FB4A700F58DEA /* HomeSpecialController.m in Sources */,
 				DD759DAE229C161100B71414 /* DCLoginViewController.m in Sources */,
 				0C82C85A2105AC380063735E /* CFHomeHeaderTwoCell.m in Sources */,
 				0C4754FD21008BCA007DC738 /* CFDetailInfoController.m in Sources */,

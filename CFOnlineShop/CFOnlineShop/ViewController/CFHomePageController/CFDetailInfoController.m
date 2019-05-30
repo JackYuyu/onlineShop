@@ -27,7 +27,6 @@
 @property (nonatomic, strong) CFDetailViewController *detailViewController;
 
 @property (nonatomic, strong) NSArray *segmentTitles;
-
 @end
 
 @implementation CFDetailInfoController
@@ -71,6 +70,8 @@
 
 - (void)setShadowAnimationView
 {
+    FSShopCartList* cart=[FSShopCartList new];
+    cart.goodsId=
     _narrowedModalView = [[LPSemiModalView alloc] initWithSize:CGSizeMake(Main_Screen_Width, 300) andBaseViewController:self.navigationController];
     _narrowedModalView.contentView.backgroundColor = kWhiteColor;
     _narrowedModalView.block = ^{
@@ -92,6 +93,7 @@
     //这里为了避免该控制器耦合性高的问题，所以使用addChildViewController的形式，来添加视图
     //详情
     _detailViewController = [[CFDetailViewController alloc] init];
+    _detailViewController.productId=_productId;
     _detailViewController.image = _image;
     [self addChildViewController:_detailViewController];
     [_detailViewController didMoveToParentViewController:self];

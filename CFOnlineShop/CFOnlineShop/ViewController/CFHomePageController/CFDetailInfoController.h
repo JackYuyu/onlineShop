@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, weak) UIImageView *imageView;
+@property (nonatomic, strong) NSString *productId;
 
 @end

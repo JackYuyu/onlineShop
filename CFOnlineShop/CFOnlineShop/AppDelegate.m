@@ -32,6 +32,12 @@
     CFTabBarController *mainTabVC = [[CFTabBarController alloc] init];
     [self.baseWindowNav pushViewController:mainTabVC animated:NO];
     
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString *passWord = [ user objectForKey:@"openid"];
+    if (passWord) {
+        [MySingleton sharedMySingleton].openId=passWord;
+    }
+    
     return YES;
 }
 

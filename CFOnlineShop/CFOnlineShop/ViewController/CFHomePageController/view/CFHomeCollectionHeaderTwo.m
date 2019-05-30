@@ -92,25 +92,25 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        GYRollingNoticeView *noticeView = [[GYRollingNoticeView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 80)];
-        noticeView.dataSource = self;
-        noticeView.delegate = self;
+//        GYRollingNoticeView *noticeView = [[GYRollingNoticeView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 80)];
+//        noticeView.dataSource = self;
+//        noticeView.delegate = self;
 //        [self addSubview:noticeView];
         
-        noticeView.backgroundColor = [UIColor lightGrayColor];
-        
-        _arr1 = @[@"",
-                  @"",
-                  @"",
-                  @"",
-                  @""
-                  ];
-        
-        _noticeView1 = noticeView;
-        [noticeView registerClass:[GYNoticeViewCell class] forCellReuseIdentifier:@"GYNoticeViewCell"];
-        [noticeView registerClass:[CFHomeHeaderTwoCell class] forCellReuseIdentifier:@"CFHomeHeaderTwoCell"];
-    
-        [noticeView reloadDataAndStartRoll];
+//        noticeView.backgroundColor = [UIColor lightGrayColor];
+//        
+//        _arr1 = @[@"",
+//                  @"",
+//                  @"",
+//                  @"",
+//                  @""
+//                  ];
+//        
+//        _noticeView1 = noticeView;
+//        [noticeView registerClass:[GYNoticeViewCell class] forCellReuseIdentifier:@"GYNoticeViewCell"];
+//        [noticeView registerClass:[CFHomeHeaderTwoCell class] forCellReuseIdentifier:@"CFHomeHeaderTwoCell"];
+//    
+//        [noticeView reloadDataAndStartRoll];
         
         CGFloat height = self.contentView.height;
         CGFloat width = Main_Screen_Width / 4;

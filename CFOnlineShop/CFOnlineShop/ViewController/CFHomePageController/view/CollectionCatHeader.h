@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SDCycleScrollView.h"
+#import "topicModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CollectionCatHeader : UICollectionReusableView
+@property (nonatomic,strong) SDCycleScrollView* cycleScrollView;
+@property (nonatomic, strong) topicModel *model;
 
 @end
 

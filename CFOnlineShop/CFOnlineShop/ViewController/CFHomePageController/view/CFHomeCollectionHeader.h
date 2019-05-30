@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "topicModel.h"
+#import "SDCycleScrollView.h"
 
 @interface CFHomeCollectionHeader : UICollectionReusableView
-
+@property (nonatomic, strong) topicModel *model;
+@property (nonatomic,strong) SDCycleScrollView* cycleScrollView;
 @end

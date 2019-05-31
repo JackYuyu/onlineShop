@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray * ad;
 @property (nonatomic, copy) NSString * brandId;
 
+@property (nonatomic, copy) NSString * signTime;
+
 @end
 
 NS_ASSUME_NONNULL_END

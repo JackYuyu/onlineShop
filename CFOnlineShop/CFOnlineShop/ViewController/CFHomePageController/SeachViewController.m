@@ -18,29 +18,35 @@
 #import "CollectionCatHeader.h"
 #import "CFSegmentedControl.h"
 #import "productModel.h"
-@interface SeachViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
+@interface SeachViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CFSegmentedControlDataSource,CFSegmentedControlDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate>
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIImageView *searchImageView;
 @property (nonatomic, assign) CGFloat headerOffsetY;
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic, strong) CFSegmentedControl *segmentedControl;
 @property (nonatomic,strong) NSMutableArray* productList;
+@property(strong,nonatomic) UISearchController *searchController;
+
 @end
 
 @implementation SeachViewController
-
+-(UISearchController *)searchController{
+    if (!_searchController) {
+        _searchController=[[UISearchController alloc]init];
+    }
+    return _searchController;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _segmentTitles = @[@"综合",@"销量",@"价格",@"筛选"];
-    _productList=[NSMutableArray new];
     
     self.navigationBgView.backgroundColor = kWhiteColor;
     self.navigationBgView.alpha = 0;
     [self showLeftBackButton];
     
     [self setUI];
-    [self postUI];
+//    [self postUI];
 }
 - (void)setSegmentedControl
 {
@@ -63,9 +69,27 @@
     NSLog(@"");
     //    [_bgScrollView setContentOffset:CGPointMake(Main_Screen_Width * index, 0) animated:YES];
 }
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString* a=self.searchController.searchBar.text;
+    _categoryId=a;
+    NSLog(@"---updateSearchResultsForSearchController");
+    [self postUI];
+}
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    NSString* a=self.searchController.searchBar.text;
+    NSLog(@"");
+}
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+
+{
+    
+    return YES;
+    
+}
 
 -(void)postUI
 {
+    _productList=[NSMutableArray new];
     NSMutableDictionary* dic=[NSMutableDictionary new];
     NSDictionary *params = @{
                              @"name" : _categoryId,
@@ -114,6 +138,9 @@
     [_collectionView registerClass:[HomeCollectionCatCell class] forCellWithReuseIdentifier:@"CollectionCatCell"];
     [_collectionView registerClass:[CollectionCatHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
     [_collectionView registerClass:[CFHomeCollectionHeaderTwo class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header2"];
+    
+    
+    
     [self.view addSubview:_collectionView];
     
     //去掉顶部偏移
@@ -210,10 +237,29 @@
     if (kind == UICollectionElementKindSectionHeader && indexPath.section == 0){
         
         CollectionCatHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+        //创建UISearchController
+        self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
+        //设置代理
+        self.searchController.delegate = self;
+        self.searchController.searchResultsUpdater= self;
+        
+        //设置UISearchController的显示属性，以下3个属性默认为YES
+        //搜索时，背景变暗色
+        self.searchController.dimsBackgroundDuringPresentation = YES;
+        //搜索时，背景变模糊
+        self.searchController.obscuresBackgroundDuringPresentation = YES;
+        //隐藏导航栏
+        self.searchController.hidesNavigationBarDuringPresentation = YES;
+        
+        self.searchController.searchBar.frame = CGRectMake(0, 0, self.searchController.searchBar.frame.size.width, 44.0);
+        
+        //添加到searchBar到tableView的header
+        [headerView addSubview: self.searchController.searchBar];
         reusableview = headerView;
         topicModel* t=[topicModel new];
         t.ad=_adList;
         headerView.model=t;
+        
         //        reusableview.backgroundColor = kRedColor;
     }
     else if (kind == UICollectionElementKindSectionHeader && indexPath.section == 1){
@@ -238,7 +284,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return CGSizeZero;
+        return CGSizeMake(Main_Screen_Width,44);
     }
     
     return CGSizeMake(Main_Screen_Width, 30);

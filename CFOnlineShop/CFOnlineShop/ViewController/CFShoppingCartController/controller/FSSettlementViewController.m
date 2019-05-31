@@ -8,7 +8,7 @@
 
 #import "FSSettlementViewController.h"
 #import "FSShoppingCartInfoCell.h"
-
+#import "PPNumberButton.h"
 
 
 static NSString *const kOrderCellWithIdentifier = @"kOrderCellWithIdentifier";
@@ -38,6 +38,7 @@ static NSString *const kOrderCellWithIdentifier = @"kOrderCellWithIdentifier";
 @property (nonatomic, strong) NSArray *rightTitles;
 
 @end
+static NSInteger num_;
 
 @implementation FSSettlementViewController
 
@@ -189,6 +190,25 @@ static NSString *const kOrderCellWithIdentifier = @"kOrderCellWithIdentifier";
     if (self.dataSource.count > indexPath.row) {
         cell.model = self.dataSource[indexPath.row];
         cell.hideAdd = YES;
+        PPNumberButton *numberButton = [PPNumberButton numberButtonWithFrame:CGRectZero];
+        numberButton.shakeAnimation = YES;
+        numberButton.minValue = 1;
+        numberButton.inputFieldFont = 23;
+        numberButton.increaseTitle = @"＋";
+        numberButton.decreaseTitle = @"－";
+        num_ = (_lastNum == 0) ?  1 : [_lastNum integerValue];
+        numberButton.currentNumber = num_;
+        numberButton.delegate = self;
+        
+        numberButton.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
+            num_ = num;
+        };
+        [cell.contentView addSubview:numberButton];
+        [numberButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            [make.right.mas_equalTo(cell.contentView)setOffset:-10];
+            [make.bottom.mas_equalTo(cell.contentView)setOffset:10];
+            make.size.mas_equalTo(CGSizeMake(110, 60));
+        }];
     }
     return cell;
     }
@@ -208,6 +228,12 @@ static NSString *const kOrderCellWithIdentifier = @"kOrderCellWithIdentifier";
         if (indexPath.section>0) {
             cell.textLabel.text = [_detailTitles objectAtIndex:indexPath.row+indexPath.section-1];
             cell.detailTextLabel.text=[_rightTitles objectAtIndex:indexPath.row+indexPath.section-1];
+        }
+        if (indexPath.section>0 && indexPath.row==1) {
+            FSShopCartList* fsc=[FSShopCartList new];
+            fsc=self.dataSource[0];
+            cell.detailTextLabel.text=fsc.productPrice;
+
         }
         return cell;
     }

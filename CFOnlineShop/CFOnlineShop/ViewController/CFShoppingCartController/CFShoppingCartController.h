@@ -10,5 +10,6 @@
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 @interface CFShoppingCartController : CFBaseController
+@property (assign , nonatomic)NSString *lastNum;
 
 @end

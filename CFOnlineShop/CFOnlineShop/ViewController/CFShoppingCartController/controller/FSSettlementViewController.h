@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FSSettlementViewController : CFBaseController
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (assign , nonatomic)NSString *lastNum;
 
 @end
 

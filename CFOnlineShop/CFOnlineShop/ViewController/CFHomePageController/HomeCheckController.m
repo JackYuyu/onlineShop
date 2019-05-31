@@ -80,7 +80,10 @@
 -(void)postRecordUI
 {
     NSDictionary *params = @{
-                             @"openId" : [MySingleton sharedMySingleton].openId
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"todayScore" : @"1",
+                             @"conDays" : @"1",
+                             @"score" : @"1"
                              };
     [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/list"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"page"][@"list"];

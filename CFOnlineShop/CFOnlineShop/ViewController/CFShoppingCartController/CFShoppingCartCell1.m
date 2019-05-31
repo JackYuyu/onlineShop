@@ -19,11 +19,15 @@
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_imageView];
         
-        _titleStr = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(_imageView) + 15, 15, 150, 20)];
+        _titleStr = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(_imageView) + 15, 15, 250, 20)];
         _titleStr.font = SYSTEMFONT(14);
         _titleStr.textColor = KDarkTextColor;
         [self.contentView addSubview:_titleStr];
         
+        _priceStr = [[UILabel alloc] initWithFrame:CGRectMake(MaxX(_imageView) + 15, 45, 150, 20)];
+        _priceStr.font = SYSTEMFONT(14);
+        _priceStr.textColor = [UIColor redColor];
+        [self.contentView addSubview:_priceStr];
     }
     
     return self;

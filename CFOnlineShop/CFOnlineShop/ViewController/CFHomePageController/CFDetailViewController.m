@@ -10,6 +10,7 @@
 //#import "CFDetailView.h"
 #import "productModel.h"
 #import "CFShoppingCartController.h"
+#import "ProductInfoCell.h"
 
 @interface CFDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -74,6 +75,9 @@
             FSShopCartList* cart =[FSShopCartList new];
             cart.goodsId=p.productId;
             cart.goodsSkuId=p.goodsSkuId;
+            cart.name=p.productName;
+            cart.productPrice=p.priceName;
+            cart.logo=p.logo;
             [MySingleton sharedMySingleton].cartItem=cart;
             NSLog(@"");
 //            [_productList addObject:p];
@@ -153,6 +157,7 @@
 }
 -(void)postBrowseInfoUI
 {
+    NSString* b=[MySingleton sharedMySingleton].openId;
     NSDictionary *params = @{
                              @"openId" : [MySingleton sharedMySingleton].openId,
                              @"goodsId" : _productId,
@@ -214,7 +219,7 @@
     _tableView.backgroundColor = kWhiteColor;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    
+    [_tableView registerNib:[UINib nibWithNibName:@"ProductInfoCell" bundle:nil] forCellReuseIdentifier:@"productinfocell"];
     //去掉顶部偏移
     if (@available(iOS 11.0, *))
     {
@@ -461,7 +466,12 @@
     cell.textLabel.textColor = KDarkTextColor;
     cell.textLabel.text = [_detailTitles objectAtIndex:indexPath.row+indexPath.section];
     if (indexPath.section==0) {
-        cell.textLabel.text=_pmodel.productName;
+        ProductInfoCell *cell=[_tableView dequeueReusableCellWithIdentifier:@"productinfocell"];
+        cell.titleLabel.text=_pmodel.productName;
+        cell.titleLabel.numberOfLines=0;
+        cell.priceLabel.text=[NSString stringWithFormat:@"￥:%@",_pmodel.priceName];
+        cell.oPriceLabel.text=[NSString stringWithFormat:@"市场价:￥%@",_pmodel.costPrice];
+        return cell;
     }
     return cell;
 }

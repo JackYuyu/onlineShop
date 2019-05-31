@@ -53,14 +53,15 @@
     [self addSubview:_goodImageView];
     
     _goodPriceLabel = [UILabel new];
-    _goodPriceLabel.font = [UIFont systemFontOfSize:18.0];
-    _goodPriceLabel.textColor = [UIColor redColor];
+    _goodPriceLabel.numberOfLines = 2;
+    _goodPriceLabel.font = [UIFont systemFontOfSize:16.0];
+    _goodPriceLabel.textColor = KDarkTextColor;
     
     [self addSubview:_goodPriceLabel];
     
     _chooseAttLabel = [UILabel new];
-    _chooseAttLabel.numberOfLines = 2;
-    _chooseAttLabel.font = [UIFont systemFontOfSize:14];
+//    _chooseAttLabel.numberOfLines = 2;
+    _chooseAttLabel.font = [UIFont systemFontOfSize:18];
     [self addSubview:_chooseAttLabel];
     
 }
@@ -83,13 +84,14 @@
     
     [_goodPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         [make.left.mas_equalTo(_goodImageView.mas_right)setOffset:DCMargin];
+        [make.right.mas_equalTo(self)setOffset:-15];
         [make.top.mas_equalTo(_goodImageView)setOffset:DCMargin];
     }];
     
     [_chooseAttLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_goodPriceLabel);
         make.right.mas_equalTo(_crossButton.mas_left);
-        [make.top.mas_equalTo(_goodPriceLabel.mas_bottom)setOffset:5];
+        [make.top.mas_equalTo(_goodPriceLabel.mas_bottom)setOffset:15];
     }];
     
 }

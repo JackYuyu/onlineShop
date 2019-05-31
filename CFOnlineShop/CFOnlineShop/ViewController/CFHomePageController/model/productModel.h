@@ -12,12 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface productModel : FSBaseModel
 @property (nonatomic, copy) NSString * productName;
-@property (nonatomic, copy) NSString * oldPrice;
+@property (nonatomic, copy) NSString * priceName;
+@property (nonatomic, copy) NSString * costPrice;
 @property (nonatomic, copy) NSString * evaluateCount;
 //@property (nonatomic, copy) NSString * description;
 @property (nonatomic, copy) NSString * logo;
 @property (nonatomic, copy) NSString * productId;
 @property (nonatomic, copy) NSString * goodsSkuId;
+@property (nonatomic, copy) NSString * marketPrice;
 
 @end
 

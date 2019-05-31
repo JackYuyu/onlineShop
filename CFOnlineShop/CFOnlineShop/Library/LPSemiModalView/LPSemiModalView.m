@@ -64,16 +64,16 @@ static NSString *const DCFeatureChoseTopCellID = @"DCFeatureChoseTopCell";
     _cell = cell;
 //    if (_seleArray.count != _featureAttr.count && _lastSeleArray.count != _featureAttr.count) {
         cell.chooseAttLabel.textColor = [UIColor redColor];
-        cell.chooseAttLabel.text = @"有货";
+        cell.chooseAttLabel.text = [NSString stringWithFormat:@"¥ %@",_cartItem.productPrice];
 //    }else {
 //        cell.chooseAttLabel.textColor = [UIColor darkGrayColor];
 //        NSString *attString = (_seleArray.count == _featureAttr.count) ? [_seleArray componentsJoinedByString:@"，"] : [_lastSeleArray componentsJoinedByString:@"，"];
 //        cell.chooseAttLabel.text = [NSString stringWithFormat:@"已选属性：%@",attString];
 //    }
     
-    cell.goodPriceLabel.text = [NSString stringWithFormat:@"¥ %@",@"12"];
-//    [cell.goodImageView sd_setImageWithURL:[NSURL URLWithString:_goodImageView]];
-    [cell.goodImageView setImage:[UIImage imageNamed:@"commodity_7"]];
+    cell.goodPriceLabel.text = _cartItem.name;
+    [cell.goodImageView sd_setImageWithURL:[NSURL URLWithString:_cartItem.logo]];
+//    [cell.goodImageView setImage:[UIImage imageNamed:@"commodity_7"]];
     __weak typeof(self) weakSelf = self;
     cell.crossButtonClickBlock = ^{
         [weakSelf dismissFeatureViewControllerWithTag:100];
@@ -148,7 +148,6 @@ static NSString *const DCFeatureChoseTopCellID = @"DCFeatureChoseTopCell";
 }
 -(void)postUI
 {
-    _cartItem=[MySingleton sharedMySingleton].cartItem;
     NSDictionary *params = @{
                              @"goodsId" : _cartItem.goodsId,
                              @"openId" : [MySingleton sharedMySingleton].openId,
@@ -215,6 +214,8 @@ static NSString *const DCFeatureChoseTopCellID = @"DCFeatureChoseTopCell";
             }
         }];
     }
+    _cartItem=[MySingleton sharedMySingleton].cartItem;
+
     [self setup];
     [self setUpBottonView];
 }
@@ -243,12 +244,12 @@ static NSString *const DCFeatureChoseTopCellID = @"DCFeatureChoseTopCell";
                 if (self.baseViewController.navigationController) {
                     if (self.block) {
                         FSSettlementViewController* confirmOrder=[[FSSettlementViewController alloc] initWithNibName:@"FSSettlementViewController" bundle:nil];
-                        FSShopCartList *newCart = [FSShopCartList new];
-                        newCart.num = [NSString stringWithFormat:@"%ld", 1.0];
-                        newCart.img = @"commodity_7";
-                        newCart.name = @"测试商品";
-                        newCart.idField = @"11111";
-                        confirmOrder.dataSource = [NSMutableArray arrayWithObjects:newCart, nil];
+//                        FSShopCartList *newCart = [FSShopCartList new];
+//                        newCart.num = [NSString stringWithFormat:@"%ld", 1.0];
+//                        newCart.img = @"commodity_7";
+//                        newCart.name = @"测试商品";
+//                        newCart.idField = @"11111";
+                        confirmOrder.dataSource = [NSMutableArray arrayWithObjects:_cartItem, nil];
                         [self.baseViewController.navigationController pushViewController:confirmOrder animated:YES];
                     }
                     else

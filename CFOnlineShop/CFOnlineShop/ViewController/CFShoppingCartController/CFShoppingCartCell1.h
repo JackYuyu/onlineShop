@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *titleStr;
+@property (nonatomic, strong) UILabel *priceStr;
 
 @end

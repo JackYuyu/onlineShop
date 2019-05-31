@@ -12,6 +12,7 @@
 #import "CFShoppingCartHeaderView.h"
 #import "productModel.h"
 #import "FSSettlementViewController.h"
+#import "PPNumberButton.h"
 
 @interface CFShoppingCartController ()<UICollectionViewDelegate,UICollectionViewDataSource,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
@@ -20,6 +21,7 @@
 @property (nonatomic, assign) CGFloat bottomHeight;
 
 @end
+static NSInteger num_;
 
 @implementation CFShoppingCartController
 
@@ -155,6 +157,7 @@
         productModel* p=[_productList objectAtIndex:indexPath.row];
         //cell.backgroundColor = kRedColor;
         cell.titleStr.text = p.productName;
+        cell.priceStr.text=[NSString stringWithFormat:@"￥:%@",p.marketPrice];
         NSString *imageName = [NSString stringWithFormat:@"commodity_%ld",(long)indexPath.row + 1];
 //        cell.imageView.image = [UIImage imageNamed:imageName];
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:p.logo]];
@@ -162,6 +165,25 @@
             NSLog(@"删除操作");
         }];
         
+        PPNumberButton *numberButton = [PPNumberButton numberButtonWithFrame:CGRectZero];
+        numberButton.shakeAnimation = YES;
+        numberButton.minValue = 1;
+        numberButton.inputFieldFont = 23;
+        numberButton.increaseTitle = @"＋";
+        numberButton.decreaseTitle = @"－";
+        num_ = (_lastNum == 0) ?  1 : [_lastNum integerValue];
+        numberButton.currentNumber = num_;
+        numberButton.delegate = self;
+        
+        numberButton.resultBlock = ^(NSInteger num ,BOOL increaseStatus){
+            num_ = num;
+        };
+        [cell.contentView addSubview:numberButton];
+        [numberButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            [make.right.mas_equalTo(cell.contentView)setOffset:-10];
+            [make.bottom.mas_equalTo(cell.contentView)setOffset:0];
+            make.size.mas_equalTo(CGSizeMake(110, 40));
+        }];
         return cell;
     }
     else

@@ -10,11 +10,7 @@
 #import "UIImageView+SDWebImage.h"
 
 @interface FSShoppingCartInfoCell()
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UIButton *addButton;
-@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
-@property (weak, nonatomic) IBOutlet UIButton *selectButton;
-@property (weak, nonatomic) IBOutlet UIImageView *productView;
+
 @end
 
 @implementation FSShoppingCartInfoCell
@@ -42,9 +38,11 @@
     _model = model;
     
     self.nameLabel.text = model.name;
+    self.nameLabel.numberOfLines=0;
 //    [self.productView setImage:model.img placeholder:@"img_empty"];
-    [self.productView setImage:[UIImage imageNamed:model.img]];
-    self.numberLabel.text = [NSString stringWithFormat:@"count: %@", model.num];
+    [self.productView sd_setImageWithURL:[NSURL URLWithString:model.logo]];
+    self.numberLabel.text = [NSString stringWithFormat:@"￥: %@", model.productPrice];
+    self.numberLabel.textColor=[UIColor redColor];
     
     self.selectButton.selected = model.isSelect;
 }

@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * goodsId;
 @property (nonatomic, strong) NSString * openId;
 @property (nonatomic, strong) NSString * goodsSkuId;
+@property (nonatomic, strong) NSString * logo;
+@property (nonatomic, strong) NSString * productPrice;
 
 @property (nonatomic, strong) NSString * buff;
 @property (nonatomic, strong) NSString * del;

@@ -34,6 +34,8 @@ static NSString *const kOrderCellWithIdentifier = @"kOrderCellWithIdentifier";
 @property (nonatomic, strong) NSMutableArray *addressResult;
 
 @property (nonatomic, copy) NSString * addressID;
+@property (nonatomic, strong) NSArray *detailTitles;
+@property (nonatomic, strong) NSArray *rightTitles;
 
 @end
 
@@ -55,7 +57,9 @@ static NSString *const kOrderCellWithIdentifier = @"kOrderCellWithIdentifier";
     // Do any additional setup after loading the view from its nib.
     self.title = @"确认订单";
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    
+    _detailTitles = @[@"配送方式",@"买家留言:",@"积分 共10",@"商品总额",@"运费",@"积分"];
+    _rightTitles = @[@"快递公司",@"本次交易的说明:",@"当前使用积分 0",@"75",@"+10",@"-0"];
+
     [self initSubview];
     [self requestAddress];
     self.navigationBgView.backgroundColor = kWhiteColor;
@@ -201,6 +205,10 @@ static NSString *const kOrderCellWithIdentifier = @"kOrderCellWithIdentifier";
         cell.textLabel.font = SYSTEMFONT(16);
         cell.textLabel.textColor = KDarkTextColor;
         cell.textLabel.text = @"哈哈哈哈哈啊哈哈";
+        if (indexPath.section>0) {
+            cell.textLabel.text = [_detailTitles objectAtIndex:indexPath.row+indexPath.section-1];
+            cell.detailTextLabel.text=[_rightTitles objectAtIndex:indexPath.row+indexPath.section-1];
+        }
         return cell;
     }
 }

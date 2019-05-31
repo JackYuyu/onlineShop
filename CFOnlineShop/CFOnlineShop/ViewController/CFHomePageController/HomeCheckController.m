@@ -49,6 +49,19 @@
     _segmentTitles = @[@"积分规则",@"获得记录"];
 
 }
+-(void)postUI
+{
+    NSDictionary *params = @{
+                             @"openId" : [MySingleton sharedMySingleton].openId
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/save"] body:data showLoading:false success:^(NSDictionary *response) {
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"");
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
 #pragma mark -- SegmentedControlDelegate & datasource
 
 - (NSArray *)getSegmentedControlTitles
@@ -58,8 +71,31 @@
 
 - (void)control:(CFSegmentedControl *)control didSelectAtIndex:(NSInteger)index
 {
+    if (index==1) {
+        [self postRecordUI];
+    }
     NSLog(@"");
     //    [_bgScrollView setContentOffset:CGPointMake(Main_Screen_Width * index, 0) animated:YES];
+}
+-(void)postRecordUI
+{
+    NSDictionary *params = @{
+                             @"openId" : [MySingleton sharedMySingleton].openId
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/list"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"page"][@"list"];
+//        _topicList=[[NSMutableArray alloc] init];
+//
+//        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+//            topicModel* t=[topicModel mj_objectWithKeyValues:products];
+            NSLog(@"");
+//            [_topicList addObject:t];
+//            [_adList addObject:t.img];
+//        }
+//        [_collectionView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
 }
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -143,7 +179,7 @@
                 self.progressView1.progressCount =0;
             }
             [self.progressView1 reload];
-
+    [self postUI];
 }
 //选中cell时调用的方法
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

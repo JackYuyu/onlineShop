@@ -77,6 +77,7 @@
             [MySingleton sharedMySingleton].cartItem=cart;
             NSLog(@"");
 //            [_productList addObject:p];
+            [self loadWeb];
         }
         [_tableView reloadData];
     } failure:^(NSError *error) {
@@ -229,12 +230,15 @@
     [_bigView addSubview:_tableView];
     [_bigView addSubview:_webView];
     
+    
+}
+-(void)loadWeb
+{
     WeakSelf(self);
     dispatch_async(dispatch_get_main_queue(), ^{
-        [weakself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.baidu.com"]]];
+        [weakself.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_pmodel.logo]]];
     });
 }
-
 - (void)setHeaderAndFooterView{
     
     //添加头部和尾部视图

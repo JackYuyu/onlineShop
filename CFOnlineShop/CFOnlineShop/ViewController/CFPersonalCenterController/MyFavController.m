@@ -38,10 +38,10 @@
     _segmentedControl.delegate = self;
     _segmentedControl.dataSource = self;
     _segmentedControl.alpha = 1;
-    _segmentedControl.tapIndex=2;
     //    [view addSubview:_segmentedControl];
     [self.view addSubview:_segmentedControl];
-    
+    [_segmentedControl didSelectIndex:1];
+
 }
 -(void)postUI
 {

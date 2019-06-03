@@ -102,8 +102,8 @@
 //            [_topicList addObject:t];
             [_checkList addObject:t];
         }
-        weakself.segmentedControl.tapIndex=2;
         [_tableView reloadData];
+        [_segmentedControl didSelectIndex:1];
     } failure:^(NSError *error) {
         NSLog(@"");
     }];
@@ -172,8 +172,8 @@
     _segmentedControl.delegate = self;
     _segmentedControl.dataSource = self;
     _segmentedControl.alpha = 1;
-    _segmentedControl.tapIndex=2;
     [view addSubview:_segmentedControl];
+
     return view;
 }
 -(UIImage*) createImageWithColor:(UIColor*) color

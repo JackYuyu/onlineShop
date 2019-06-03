@@ -14,7 +14,7 @@
 
 @property (nonatomic, assign) NSInteger numOfMenu;
 
-//@property (nonatomic, assign) NSInteger tapIndex;
+@property (nonatomic, assign) NSInteger tapIndex;
 //layers array
 @property (nonatomic, copy) NSArray *titles;
 

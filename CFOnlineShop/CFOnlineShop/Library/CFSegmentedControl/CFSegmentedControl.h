@@ -26,7 +26,6 @@
 @property (nonatomic, weak) id <CFSegmentedControlDataSource> dataSource;
 @property (nonatomic, weak) id <CFSegmentedControlDelegate> delegate;
 @property (nonatomic, strong) UIView *bottomLine;//底部滑动横线
-@property (nonatomic, assign) NSInteger tapIndex;
 
 - (void)didSelectIndex:(NSInteger )index;
 

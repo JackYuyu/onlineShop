@@ -173,7 +173,7 @@
     //bottomLine.hidden = !show;
     WeakSelf(self);
     [UIView animateWithDuration:0.3 animations:^{
-        bottomLine.mj_x = bottomLineEdge + (self.frame.size.width / weakself.numOfMenu) * 1;
+        bottomLine.mj_x = bottomLineEdge + (self.frame.size.width / weakself.numOfMenu) * _tapIndex;
     }];
     
     complete();

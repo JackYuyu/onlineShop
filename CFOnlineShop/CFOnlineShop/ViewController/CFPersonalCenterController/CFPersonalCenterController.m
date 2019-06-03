@@ -8,7 +8,11 @@
 
 #import "CFPersonalCenterController.h"
 #import "DCLoginViewController.h"
-
+#import "OrderController.h"
+#import "MyPointController.h"
+#import "MyFavController.h"
+#import "MyFootController.h"
+#import "MySettingController.h"
 @interface CFPersonalCenterController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UIImageView *bgImageView;
@@ -155,7 +159,29 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.section==0) {
+
+    if (indexPath.row==1) {
+        OrderController* o=[OrderController new];
+        [self.navigationController pushViewController:o animated:YES];
+    }
+    if (indexPath.row==2) {
+        MyPointController* o=[MyPointController new];
+        [self.navigationController pushViewController:o animated:YES];
+    }
+    if (indexPath.row==4) {
+        MyFootController* o=[MyFootController new];
+        [self.navigationController pushViewController:o animated:YES];
+    }
+    if (indexPath.row==5) {
+        MyFavController* o=[MyFavController new];
+        [self.navigationController pushViewController:o animated:YES];
+    }
+    }
+    if (indexPath.section==1&&indexPath.row==1) {
+        MySettingController* o=[MySettingController new];
+        [self.navigationController pushViewController:o animated:YES];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate

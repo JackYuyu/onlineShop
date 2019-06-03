@@ -14,7 +14,7 @@
 
 @property (nonatomic, assign) NSInteger numOfMenu;
 
-@property (nonatomic, assign) NSInteger tapIndex;
+//@property (nonatomic, assign) NSInteger tapIndex;
 //layers array
 @property (nonatomic, copy) NSArray *titles;
 
@@ -173,7 +173,7 @@
     //bottomLine.hidden = !show;
     WeakSelf(self);
     [UIView animateWithDuration:0.3 animations:^{
-        bottomLine.mj_x = bottomLineEdge + (self.frame.size.width / weakself.numOfMenu) * weakself.tapIndex;
+        bottomLine.mj_x = bottomLineEdge + (self.frame.size.width / weakself.numOfMenu) * 1;
     }];
     
     complete();

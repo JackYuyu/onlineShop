@@ -10,11 +10,15 @@
 #import "ZWProgressPointBtn.h"
 #import "math.h"
 #import "CFSegmentedControl.h"
+#import "checkModel.h"
 
 @interface HomeCheckController ()<UITableViewDataSource,UITableViewDelegate,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, weak) ZWProgressPointBtn *progressView1;
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic, strong) CFSegmentedControl *segmentedControl;
+@property (nonatomic,strong) NSMutableArray* checkList;
+@property (nonatomic,strong) UITableView* tableView;
+
 @end
 
 @implementation HomeCheckController
@@ -29,19 +33,20 @@
     [self.view addSubview:progressView1];
     progressView1.progressLineWidth = 5;
     progressView1.progressRadianSpacing = 0.02;
-    progressView1.totalCount = 6;
-    progressView1.progressCount = 3;
+    progressView1.totalCount = 1;
+    progressView1.progressCount = 1;
     progressView1.pointColor = RGBCOLOR(238, 188, 90);
     [progressView1.centerBtn setImage:[self createImageWithColor:[UIColor whiteColor]] forState:0];
     [progressView1.centerBtn addTarget:self action:@selector(clickToDo:) forControlEvents:UIControlEventTouchUpInside];
     self.progressView1 = progressView1;
+
     [uv addSubview:progressView1];
     
     tableView.tableHeaderView=uv;
     tableView.delegate=self;
     tableView.dataSource=self;
     //    tableView.editing=YES;
-    
+    _tableView=tableView;
     [self.view addSubview:tableView];
     self.navigationBgView.backgroundColor = kWhiteColor;
     self.navigationBgView.alpha = 1;
@@ -58,6 +63,7 @@
     [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/save"] body:data showLoading:false success:^(NSDictionary *response) {
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
         NSLog(@"");
+        self.progressView1.check.text=@"已签到";
     } failure:^(NSError *error) {
         NSLog(@"");
     }];
@@ -85,17 +91,19 @@
                              @"conDays" : @"1",
                              @"score" : @"1"
                              };
+    WeakSelf(self)
     [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/list"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"page"][@"list"];
-//        _topicList=[[NSMutableArray alloc] init];
+        _checkList=[[NSMutableArray alloc] init];
 //
-//        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
-//            topicModel* t=[topicModel mj_objectWithKeyValues:products];
+        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
+            checkModel* t=[checkModel mj_objectWithKeyValues:products];
             NSLog(@"");
 //            [_topicList addObject:t];
-//            [_adList addObject:t.img];
-//        }
-//        [_collectionView reloadData];
+            [_checkList addObject:t];
+        }
+        weakself.segmentedControl.tapIndex=2;
+        [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"");
     }];
@@ -103,7 +111,7 @@
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    if (section==0) {
-    return 5;
+    return [_checkList count];
     //    }else{
     //        return 10;
     //    }
@@ -127,7 +135,10 @@
     //    cell.showsReorderControl=YES;
     //    cell.shouldIndentWhileEditing=YES;
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
+    checkModel* c=[_checkList objectAtIndex:indexPath.row];
+    cell.textLabel.text=@"每日签到获得";
+    cell.detailTextLabel.text=c.signTime;
+//    cell.
     return cell;
 }
 
@@ -136,7 +147,7 @@
     //    if (indexPath.section==0) {
     //        return 100;
     //    }else{
-    return 44;
+    return 64;
     //    }
 }
 //设置分区尾视图高度
@@ -145,7 +156,7 @@
 }
 //设置分区头视图高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 50;
+    return 40;
 }
 //设置分区的尾视图
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -161,6 +172,7 @@
     _segmentedControl.delegate = self;
     _segmentedControl.dataSource = self;
     _segmentedControl.alpha = 1;
+    _segmentedControl.tapIndex=2;
     [view addSubview:_segmentedControl];
     return view;
 }

@@ -52,29 +52,78 @@
 //    [DCSpeedy dc_setSomeOneChangeColor:_agreementLabel SetSelectArray:@[@"《",@"》",@"服",@"务",@"协",@"议"] SetChangeColor:RGB(56, 152, 181)];
 
 }
--(IBAction)loginClick
+-(IBAction)loginClick:(UIButton*)sender
 {
-    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSInteger a=sender.tag;
+    if (a==1) {
+            NSMutableDictionary* dic=[NSMutableDictionary new];
+            NSDictionary *params = @{
+                                     @"mobile" : _userNameField.text,
+                                     @"password": _verificationField.text
+                                     };
+            NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+            [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/app/register"] body:data showLoading:false success:^(NSDictionary *response) {
+                NSString * str  =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+                NSLog(@"");
+                if(self.block)
+                    self.block();
+            } failure:^(NSError *error) {
+                NSLog(@"");
+            }];
+    }
+    else{
+        [self verify];
+    }
+}
+-(void)code
+{
     NSDictionary *params = @{
-                             @"mobile" : @"15821414708",
-                             @"password": @"123456"
+                             @"phone" : _userNameField.text
                              };
     NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
-    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/app/login"] body:data showLoading:false success:^(NSDictionary *response) {
-//        NSString * str  =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-//        NSData * datas = [str dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-        [MySingleton sharedMySingleton].openId=[jsonDict objectForKey:@"openid"];
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/usermessageinfo/setPhone"] body:data showLoading:false success:^(NSDictionary *response) {
+        NSString * str  =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
         NSLog(@"");
-        NSString *passWord = [jsonDict objectForKey:@"openid"];
-        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-        [user setObject:passWord forKey:@"openid"];
-        [user synchronize];
+
     } failure:^(NSError *error) {
         NSLog(@"");
     }];
 }
-
+-(void)verify
+{
+    NSDictionary *params = @{
+                             @"phone" : _userNameField.text,
+                             @"code" : _verificationField.text
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/customerinfo/checkingPhone"] body:data showLoading:false success:^(NSDictionary *response) {
+        NSLog(@"");
+        NSMutableDictionary* dic=[NSMutableDictionary new];
+        NSDictionary *params = @{
+                                 @"mobile" : _userNameField.text,
+                                 @"password": @"123456"
+                                 };
+        NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+        [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/app/login"] body:data showLoading:false success:^(NSDictionary *response) {
+            //        NSString * str  =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+            //        NSData * datas = [str dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            [MySingleton sharedMySingleton].openId=[jsonDict objectForKey:@"openid"];
+            NSLog(@"");
+            NSString *passWord = [jsonDict objectForKey:@"openid"];
+            NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+            [user setObject:passWord forKey:@"openid"];
+            [user synchronize];
+            if (self.block) {
+                self.block();
+            }
+        } failure:^(NSError *error) {
+            NSLog(@"");
+        }];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
 #pragma mark - Setter Getter Methods
 
 
@@ -107,7 +156,7 @@
 
 #pragma mark - 验证点击
 - (IBAction)validationClick:(UIButton *)sender {
-    
+    [self code];
     __block NSInteger time = 59; //设置倒计时时间
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
     

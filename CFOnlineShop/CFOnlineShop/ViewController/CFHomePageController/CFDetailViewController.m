@@ -11,7 +11,8 @@
 #import "productModel.h"
 #import "CFShoppingCartController.h"
 #import "ProductInfoCell.h"
-
+#import "StarView.h"
+#import "CommentModel.h"
 @interface CFDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UIView *bigView;
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) NSArray *detailTitles;
 @property (nonatomic,strong)productModel* pmodel;
 //@property (nonatomic, strong) CFDetailView *detailView;
+@property (nonatomic, strong) NSMutableArray *commentList;
 
 @end
 
@@ -98,12 +100,13 @@
                              };
     [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodscomment/list"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"page"][@"list"];
+        _commentList =[NSMutableArray new];
         for (NSDictionary* products in responseObj[@"page"][@"list"]) {
-            //            productModel* p=[productModel mj_objectWithKeyValues:products];
+                        CommentModel* p=[CommentModel mj_objectWithKeyValues:products];
             //            p.productName=[products objectForKey:@"description"];
             //            p.productId=[products objectForKey:@"id"];
             NSLog(@"");
-            //            [_productList addObject:p];
+                        [_commentList addObject:p];
         }
         [_tableView reloadData];
     } failure:^(NSError *error) {
@@ -456,11 +459,11 @@
 {
     static NSString *identifier = @"identifier";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+//    if (!cell) {
+       UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
+//    }
     
     cell.textLabel.font = SYSTEMFONT(16);
     cell.textLabel.textColor = KDarkTextColor;
@@ -473,6 +476,70 @@
         cell.oPriceLabel.text=[NSString stringWithFormat:@"市场价:￥%@",_pmodel.costPrice];
         return cell;
     }
+    if (indexPath.section==1&&indexPath.row==0) {
+        UIView* v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 80)];
+        UILabel*comName=[UILabel new];
+        StarView* star=[StarView new];
+        UILabel* date=[UILabel new];
+        UILabel* comm=[UILabel new];
+        CommentModel* c=[_commentList objectAtIndex:0];
+        comName.text=c.nickname;
+        star.font_size = 16;
+        star.show_star = 40;
+        star.canSelected = YES;
+        date.text=c.time;
+        comm.text=c.content;
+        [v addSubview:comName];
+        [v addSubview:star];
+        [v addSubview:date];
+        [v addSubview:comm];
+        [cell.contentView addSubview:v];
+        
+        [comName mas_makeConstraints:^(MASConstraintMaker *make) {
+            [make.left.mas_equalTo(cell.contentView)setOffset:10];
+            [make.top.mas_equalTo(cell.contentView)setOffset:5];
+            make.size.mas_equalTo(CGSizeMake(100, 40));
+
+        }];
+        [star mas_makeConstraints:^(MASConstraintMaker *make) {
+            [make.left.mas_equalTo(comName.mas_right)setOffset:10];
+            [make.top.mas_equalTo(cell.contentView)setOffset:15];
+            make.size.mas_equalTo(CGSizeMake(80, 100));
+        }];
+        [date mas_makeConstraints:^(MASConstraintMaker *make) {
+            [make.right.mas_equalTo(cell.contentView)setOffset:-10];
+            [make.top.mas_equalTo(cell.contentView)setOffset:5];
+            make.size.mas_equalTo(CGSizeMake(180, 40));
+        }];
+        [comm mas_makeConstraints:^(MASConstraintMaker *make) {
+            [make.left.mas_equalTo(cell.contentView)setOffset:10];
+            [make.top.mas_equalTo(comName.mas_bottom)setOffset:0];
+            make.size.mas_equalTo(CGSizeMake(Main_Screen_Width-20,40));
+        }];
+        cell.textLabel.text=@"";
+        return cell;
+    }
+    else if(indexPath.section==1&&indexPath.row==1){
+        UIView* v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 80)];
+        UIButton* b=[UIButton new];
+        [b setTitle:@"查看更多评论" forState:UIControlStateNormal];
+        [b setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
+        [b addTarget:self action:@selector(comment) forControlEvents:UIControlEventTouchUpInside];
+        [v addSubview:b];
+        [cell.contentView addSubview:v];
+
+        [b mas_makeConstraints:^(MASConstraintMaker *make) {
+            [make.center.mas_equalTo(cell.contentView)setOffset:(0)];
+            make.size.mas_equalTo(CGSizeMake(120, 40));
+        }];
+        cell.textLabel.text=@"";
+        return cell;
+    }
+    else if (indexPath.section==2)
+    {
+        cell.detailTextLabel.text=_pmodel.detailInfo;
+        return cell;
+    }
     return cell;
 }
 
@@ -480,7 +547,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 }
-
+-(void)comment
+{
+    NSLog(@"");
+}
 /*
 #pragma mark - Navigation
 

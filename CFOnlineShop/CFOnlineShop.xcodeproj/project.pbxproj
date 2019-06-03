@@ -39,6 +39,10 @@
 		0CCF56B720FF2ABA00B8FE09 /* CFHomeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF56B620FF2ABA00B8FE09 /* CFHomeCollectionCell.m */; };
 		0CCF56BB20FF34F600B8FE09 /* PurchaseCarAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF56BA20FF34F600B8FE09 /* PurchaseCarAnimationTool.m */; };
 		7BEFEDDEC4BED6E666013D81 /* libPods-CFOnlineShop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00E58A4A62D2AAF5A92469E /* libPods-CFOnlineShop.a */; };
+		DD27DD3F22A4C0C400A96EFF /* StarView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27DD3D22A4C0C300A96EFF /* StarView.m */; };
+		DD27DD4222A4EEF400A96EFF /* DCRegisteredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27DD4022A4EEF400A96EFF /* DCRegisteredViewController.m */; };
+		DD27DD8522A509E600A96EFF /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27DD8422A509E600A96EFF /* CommentModel.m */; };
+		DD27DD8822A51CEE00A96EFF /* checkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27DD8722A51CEE00A96EFF /* checkModel.m */; };
 		DD561DAD2296492C00DE4DAF /* CategoryInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DAC2296492C00DE4DAF /* CategoryInfoController.m */; };
 		DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DAF22964B8F00DE4DAF /* HomeCollectionCatCell.m */; };
 		DD561DB32296655600DE4DAF /* CollectionCatHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DB22296655600DE4DAF /* CollectionCatHeader.m */; };
@@ -141,6 +145,14 @@
 		9AE53557BFFF0C38A40C3C2E /* Pods-CFOnlineShop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CFOnlineShop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CFOnlineShop/Pods-CFOnlineShop.debug.xcconfig"; sourceTree = "<group>"; };
 		B00E58A4A62D2AAF5A92469E /* libPods-CFOnlineShop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CFOnlineShop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FDD9F89AD4DBDD8DB7EFE2 /* Pods-CFOnlineShop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CFOnlineShop.release.xcconfig"; path = "Pods/Target Support Files/Pods-CFOnlineShop/Pods-CFOnlineShop.release.xcconfig"; sourceTree = "<group>"; };
+		DD27DD3D22A4C0C300A96EFF /* StarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarView.m; sourceTree = "<group>"; };
+		DD27DD3E22A4C0C400A96EFF /* StarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarView.h; sourceTree = "<group>"; };
+		DD27DD4022A4EEF400A96EFF /* DCRegisteredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRegisteredViewController.m; sourceTree = "<group>"; };
+		DD27DD4122A4EEF400A96EFF /* DCRegisteredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRegisteredViewController.h; sourceTree = "<group>"; };
+		DD27DD8322A509E600A96EFF /* CommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
+		DD27DD8422A509E600A96EFF /* CommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
+		DD27DD8622A51CEE00A96EFF /* checkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = checkModel.h; sourceTree = "<group>"; };
+		DD27DD8722A51CEE00A96EFF /* checkModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = checkModel.m; sourceTree = "<group>"; };
 		DD561DAB2296492C00DE4DAF /* CategoryInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryInfoController.h; sourceTree = "<group>"; };
 		DD561DAC2296492C00DE4DAF /* CategoryInfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryInfoController.m; sourceTree = "<group>"; };
 		DD561DAE22964B8F00DE4DAF /* HomeCollectionCatCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCollectionCatCell.h; sourceTree = "<group>"; };
@@ -497,6 +509,10 @@
 				DDE4312F229E7E8600F58DEA /* productModel.m */,
 				DDE43131229F69E500F58DEA /* topicModel.h */,
 				DDE43132229F69E500F58DEA /* topicModel.m */,
+				DD27DD8322A509E600A96EFF /* CommentModel.h */,
+				DD27DD8422A509E600A96EFF /* CommentModel.m */,
+				DD27DD8622A51CEE00A96EFF /* checkModel.h */,
+				DD27DD8722A51CEE00A96EFF /* checkModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -526,6 +542,8 @@
 		DD561DCF2297E16500DE4DAF /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				DD27DD3E22A4C0C400A96EFF /* StarView.h */,
+				DD27DD3D22A4C0C300A96EFF /* StarView.m */,
 				DD561DD02297E16500DE4DAF /* DCFeatureChoseTopCell.h */,
 				DD561DD12297E16500DE4DAF /* DCFeatureChoseTopCell.m */,
 				DDE4314422A0C74100F58DEA /* ProductInfoCell.h */,
@@ -570,6 +588,8 @@
 				DD759DAB229C161100B71414 /* DCLoginViewController.h */,
 				DD759DAC229C161100B71414 /* DCLoginViewController.m */,
 				DD759DAD229C161100B71414 /* DCLoginViewController.xib */,
+				DD27DD4122A4EEF400A96EFF /* DCRegisteredViewController.h */,
+				DD27DD4022A4EEF400A96EFF /* DCRegisteredViewController.m */,
 				DD759DB1229C16E900B71414 /* DCVerificationView.h */,
 				DD759DB2229C16E900B71414 /* DCVerificationView.m */,
 				DD759DB0229C16E800B71414 /* DCVerificationView.xib */,
@@ -720,11 +740,13 @@
 				DDE43133229F69E500F58DEA /* topicModel.m in Sources */,
 				DDE4313A229FA70B00F58DEA /* ClassificationDetailController.m in Sources */,
 				0CCF56A120FEE3A200B8FE09 /* CFHomePageController.m in Sources */,
+				DD27DD4222A4EEF400A96EFF /* DCRegisteredViewController.m in Sources */,
 				DDE43137229F875C00F58DEA /* classifyModel.m in Sources */,
 				DD561DB72296D0A900DE4DAF /* FSBaseModel.m in Sources */,
 				DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */,
 				0C4754FA21006E0A007DC738 /* CFRefreshHeader.m in Sources */,
 				DD759D99229BAC2E00B71414 /* CFHomeCollectionHeaderthree.m in Sources */,
+				DD27DD8522A509E600A96EFF /* CommentModel.m in Sources */,
 				0C4754F7210033BE007DC738 /* CFHomeCollectionHeader.m in Sources */,
 				DD561DD22297E16500DE4DAF /* DCFeatureChoseTopCell.m in Sources */,
 				DD759D9E229BC3A900B71414 /* FSSettlementViewController.m in Sources */,
@@ -751,7 +773,9 @@
 				DD561DBD2296D52000DE4DAF /* UIImageView+SDWebImage.m in Sources */,
 				DD759DA4229BC43D00B71414 /* FSShoppingCartInfoCell.m in Sources */,
 				0CCF56AF20FF139300B8FE09 /* CALayer+CFAnimation.m in Sources */,
+				DD27DD3F22A4C0C400A96EFF /* StarView.m in Sources */,
 				0CCF56B320FF291900B8FE09 /* UIColor+CFColor.m in Sources */,
+				DD27DD8822A51CEE00A96EFF /* checkModel.m in Sources */,
 				0C80ACAE21018A3800703876 /* LPSemiModalView.m in Sources */,
 				DDE4313D229FB4A700F58DEA /* HomeSpecialController.m in Sources */,
 				DD759DAE229C161100B71414 /* DCLoginViewController.m in Sources */,
@@ -893,7 +917,7 @@
 				DEVELOPMENT_TEAM = 2CAKHRKM9H;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CFOnlineShop/PrefixHeader.pch";
 				INFOPLIST_FILE = CFOnlineShop/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -913,7 +937,7 @@
 				DEVELOPMENT_TEAM = 2CAKHRKM9H;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/CFOnlineShop/PrefixHeader.pch";
 				INFOPLIST_FILE = CFOnlineShop/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

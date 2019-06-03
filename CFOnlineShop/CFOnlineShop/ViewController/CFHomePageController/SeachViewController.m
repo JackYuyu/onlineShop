@@ -18,7 +18,7 @@
 #import "CollectionCatHeader.h"
 #import "CFSegmentedControl.h"
 #import "productModel.h"
-@interface SeachViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CFSegmentedControlDataSource,CFSegmentedControlDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UISearchBarDelegate>
+@interface SeachViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CFSegmentedControlDataSource,CFSegmentedControlDelegate,UISearchBarDelegate>
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIImageView *searchImageView;
 @property (nonatomic, assign) CGFloat headerOffsetY;
@@ -79,11 +79,30 @@
     NSString* a=self.searchController.searchBar.text;
     NSLog(@"");
 }
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
-
-{
-    
+//点击取消按钮触发的方法
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+}
+//点击键盘上的搜索键触发的方法
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    NSString* a=searchBar.text;
+    _categoryId=a;
+    NSLog(@"---updateSearchResultsForSearchController");
+    [self postUI];
+}
+//搜索栏将要开始编辑时触发的方法
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     return YES;
+}
+//搜索栏将要结束编辑时触发的方法
+-(BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
+    return YES;
+}
+//搜索栏已经开始编辑时触发的方法
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    
+}
+//搜索栏已经结束编辑时触发的方法
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
     
 }
 
@@ -237,24 +256,20 @@
     if (kind == UICollectionElementKindSectionHeader && indexPath.section == 0){
         
         CollectionCatHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-        //创建UISearchController
-        self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
-        //设置代理
-        self.searchController.delegate = self;
-        self.searchController.searchResultsUpdater= self;
+
         
-        //设置UISearchController的显示属性，以下3个属性默认为YES
-        //搜索时，背景变暗色
-        self.searchController.dimsBackgroundDuringPresentation = YES;
-        //搜索时，背景变模糊
-        self.searchController.obscuresBackgroundDuringPresentation = YES;
-        //隐藏导航栏
-        self.searchController.hidesNavigationBarDuringPresentation = YES;
         
-        self.searchController.searchBar.frame = CGRectMake(0, 0, self.searchController.searchBar.frame.size.width, 44.0);
-        
-        //添加到searchBar到tableView的header
-        [headerView addSubview: self.searchController.searchBar];
+        //
+        UISearchBar * searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 44.0)];
+        searchBar.tintColor = [UIColor darkGrayColor];
+        searchBar.placeholder = @"搜索你想要的商品名称";
+        searchBar.showsScopeBar = YES;
+        searchBar.showsCancelButton = YES;
+        searchBar.showsBookmarkButton=YES;
+        searchBar.showsSearchResultsButton =YES;
+        searchBar.delegate=self;
+        //    [searchBar setScopeButtonTitles:@[@"one",@"two",@"three"]];
+        [headerView addSubview:searchBar];
         reusableview = headerView;
         topicModel* t=[topicModel new];
         t.ad=_adList;

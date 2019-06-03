@@ -31,6 +31,9 @@
 @property (nonatomic, weak)  ZWProgressCenterBtn * centerBtn;
 
 @property(assign, nonatomic) int indexCount;
+@property (nonatomic, strong) UILabel *check;
+@property (nonatomic, strong) UILabel *check1;
+
 - (void)reload;
 
 @end

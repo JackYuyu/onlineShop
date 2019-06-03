@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * productId;
 @property (nonatomic, copy) NSString * goodsSkuId;
 @property (nonatomic, copy) NSString * marketPrice;
+@property (nonatomic, copy) NSString * detailInfo;
 
 @end
 

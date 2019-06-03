@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DCLoginViewController">
             <connections>
                 <outlet property="middleLoginView" destination="6wO-JE-Ohv" id="A4N-oL-pfc"/>
+                <outlet property="reg" destination="wJs-rz-QAf" id="fQ1-C1-aPu"/>
                 <outlet property="view" destination="B8a-MQ-tOt" id="qmJ-Gf-b1n"/>
             </connections>
         </placeholder>
@@ -20,18 +21,15 @@
             <rect key="frame" x="0.0" y="0.0" width="355" height="634"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJs-rz-QAf">
-                    <rect key="frame" x="298" y="60" width="32" height="35"/>
-                    <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJs-rz-QAf">
+                    <rect key="frame" x="298" y="60" width="162" height="45"/>
+                    <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="18"/>
                     <state key="normal" title="注册">
                         <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
-                    <connections>
-                        <action selector="registAccount" destination="-1" eventType="touchUpInside" id="WKi-AH-9jE"/>
-                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L1I-Je-pLp">
-                    <rect key="frame" x="15" y="60" width="35" height="35"/>
+                    <rect key="frame" x="15" y="61.5" width="35" height="35"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="35" id="7ou-5T-pJL"/>
                         <constraint firstAttribute="height" constant="35" id="wPp-aC-n8n"/>
@@ -143,7 +141,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在线登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMI-uF-PPf">
-                    <rect key="frame" x="137.5" y="60" width="80" height="28"/>
+                    <rect key="frame" x="137.5" y="61.5" width="80" height="28"/>
                     <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="20"/>
                     <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

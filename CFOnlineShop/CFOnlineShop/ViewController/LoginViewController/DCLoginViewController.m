@@ -7,6 +7,7 @@
 //
 
 #import "DCLoginViewController.h"
+#import "DCRegisteredViewController.h"
 
 // Controllers
 //#import "DCNavigationController.h"
@@ -27,6 +28,7 @@
 @interface DCLoginViewController ()<UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *middleLoginView;
+@property (weak, nonatomic) IBOutlet UIButton *reg;
 
 /* 上一次选中的按钮 */
 @property (strong , nonatomic)UIButton *selectBtn;
@@ -75,8 +77,14 @@
     UIButton *firstButton = [UIButton new];
     firstButton.tag=1;
     [self buttonClick:firstButton];
+    
+    [_reg addTarget:self action:@selector(regs) forControlEvents:UIControlEventTouchUpInside];
 }
-
+-(void)regs
+{
+    DCRegisteredViewController *dcRegistVc = [DCRegisteredViewController new];
+    [self.navigationController pushViewController:dcRegistVc animated:YES];
+}
 #pragma mark - base
 - (void)sertUpBase {
     self.view.backgroundColor = [UIColor whiteColor];
@@ -91,7 +99,7 @@
     _titleView.frame = CGRectMake(0, 0, Main_Screen_Width, 35);
     [_middleLoginView addSubview:_titleView];
     
-    NSArray *titleArray = @[@"账号密码登录",@"短信验证登录"];
+    NSArray *titleArray = @[@"",@"短信验证登录"];
     CGFloat buttonW = (_titleView.mj_w - 30) / 2;
     CGFloat buttonH = _titleView.mj_h - 3;
     CGFloat buttonX = 15;
@@ -103,7 +111,7 @@
         button.titleLabel.font = [UIFont systemFontOfSize:16];
         button.tag = i;
         [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        button.frame = CGRectMake((i * buttonW) + buttonX, buttonY, buttonW, buttonH);
+        button.frame = CGRectMake((0.5 * buttonW) + buttonX, buttonY, buttonW, buttonH);
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_titleView addSubview:button];
     }
@@ -156,6 +164,9 @@
     [self.middleLoginView addSubview:_contentView];
     
     _verificationView = [DCVerificationView dc_viewFromXib];
+    _verificationView.block = ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    };
     [_contentView addSubview:_verificationView];
 //    _accountPsdView = [DCAccountPsdView dc_viewFromXib];
 //    [_contentView addSubview:_accountPsdView];
@@ -166,26 +177,21 @@
 
 #pragma mark - 注册
 - (IBAction)registAccount {
-    
-//    DCRegisteredViewController *dcRegistVc = [DCRegisteredViewController new];
-//    [self.navigationController pushViewController:dcRegistVc animated:YES];
-    NSMutableDictionary* dic=[NSMutableDictionary new];
-    NSDictionary *params = @{
-                             @"mobile" : @"15821414708",
-                             @"password": @"123456"
-                             };
-    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
-    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/app/register"] body:data showLoading:false success:^(NSDictionary *response) {
-        NSString * str  =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-        NSLog(@"");
-    } failure:^(NSError *error) {
-        NSLog(@"");
-    }];
-//    [HttpTool post:[NSString stringWithFormat:@"renren-fast/app/register"] params:params success:^(id responseObj) {
+    DCRegisteredViewController *dcRegistVc = [DCRegisteredViewController new];
+    [self.navigationController pushViewController:dcRegistVc animated:YES];
+//    NSMutableDictionary* dic=[NSMutableDictionary new];
+//    NSDictionary *params = @{
+//                             @"mobile" : @"15821414708",
+//                             @"password": @"123456"
+//                             };
+//    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+//    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/app/register"] body:data showLoading:false success:^(NSDictionary *response) {
+//        NSString * str  =[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
 //        NSLog(@"");
 //    } failure:^(NSError *error) {
 //        NSLog(@"");
 //    }];
+
 }
 
 #pragma mark - 退出当前界面

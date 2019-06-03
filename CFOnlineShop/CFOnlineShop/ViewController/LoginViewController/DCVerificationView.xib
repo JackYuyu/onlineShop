@@ -76,7 +76,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="loginClick" destination="QZi-du-P3C" eventType="touchUpInside" id="irV-Tr-Kvi"/>
+                        <action selector="loginClick:" destination="QZi-du-P3C" eventType="touchDragInside" id="Bmk-cK-0He"/>
+                        <action selector="loginClick:" destination="QZi-du-P3C" eventType="touchUpInside" id="aaF-Pc-dsy"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17a-0s-Ypx">
@@ -137,7 +138,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="agreementLabel" destination="Nz1-mf-dKe" id="hRZ-7O-xsY"/>
-                <outlet property="loginButton" destination="4RE-vb-SJI" id="rrX-kN-VGw"/>
+                <outlet property="loginButton" destination="4RE-vb-SJI" id="aPS-LQ-KNa"/>
                 <outlet property="userNameField" destination="efh-EF-Meb" id="zJ7-Kg-asT"/>
                 <outlet property="verificationButton" destination="17a-0s-Ypx" id="cbe-Qv-uye"/>
                 <outlet property="verificationField" destination="p0k-9u-Akb" id="LFn-VB-0ff"/>

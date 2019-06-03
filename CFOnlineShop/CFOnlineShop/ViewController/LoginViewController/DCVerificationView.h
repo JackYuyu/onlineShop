@@ -15,5 +15,6 @@
 
 /* 协议 */
 @property (weak, nonatomic) IBOutlet UILabel *agreementLabel;
+@property (nonatomic, strong) void (^block)(void);
 
 @end

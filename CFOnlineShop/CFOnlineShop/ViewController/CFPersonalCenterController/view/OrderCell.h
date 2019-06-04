@@ -11,6 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderCell : UITableViewCell
+@property (nonatomic, strong) IBOutlet UILabel *orderno;
+@property (nonatomic, strong) IBOutlet UILabel *date;
+@property (nonatomic, strong) IBOutlet UILabel *status;
+
+@property (nonatomic, strong) IBOutlet UILabel *payprice;
+@property (nonatomic, strong) IBOutlet UIButton *cancel;
+@property (nonatomic, strong) IBOutlet UIButton *paybtn;
 
 @end
 

@@ -9,6 +9,9 @@
 #import "OrderController.h"
 #import "math.h"
 #import "CFSegmentedControl.h"
+#import "OrderCell.h"
+#import "OrderModel.h"
+#import "OrderEntity.h"
 @interface OrderController ()<UITableViewDataSource,UITableViewDelegate,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic, strong) CFSegmentedControl *segmentedControl;
@@ -27,6 +30,9 @@
     //    tableView.editing=YES;
     _tableView=tableView;
     [self.view addSubview:tableView];
+    
+    [_tableView registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"OrderCell"];
+    
     self.navigationBgView.backgroundColor = kWhiteColor;
     self.navigationBgView.alpha = 1;
     [self showLeftBackButton];
@@ -67,6 +73,15 @@
     if (index==1) {
         [self postRecordUI];
     }
+    if (index==1) {
+        [self postRecordUI1];
+    }
+    else if (index==2) {
+        [self postRecordUI2];
+    }
+    else if (index==3) {
+        [self postRecordUI3];
+    }
     NSLog(@"");
     //    [_bgScrollView setContentOffset:CGPointMake(Main_Screen_Width * index, 0) animated:YES];
 }
@@ -78,16 +93,89 @@
                              };
     WeakSelf(self)
     [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsorder/querylist"] params:params success:^(id responseObj) {
-        NSDictionary* a=responseObj[@"page"][@"list"];
+        NSDictionary* a=responseObj[@"result"];
         _checkList=[[NSMutableArray alloc] init];
         //
-        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
-//            checkModel* t=[checkModel mj_objectWithKeyValues:products];
+        for (NSDictionary* products in responseObj[@"result"]) {
+            OrderModel* t=[OrderModel mj_objectWithKeyValues:products];
+            OrderEntity* e=[OrderEntity mj_objectWithKeyValues:t.goodsOrderEntity];
             NSLog(@"");
             //            [_topicList addObject:t];
-//            [_checkList addObject:t];
+            [_checkList addObject:e];
         }
 //        weakself.segmentedControl.tapIndex=2;
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postRecordUI1
+{
+    NSDictionary *params = @{
+                             @"openId" : @"olEaQ4jE4SkGd1FdU73v4a0IgCD8",
+                             @"payStatus" : @"0"
+                             };
+    WeakSelf(self)
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsorder/querylist"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"result"];
+        _checkList=[[NSMutableArray alloc] init];
+        //
+        for (NSDictionary* products in responseObj[@"result"]) {
+            OrderModel* t=[OrderModel mj_objectWithKeyValues:products];
+            OrderEntity* e=[OrderEntity mj_objectWithKeyValues:t.goodsOrderEntity];
+            NSLog(@"");
+            //            [_topicList addObject:t];
+            [_checkList addObject:e];
+        }
+        //        weakself.segmentedControl.tapIndex=2;
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postRecordUI2
+{
+    NSDictionary *params = @{
+                             @"openId" : @"olEaQ4jE4SkGd1FdU73v4a0IgCD8",
+                             @"payStatus" : @"1"
+                             };
+    WeakSelf(self)
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsorder/querylist"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"result"];
+        _checkList=[[NSMutableArray alloc] init];
+        //
+        for (NSDictionary* products in responseObj[@"result"]) {
+            OrderModel* t=[OrderModel mj_objectWithKeyValues:products];
+            OrderEntity* e=[OrderEntity mj_objectWithKeyValues:t.goodsOrderEntity];
+            NSLog(@"");
+            //            [_topicList addObject:t];
+            [_checkList addObject:e];
+        }
+        //        weakself.segmentedControl.tapIndex=2;
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postRecordUI3
+{
+    NSDictionary *params = @{
+                             @"openId" : @"olEaQ4jE4SkGd1FdU73v4a0IgCD8",
+                             @"payStatus" : @"4"
+                             };
+    WeakSelf(self)
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsorder/querylist"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"result"];
+        _checkList=[[NSMutableArray alloc] init];
+        //
+        for (NSDictionary* products in responseObj[@"result"]) {
+            OrderModel* t=[OrderModel mj_objectWithKeyValues:products];
+            OrderEntity* e=[OrderEntity mj_objectWithKeyValues:t.goodsOrderEntity];
+            NSLog(@"");
+            //            [_topicList addObject:t];
+            [_checkList addObject:e];
+        }
+        //        weakself.segmentedControl.tapIndex=2;
         [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"");
@@ -107,21 +195,31 @@
 }
 //设置每行的UITableViewCell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
-    if (cell==nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cellID"];
-        
-    }
+    OrderCell * cell = [tableView dequeueReusableCellWithIdentifier:@"OrderCell"];
+//    if (cell==nil) {
+//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cellID"];
+//
+//    }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"第%d分区",indexPath.section];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"第%d行",indexPath.row];
+
     //    cell.imageView.image= [UIImage imageNamed:@"image"];
     //    cell.backgroundColor = [UIColor greenColor];
     //    cell.showsReorderControl=YES;
     //    cell.shouldIndentWhileEditing=YES;
     //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    checkModel* c=[_checkList objectAtIndex:indexPath.row];
-    cell.textLabel.text=@"每日签到获得";
+    OrderEntity* e=[_checkList objectAtIndex:indexPath.row];
+    cell.orderno.text=[NSString stringWithFormat:@"订单号: %@",e.orderNo];
+    cell.date.text=[NSString stringWithFormat:@"提交时间: %@",e.createTime];
+    if ([e.payStatus isEqualToString:@"0"]) {
+        cell.status.text=@"待支付";
+    }
+    else
+        cell.status.text=@"已支付";
+//    cell.status.text=[NSString stringWithFormat:@"订单号: %@",e.orderNo];
+    cell.payprice.text=[NSString stringWithFormat:@"应付款: ¥:%@",e.orderNo];
+    [cell.paybtn setBackgroundColor:[UIColor redColor]];
+    [cell.paybtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [cell.cancel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 //    cell.detailTextLabel.text=c.signTime;
     //    cell.
     return cell;
@@ -132,7 +230,7 @@
     //    if (indexPath.section==0) {
     //        return 100;
     //    }else{
-    return 64;
+    return 144;
     //    }
 }
 //设置分区尾视图高度

@@ -31,8 +31,8 @@
     // Do any additional setup after loading the view.
     
     [self setTitle:@"我的"];
-    _myTitles = @[@"绑定手机号",@"全部订单",@"我的积分",@"我的金币",@"我的足迹",@"我的收藏",@"我的消息",@"设置"];
-    _myIcons = @[@"icon_my_01",@"icon_my_02",@"icon_my_03",@"icon_my_03",@"icon_my_04",@"icon_my_05",@"icon_my_06",@"icon_my_07"];
+    _myTitles = @[@"绑定手机号",@"全部订单",@"我的积分",@"我的足迹",@"我的收藏",@"我的消息",@"设置"];
+    _myIcons = @[@"icon_my_01",@"icon_my_02",@"icon_my_03",@"icon_my_04",@"icon_my_05",@"icon_my_06",@"icon_my_07"];
 
     self.navigationView.backgroundColor = kWhiteColor;
     [self setUI];
@@ -96,7 +96,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section==0) {
-        return 6;
+        return 5;
     }
     else
     {
@@ -130,8 +130,8 @@
     cell.textLabel.textColor = KDarkTextColor;
     cell.textLabel.text = [_myTitles objectAtIndex:indexPath.row];
     if (indexPath.section==1) {
-        cell.textLabel.text = [_myTitles objectAtIndex:indexPath.row+6];
-        [cell.imageView setImage:[UIImage imageNamed:[_myIcons objectAtIndex:indexPath.row+6]]];
+        cell.textLabel.text = [_myTitles objectAtIndex:indexPath.row+5];
+        [cell.imageView setImage:[UIImage imageNamed:[_myIcons objectAtIndex:indexPath.row+5]]];
     }
     if (indexPath.row==0&&indexPath.section==0) {
         cell.detailTextLabel.text=@"绑定手机号可更好的让我们服务好您!";
@@ -169,11 +169,11 @@
         MyPointController* o=[MyPointController new];
         [self.navigationController pushViewController:o animated:YES];
     }
-    if (indexPath.row==4) {
+    if (indexPath.row==3) {
         MyFootController* o=[MyFootController new];
         [self.navigationController pushViewController:o animated:YES];
     }
-    if (indexPath.row==5) {
+    if (indexPath.row==4) {
         MyFavController* o=[MyFavController new];
         [self.navigationController pushViewController:o animated:YES];
     }

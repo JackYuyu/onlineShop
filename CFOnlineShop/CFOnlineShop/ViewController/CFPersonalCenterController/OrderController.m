@@ -40,7 +40,7 @@
     _segmentedControl.alpha = 1;
 //    [view addSubview:_segmentedControl];
     [self.view addSubview:_segmentedControl];
-    
+    [self postRecordUI];
 }
 -(void)postUI
 {
@@ -73,13 +73,11 @@
 -(void)postRecordUI
 {
     NSDictionary *params = @{
-                             @"openId" : [MySingleton sharedMySingleton].openId,
-                             @"todayScore" : @"1",
-                             @"conDays" : @"1",
-                             @"score" : @"1"
+                             @"openId" : @"olEaQ4jE4SkGd1FdU73v4a0IgCD8",
+                             @"payStatus" : @"-1"
                              };
     WeakSelf(self)
-    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/list"] params:params success:^(id responseObj) {
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsorder/querylist"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"page"][@"list"];
         _checkList=[[NSMutableArray alloc] init];
         //
@@ -98,7 +96,7 @@
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    if (section==0) {
-    return 6;
+    return [_checkList count];
     //    }else{
     //        return 10;
     //    }

@@ -18,7 +18,7 @@
 @property (nonatomic, strong) CFSegmentedControl *segmentedControl;
 @property (nonatomic,strong) NSMutableArray* checkList;
 @property (nonatomic,strong) UITableView* tableView;
-
+@property (nonatomic,assign) NSInteger current;
 @end
 
 @implementation HomeCheckController
@@ -52,7 +52,7 @@
     self.navigationBgView.alpha = 1;
     [self showLeftBackButton];
     _segmentTitles = @[@"积分规则",@"获得记录"];
-
+    _current=0;
 }
 -(void)postUI
 {
@@ -77,9 +77,13 @@
 
 - (void)control:(CFSegmentedControl *)control didSelectAtIndex:(NSInteger)index
 {
-    if (index==1) {
+    if (index==1&&_current==0) {
         [self postRecordUI];
     }
+    else if (index==0&&_current==1){
+        [_tableView reloadData];
+    }
+    _current=index;
     NSLog(@"");
     //    [_bgScrollView setContentOffset:CGPointMake(Main_Screen_Width * index, 0) animated:YES];
 }
@@ -103,18 +107,24 @@
             [_checkList addObject:t];
         }
         [_tableView reloadData];
-        [_segmentedControl didSelectIndex:1];
+        if (_current==1) {
+            dispatch_async(dispatch_get_main_queue(),^{
+                
+                [_segmentedControl didSelectIndex:1];
+
+            });
+        }
     } failure:^(NSError *error) {
         NSLog(@"");
     }];
 }
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //    if (section==0) {
-    return [_checkList count];
-    //    }else{
-    //        return 10;
-    //    }
+    if (_segmentedControl.tapIndex==0) {
+        return 1;
+    }
+    else
+        return [_checkList count];
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -122,11 +132,11 @@
 }
 //设置每行的UITableViewCell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
-    if (cell==nil) {
+    UITableViewCell * cell = [UITableViewCell new];
+//    if (cell==nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cellID"];
         
-    }
+//    }
     
     cell.textLabel.text = [NSString stringWithFormat:@"第%d分区",indexPath.section];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"第%d行",indexPath.row];
@@ -138,17 +148,33 @@
     checkModel* c=[_checkList objectAtIndex:indexPath.row];
     cell.textLabel.text=@"每日签到获得";
     cell.detailTextLabel.text=c.signTime;
+    //
+    UILabel* label=[UILabel new];
+    label.text=[NSString stringWithFormat:@"+%@",c.todayScore];
+    label.font=[UIFont systemFontOfSize:20];
+    label.textColor=[UIColor orangeColor];
+    [label sizeToFit];
+    label.frame=CGRectMake(Main_Screen_Width-label.frame.size.width-15, 17, label.frame.size.width, label.frame.size.height);
+    [cell.contentView addSubview:label];
+    
+    if (_segmentedControl.tapIndex==0) {
+        UITextView* t=[[UITextView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 160)];
+        t.text=@"            云邻积分规则\n\n1.签到积分规则\n亲，每天签到送积分啦！\n2.积分使用规则\n亲，签到的积分可以享受满立减，下单更优惠！";
+        [t setFont:[UIFont systemFontOfSize:16]];
+        [cell.contentView addSubview:t];
+        return cell;
+    }
 //    cell.
     return cell;
 }
 
 //设置行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //    if (indexPath.section==0) {
-    //        return 100;
-    //    }else{
-    return 64;
-    //    }
+    if (_segmentedControl.tapIndex==0) {
+        return 160;
+    }
+    else
+        return 64;
 }
 //设置分区尾视图高度
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

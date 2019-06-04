@@ -9,6 +9,7 @@
 #import "MyFavController.h"
 #import "math.h"
 #import "CFSegmentedControl.h"
+#import "productModel.h"
 @interface MyFavController ()<UITableViewDataSource,UITableViewDelegate,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic, strong) CFSegmentedControl *segmentedControl;
@@ -41,7 +42,7 @@
     //    [view addSubview:_segmentedControl];
     [self.view addSubview:_segmentedControl];
     [_segmentedControl didSelectIndex:1];
-
+    [self postRecordUI];
 }
 -(void)postUI
 {
@@ -66,7 +67,11 @@
 - (void)control:(CFSegmentedControl *)control didSelectAtIndex:(NSInteger)index
 {
     if (index==1) {
-        //        [self postRecordUI];
+                [self postRecordUI];
+    }
+    else
+    {
+        [self postRecordUI1];
     }
     NSLog(@"");
     //    [_bgScrollView setContentOffset:CGPointMake(Main_Screen_Width * index, 0) animated:YES];
@@ -80,17 +85,38 @@
                              @"score" : @"1"
                              };
     WeakSelf(self)
-    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/list"] params:params success:^(id responseObj) {
-        NSDictionary* a=responseObj[@"page"][@"list"];
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsfavorite/listByCondition"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"list"];
         _checkList=[[NSMutableArray alloc] init];
         //
-        for (NSDictionary* products in responseObj[@"page"][@"list"]) {
-            //            checkModel* t=[checkModel mj_objectWithKeyValues:products];
+        for (NSDictionary* products in responseObj[@"list"]) {
+                        productModel* t=[productModel mj_objectWithKeyValues:products];
             NSLog(@"");
             //            [_topicList addObject:t];
-            //            [_checkList addObject:t];
+                        [_checkList addObject:t];
         }
-        //        weakself.segmentedControl.tapIndex=2;
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
+-(void)postRecordUI1
+{
+    NSDictionary *params = @{
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"page" : @"1"
+                             };
+    WeakSelf(self)
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/userbrowseinfo/queryList"] params:params success:^(id responseObj) {
+        NSDictionary* a=responseObj[@"list"];
+        _checkList=[[NSMutableArray alloc] init];
+        //
+        for (NSDictionary* products in responseObj[@"list"]) {
+            productModel* t=[productModel mj_objectWithKeyValues:products];
+            NSLog(@"");
+            //            [_topicList addObject:t];
+            [_checkList addObject:t];
+        }
         [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"");
@@ -99,7 +125,7 @@
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    if (section==0) {
-    return 6;
+    return [_checkList count];
     //    }else{
     //        return 10;
     //    }
@@ -123,8 +149,11 @@
     //    cell.showsReorderControl=YES;
     //    cell.shouldIndentWhileEditing=YES;
     //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    //    checkModel* c=[_checkList objectAtIndex:indexPath.row];
-    cell.textLabel.text=@"每日签到获得";
+        productModel* c=[_checkList objectAtIndex:indexPath.row];
+    cell.textLabel.text=c.name;
+    cell.detailTextLabel.text=[NSString stringWithFormat:@"￥%@", c.marketPrice ];
+    [cell.detailTextLabel setTextColor:[UIColor redColor]];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:c.thumLogo]];
     //    cell.detailTextLabel.text=c.signTime;
     //    cell.
     return cell;
@@ -135,7 +164,7 @@
     //    if (indexPath.section==0) {
     //        return 100;
     //    }else{
-    return 64;
+    return 94;
     //    }
 }
 //设置分区尾视图高度

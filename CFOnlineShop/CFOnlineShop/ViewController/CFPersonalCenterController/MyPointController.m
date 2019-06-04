@@ -7,7 +7,7 @@
 //
 
 #import "MyPointController.h"
-
+#import "checkModel.h"
 @interface MyPointController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic,strong) NSMutableArray* checkList;
@@ -29,6 +29,7 @@
     self.navigationBgView.alpha = 1;
     [self showLeftBackButton];
     _segmentTitles = @[@"全部订单",@"待支付",@"待发货",@"已完成"];
+    [self postRecordUI];
 }
 -(void)postUI
 {
@@ -64,10 +65,10 @@
         _checkList=[[NSMutableArray alloc] init];
         //
         for (NSDictionary* products in responseObj[@"page"][@"list"]) {
-            //            checkModel* t=[checkModel mj_objectWithKeyValues:products];
+                        checkModel* t=[checkModel mj_objectWithKeyValues:products];
             NSLog(@"");
             //            [_topicList addObject:t];
-            //            [_checkList addObject:t];
+                        [_checkList addObject:t];
         }
         //        weakself.segmentedControl.tapIndex=2;
         [_tableView reloadData];
@@ -78,7 +79,7 @@
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    if (section==0) {
-    return 6;
+    return [_checkList count];
     //    }else{
     //        return 10;
     //    }
@@ -102,8 +103,17 @@
     //    cell.showsReorderControl=YES;
     //    cell.shouldIndentWhileEditing=YES;
     //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    //    checkModel* c=[_checkList objectAtIndex:indexPath.row];
+        checkModel* c=[_checkList objectAtIndex:indexPath.row];
     cell.textLabel.text=@"每日签到获得";
+    cell.detailTextLabel.text=c.signTime;
+    //
+    UILabel* label=[UILabel new];
+    label.text=[NSString stringWithFormat:@"+%@",c.score];
+    label.font=[UIFont systemFontOfSize:20];
+    label.textColor=[UIColor orangeColor];
+    [label sizeToFit];
+    label.frame=CGRectMake(Main_Screen_Width-label.frame.size.width-15, 17, label.frame.size.width, label.frame.size.height);
+    [cell.contentView addSubview:label];
     //    cell.detailTextLabel.text=c.signTime;
     //    cell.
     return cell;

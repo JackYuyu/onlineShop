@@ -7,7 +7,8 @@
 //
 
 #import "AddressListController.h"
-
+#import "NewAddressController.h"
+#import "addressModel.h"
 @interface AddressListController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic,strong) NSMutableArray* checkList;
@@ -25,10 +26,27 @@
     //    tableView.editing=YE
     _tableView=tableView;
     [self.view addSubview:tableView];
+    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, Main_Screen_Height-80, self.view.frame.size.width, 80)];
+    view.backgroundColor = [UIColor whiteColor];
+    UIButton* add=[[UIButton alloc] initWithFrame:CGRectMake(10, 10, Main_Screen_Width-20, 60)];
+    [add setBackgroundColor:[UIColor redColor]];
+    [add setTitle:@"新增地址" forState:(UIControlStateNormal)];
+    [add setTitleColor:kWhiteColor forState:(UIControlStateNormal)];
+    [add addTarget:self action:@selector(addAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [add.titleLabel setTextColor:[UIColor whiteColor]];
+    [view addSubview:add];
+    [self.view addSubview:view];
+    
     self.navigationBgView.backgroundColor = kWhiteColor;
     self.navigationBgView.alpha = 1;
     [self showLeftBackButton];
-    _checkList = @[@"昵称",@"我的手机",@"收货地址"];
+    [self postRecordUI];
+}
+-(void)addAction
+{
+    NewAddressController* n=[NewAddressController new];
+    [self.navigationController pushViewController:n animated:YES];
 }
 -(void)postUI
 {
@@ -53,21 +71,18 @@
 -(void)postRecordUI
 {
     NSDictionary *params = @{
-                             @"openId" : [MySingleton sharedMySingleton].openId,
-                             @"todayScore" : @"1",
-                             @"conDays" : @"1",
-                             @"score" : @"1"
+                             @"openId" : [MySingleton sharedMySingleton].openId
                              };
     WeakSelf(self)
-    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/list"] params:params success:^(id responseObj) {
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/useraddress/list"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"page"][@"list"];
         _checkList=[[NSMutableArray alloc] init];
         //
         for (NSDictionary* products in responseObj[@"page"][@"list"]) {
-            //            checkModel* t=[checkModel mj_objectWithKeyValues:products];
+                        addressModel* t=[addressModel mj_objectWithKeyValues:products];
             NSLog(@"");
             //            [_topicList addObject:t];
-            //            [_checkList addObject:t];
+                        [_checkList addObject:t];
         }
         //        weakself.segmentedControl.tapIndex=2;
         [_tableView reloadData];
@@ -78,7 +93,7 @@
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    if (section==0) {
-    return 3;
+    return [_checkList count];
     //    }else{
     //        return 10;
     //    }
@@ -91,23 +106,13 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
     if (cell==nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
-        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cellID"];
+//        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     }
-    
-    cell.textLabel.text = [_checkList objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"第%d行",indexPath.row];
-    if (indexPath.row==2) {
-        cell.detailTextLabel.text = @"更改地址";
-    }
-    //    cell.imageView.image= [UIImage imageNamed:@"image"];
-    //    cell.backgroundColor = [UIColor greenColor];
-    //    cell.showsReorderControl=YES;
-    //    cell.shouldIndentWhileEditing=YES;
-    //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    //    checkModel* c=[_checkList objectAtIndex:indexPath.row];
-    //    cell.detailTextLabel.text=c.signTime;
-    //    cell.
+    addressModel* a=[_checkList objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@%@",a.nickname,a.receiptTelphone];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%@",a.provinceName,a.cityName,a.areaName,a.street];
+
     return cell;
 }
 

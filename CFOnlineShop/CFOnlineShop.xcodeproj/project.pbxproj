@@ -46,6 +46,11 @@
 		0CCF56B720FF2ABA00B8FE09 /* CFHomeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF56B620FF2ABA00B8FE09 /* CFHomeCollectionCell.m */; };
 		0CCF56BB20FF34F600B8FE09 /* PurchaseCarAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF56BA20FF34F600B8FE09 /* PurchaseCarAnimationTool.m */; };
 		7BEFEDDEC4BED6E666013D81 /* libPods-CFOnlineShop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00E58A4A62D2AAF5A92469E /* libPods-CFOnlineShop.a */; };
+		DD09D87A22A61DC10088264E /* citys.json in Resources */ = {isa = PBXBuildFile; fileRef = DD09D87722A61DC10088264E /* citys.json */; };
+		DD09D87B22A61DC10088264E /* JYAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = DD09D87922A61DC10088264E /* JYAddressPicker.m */; };
+		DD09D87E22A646630088264E /* addressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD09D87D22A646630088264E /* addressModel.m */; };
+		DD09D88322A65E570088264E /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD09D88122A65E570088264E /* OrderCell.m */; };
+		DD09D88422A65E570088264E /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD09D88222A65E570088264E /* OrderCell.xib */; };
 		DD27DD3F22A4C0C400A96EFF /* StarView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27DD3D22A4C0C300A96EFF /* StarView.m */; };
 		DD27DD4222A4EEF400A96EFF /* DCRegisteredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27DD4022A4EEF400A96EFF /* DCRegisteredViewController.m */; };
 		DD27DD8522A509E600A96EFF /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27DD8422A509E600A96EFF /* CommentModel.m */; };
@@ -166,6 +171,14 @@
 		9AE53557BFFF0C38A40C3C2E /* Pods-CFOnlineShop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CFOnlineShop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CFOnlineShop/Pods-CFOnlineShop.debug.xcconfig"; sourceTree = "<group>"; };
 		B00E58A4A62D2AAF5A92469E /* libPods-CFOnlineShop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CFOnlineShop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7FDD9F89AD4DBDD8DB7EFE2 /* Pods-CFOnlineShop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CFOnlineShop.release.xcconfig"; path = "Pods/Target Support Files/Pods-CFOnlineShop/Pods-CFOnlineShop.release.xcconfig"; sourceTree = "<group>"; };
+		DD09D87722A61DC10088264E /* citys.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = citys.json; sourceTree = "<group>"; };
+		DD09D87822A61DC10088264E /* JYAddressPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYAddressPicker.h; sourceTree = "<group>"; };
+		DD09D87922A61DC10088264E /* JYAddressPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYAddressPicker.m; sourceTree = "<group>"; };
+		DD09D87C22A646630088264E /* addressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = addressModel.h; sourceTree = "<group>"; };
+		DD09D87D22A646630088264E /* addressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = addressModel.m; sourceTree = "<group>"; };
+		DD09D88022A65E570088264E /* OrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
+		DD09D88122A65E570088264E /* OrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
+		DD09D88222A65E570088264E /* OrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderCell.xib; sourceTree = "<group>"; };
 		DD27DD3D22A4C0C300A96EFF /* StarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarView.m; sourceTree = "<group>"; };
 		DD27DD3E22A4C0C400A96EFF /* StarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarView.h; sourceTree = "<group>"; };
 		DD27DD4022A4EEF400A96EFF /* DCRegisteredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRegisteredViewController.m; sourceTree = "<group>"; };
@@ -366,6 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				0464A6DF229A33A3004381DF /* Tool */,
+				DD09D87622A61DC10088264E /* JYAddressPicker */,
 				DD561DCB2297DDF200DE4DAF /* PPNumberButton */,
 				DD561DC12297A28D00DE4DAF /* ZWProgressPointBtn */,
 				0C33B8992107079700A18FD8 /* CFEditCollectionCell */,
@@ -379,6 +393,7 @@
 		0CCF568520FEE0BC00B8FE09 /* CFPersonalCenterController */ = {
 			isa = PBXGroup;
 			children = (
+				DD09D87F22A65E320088264E /* view */,
 				0CCF56A220FEE46B00B8FE09 /* CFPersonalCenterController.h */,
 				0CCF56A320FEE46B00B8FE09 /* CFPersonalCenterController.m */,
 				04ECF67E22A5674100C25026 /* OrderController.h */,
@@ -535,6 +550,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DD09D87622A61DC10088264E /* JYAddressPicker */ = {
+			isa = PBXGroup;
+			children = (
+				DD09D87722A61DC10088264E /* citys.json */,
+				DD09D87822A61DC10088264E /* JYAddressPicker.h */,
+				DD09D87922A61DC10088264E /* JYAddressPicker.m */,
+			);
+			path = JYAddressPicker;
+			sourceTree = "<group>";
+		};
+		DD09D87F22A65E320088264E /* view */ = {
+			isa = PBXGroup;
+			children = (
+				DD09D88022A65E570088264E /* OrderCell.h */,
+				DD09D88122A65E570088264E /* OrderCell.m */,
+				DD09D88222A65E570088264E /* OrderCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		DD561DB42296D08D00DE4DAF /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -548,6 +583,8 @@
 				DD27DD8422A509E600A96EFF /* CommentModel.m */,
 				DD27DD8622A51CEE00A96EFF /* checkModel.h */,
 				DD27DD8722A51CEE00A96EFF /* checkModel.m */,
+				DD09D87C22A646630088264E /* addressModel.h */,
+				DD09D87D22A646630088264E /* addressModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -706,7 +743,9 @@
 				DD759D9F229BC3A900B71414 /* FSSettlementViewController.xib in Resources */,
 				DD759DB3229C16E900B71414 /* DCVerificationView.xib in Resources */,
 				DDE4314822A0C74100F58DEA /* ProductInfoCell.xib in Resources */,
+				DD09D87A22A61DC10088264E /* citys.json in Resources */,
 				DD759DAF229C161100B71414 /* DCLoginViewController.xib in Resources */,
+				DD09D88422A65E570088264E /* OrderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,6 +818,7 @@
 				DD27DD4222A4EEF400A96EFF /* DCRegisteredViewController.m in Sources */,
 				04ECF69222A57B1B00C25026 /* NewAddressController.m in Sources */,
 				DDE43137229F875C00F58DEA /* classifyModel.m in Sources */,
+				DD09D87B22A61DC10088264E /* JYAddressPicker.m in Sources */,
 				DD561DB72296D0A900DE4DAF /* FSBaseModel.m in Sources */,
 				DD561DB022964B8F00DE4DAF /* HomeCollectionCatCell.m in Sources */,
 				0C4754FA21006E0A007DC738 /* CFRefreshHeader.m in Sources */,
@@ -799,6 +839,7 @@
 				DDE43140229FC14F00F58DEA /* MySingleton.m in Sources */,
 				0C73E0822118433200D413A4 /* CFDetailViewController.m in Sources */,
 				DD759DA9229BC5E000B71414 /* FSShopCartList.m in Sources */,
+				DD09D88322A65E570088264E /* OrderCell.m in Sources */,
 				0C80ACB22101A92D00703876 /* CFSegmentedControl.m in Sources */,
 				0CCF569820FEE27A00B8FE09 /* CFBaseController.m in Sources */,
 				DD759DB7229CC48700B71414 /* UIView+DCRolling.m in Sources */,
@@ -815,6 +856,7 @@
 				DD561DBD2296D52000DE4DAF /* UIImageView+SDWebImage.m in Sources */,
 				DD759DA4229BC43D00B71414 /* FSShoppingCartInfoCell.m in Sources */,
 				0CCF56AF20FF139300B8FE09 /* CALayer+CFAnimation.m in Sources */,
+				DD09D87E22A646630088264E /* addressModel.m in Sources */,
 				DD27DD3F22A4C0C400A96EFF /* StarView.m in Sources */,
 				0CCF56B320FF291900B8FE09 /* UIColor+CFColor.m in Sources */,
 				DD27DD8822A51CEE00A96EFF /* checkModel.m in Sources */,

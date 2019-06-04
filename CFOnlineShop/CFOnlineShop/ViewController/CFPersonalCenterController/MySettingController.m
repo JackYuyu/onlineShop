@@ -93,7 +93,10 @@
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
     if (cell==nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
-//        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        if (indexPath.row==2) {
+                    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+
+        }
     }
     
     cell.textLabel.text = [_checkList objectAtIndex:indexPath.row];
@@ -154,14 +157,14 @@
 
 //选中cell时调用的方法
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row==1) {
+    if (indexPath.row==2) {
         AddressListController* a=[AddressListController new];
         [self.navigationController pushViewController:a animated:YES];
     }
-    if (indexPath.row==2) {
-        NewAddressController* a=[NewAddressController new];
-        [self.navigationController pushViewController:a animated:YES];
-    }
+//    if (indexPath.row==2) {
+//        NewAddressController* a=[NewAddressController new];
+//        [self.navigationController pushViewController:a animated:YES];
+//    }
     
 }
 

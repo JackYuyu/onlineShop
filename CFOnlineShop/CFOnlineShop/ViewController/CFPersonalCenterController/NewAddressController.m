@@ -7,11 +7,20 @@
 //
 
 #import "NewAddressController.h"
-
-@interface NewAddressController ()<UITableViewDataSource,UITableViewDelegate>
+#import "JYAddressPicker.h"
+@interface NewAddressController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic,strong) NSMutableArray* checkList;
 @property (nonatomic,strong) UITableView* tableView;
+@property (nonatomic,strong) NSString* province;
+@property (nonatomic,strong) NSString* city;
+@property (nonatomic,strong) NSString* area;
+@property (nonatomic,strong) NSString* addressInfo;
+
+@property (nonatomic,strong) NSString* input;
+@property (nonatomic,strong) NSString* input1;
+@property (nonatomic,strong) NSString* input3;
+
 @end
 
 @implementation NewAddressController
@@ -24,19 +33,52 @@
     tableView.dataSource=self;
     //    tableView.editing=YE
     _tableView=tableView;
+    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, Main_Screen_Height-80, self.view.frame.size.width, 80)];
+    view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    UIButton* add=[[UIButton alloc] initWithFrame:CGRectMake(10, 10, Main_Screen_Width-20, 60)];
+    [add setBackgroundColor:[UIColor redColor]];
+    [add setTitle:@"完成" forState:(UIControlStateNormal)];
+    [add setTitleColor:kWhiteColor forState:(UIControlStateNormal)];
+    [add addTarget:self action:@selector(addAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [add.titleLabel setTextColor:[UIColor whiteColor]];
+    [view addSubview:add];
+    _tableView.tableFooterView=view;
+    
     [self.view addSubview:tableView];
     self.navigationBgView.backgroundColor = kWhiteColor;
     self.navigationBgView.alpha = 1;
     [self showLeftBackButton];
     _checkList = @[@"收货人姓名:",@"联系电话:",@"所在地区:",@"详细地址:",@"设置默认地址:"];
 }
+-(void)addAction
+{
+    if (!_province&&!_city&&!_area&&!_input3&&!_input1&&!_input) {
+        return;
+    }
+    [self postUI];
+}
 -(void)postUI
 {
     NSDictionary *params = @{
-                             @"openId" : [MySingleton sharedMySingleton].openId
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"receiptAddress" : @"1",
+                             @"province" : @"1",
+                             @"provinceName" : _province,
+                             @"city" : @"1",
+                             @"cityName" : _city,
+                             @"area" : @"1",
+                             @"areaName" : _area,
+                             @"street" : _input3,
+                             @"receiptTelphone" : _input1,
+                             @"defaultFlag" : @"1",
+                             @"receiptName" : _input,
+                             @"postCode" : @"1",
+                             @"status" : @"1",
+                             @"remarks" : @"1",
                              };
     NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
-    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/save"] body:data showLoading:false success:^(NSDictionary *response) {
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/useraddress/save"] body:data showLoading:false success:^(NSDictionary *response) {
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
         NSLog(@"");
     } failure:^(NSError *error) {
@@ -75,6 +117,22 @@
         NSLog(@"");
     }];
 }
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    int b=textField.tag;
+    if (b==0) {
+        _input=textField.text;
+    }
+    else if (b==1)
+    {
+        _input1=textField.text;
+    }
+    else if (b==3)
+    {
+        _input3=textField.text;
+    }
+    NSLog(@"结束编辑");
+    
+}
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    if (section==0) {
@@ -92,13 +150,30 @@
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
     if (cell==nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
-        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     }
-    
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.textLabel.text = [_checkList objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"第%d行",indexPath.row];
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"第%d行",indexPath.row];
     if (indexPath.row==2) {
-        cell.detailTextLabel.text = @"更改地址";
+        cell.detailTextLabel.text = @"省-市-区";
+        if (self.addressInfo) {
+            cell.detailTextLabel.text = self.addressInfo;
+        }
+    }
+    else
+    {
+        if (indexPath.row<4) {
+
+        UITextField* input=[[UITextField alloc] initWithFrame:CGRectMake(120, 5, Main_Screen_Width-130, 50)];
+        input.tag=indexPath.row;
+        input.delegate=self;
+        [cell.contentView addSubview: input];
+        }
+        if (indexPath.row==4) {
+                    cell.accessoryType=UITableViewCellAccessoryCheckmark;
+
+        }
     }
     //    cell.imageView.image= [UIImage imageNamed:@"image"];
     //    cell.backgroundColor = [UIColor greenColor];
@@ -153,7 +228,21 @@
 
 //选中cell时调用的方法
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.row==2) {
+        JYAddressPicker *addressPicker = [JYAddressPicker jy_showAt:self];
+        addressPicker.selectedItemBlock = ^(NSArray *addressArr) {
+            
+            NSString *province = [addressArr objectAtIndex:0][@"text"];
+            NSString *city = [addressArr objectAtIndex:1][@"text"];
+            NSString *county = [addressArr objectAtIndex:2][@"text"];
+            
+            self.addressInfo = [NSString stringWithFormat:@"%@-%@-%@",province,city,county];
+            _province=province;
+            _city=city;
+            _area=county;
+            [_tableView reloadData];
+        };
+    }
 }
 
 @end

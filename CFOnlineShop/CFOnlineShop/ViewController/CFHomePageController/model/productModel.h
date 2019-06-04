@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * evaluateCount;
 //@property (nonatomic, copy) NSString * description;
 @property (nonatomic, copy) NSString * logo;
+@property (nonatomic, copy) NSString * thumLogo;
 @property (nonatomic, copy) NSString * productId;
 @property (nonatomic, copy) NSString * goodsSkuId;
 @property (nonatomic, copy) NSString * marketPrice;

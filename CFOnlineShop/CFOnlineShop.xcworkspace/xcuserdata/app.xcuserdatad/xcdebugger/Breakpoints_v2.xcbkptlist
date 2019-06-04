@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CFOnlineShop/Library/LPSemiModalView/LPSemiModalView.m"
-            timestampString = "580977194.852066"
+            timestampString = "581321454.4596471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "162"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CFOnlineShop/Library/LPSemiModalView/LPSemiModalView.m"
-            timestampString = "580977194.852137"
+            timestampString = "581321454.4597059"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
@@ -211,13 +211,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CFOnlineShop/Library/CFSegmentedControl/CFSegmentedControl.m"
-            timestampString = "581259084.455995"
+            filePath = "CFOnlineShop/ViewController/CFPersonalCenterController/NewAddressController.m"
+            timestampString = "581327507.8467669"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "-animateBottomLinePosition:complete:"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "-postUI"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -227,13 +227,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CFOnlineShop/Library/CFSegmentedControl/CFSegmentedControl.m"
-            timestampString = "581259084.456057"
+            filePath = "CFOnlineShop/ViewController/CFPersonalCenterController/NewAddressController.m"
+            timestampString = "581327507.8468291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "-menuTapped:"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-postUI"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CFOnlineShop/ViewController/CFPersonalCenterController/OrderController.m"
+            timestampString = "581327507.8468781"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-postRecordUI"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

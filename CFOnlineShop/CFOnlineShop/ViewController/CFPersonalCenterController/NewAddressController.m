@@ -117,21 +117,21 @@
         NSLog(@"");
     }];
 }
--(void)textFieldDidBeginEditing:(UITextField *)textField {
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     int b=textField.tag;
     if (b==0) {
-        _input=textField.text;
+        _input=[textField.text stringByAppendingString:string];
     }
     else if (b==1)
     {
-        _input1=textField.text;
+        _input1=[textField.text stringByAppendingString:string];
     }
     else if (b==3)
     {
-        _input3=textField.text;
+        _input3=[textField.text stringByAppendingString:string];
     }
     NSLog(@"结束编辑");
-    
+    return YES;
 }
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

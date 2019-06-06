@@ -1,30 +1,22 @@
 //
-//  AddressListController.m
+//  LogisticController.m
 //  CFOnlineShop
 //
-//  Created by mac on 2019/6/3.
-//  Copyright © 2019 chenfeng. All rights reserved.
+//  Created by app on 2019/6/5.
+//  Copyright © 2019年 chenfeng. All rights reserved.
 //
 
-#import "AddressListController.h"
-#import "NewAddressController.h"
-#import "addressModel.h"
-@interface AddressListController ()<UITableViewDataSource,UITableViewDelegate>
+#import "LogisticController.h"
+#import "checkModel.h"
+#import "PeTimeLine.h"
+#import "logisticModel.h"
+@interface LogisticController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic,strong) NSMutableArray* checkList;
 @property (nonatomic,strong) UITableView* tableView;
-
-@property (nonatomic,strong) NSString* province;
-@property (nonatomic,strong) NSString* city;
-@property (nonatomic,strong) NSString* area;
-@property (nonatomic,strong) NSString* addressInfo;
-
-@property (nonatomic,strong) NSString* input;
-@property (nonatomic,strong) NSString* input1;
-@property (nonatomic,strong) NSString* input3;
 @end
 
-@implementation AddressListController
+@implementation LogisticController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,40 +24,48 @@
     
     tableView.delegate=self;
     tableView.dataSource=self;
-    //    tableView.editing=YE
+    //    tableView.editing=YES;
     _tableView=tableView;
+    
+    UIView* v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 104)];
+    v.backgroundColor=RGBCOLOR(241, 151, 54);
+    UIImageView* img=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 80, 80)];
+    [img setImage:[UIImage imageNamed:@"logistic"]];
+    [v addSubview:img];
+    _tableView.tableHeaderView=v;
+    
     [self.view addSubview:tableView];
-    
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, Main_Screen_Height-80, self.view.frame.size.width, 80)];
-    view.backgroundColor = [UIColor whiteColor];
-    UIButton* add=[[UIButton alloc] initWithFrame:CGRectMake(10, 10, Main_Screen_Width-20, 60)];
-    [add setBackgroundColor:[UIColor redColor]];
-    [add setTitle:@"新增地址" forState:(UIControlStateNormal)];
-    [add setTitleColor:kWhiteColor forState:(UIControlStateNormal)];
-    [add addTarget:self action:@selector(addAction) forControlEvents:(UIControlEventTouchUpInside)];
-    [add.titleLabel setTextColor:[UIColor whiteColor]];
-    [view addSubview:add];
-    [self.view addSubview:view];
-    
     self.navigationBgView.backgroundColor = kWhiteColor;
     self.navigationBgView.alpha = 1;
     [self showLeftBackButton];
-    [self postRecordUI];
-}
--(void)addAction
-{
-    NewAddressController* n=[NewAddressController new];
-    [self.navigationController pushViewController:n animated:YES];
+    _segmentTitles = @[@"全部订单",@"待支付",@"待发货",@"已完成"];
+    [self postUI];
 }
 -(void)postUI
 {
     NSDictionary *params = @{
-                             @"openId" : [MySingleton sharedMySingleton].openId
+                             @"openId" : [MySingleton sharedMySingleton].openId,
+                             @"orderId" : @"1136150822208565250"
                              };
     NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
-    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/save"] body:data showLoading:false success:^(NSDictionary *response) {
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/sysexpressconfig/getExpressUser"] body:data showLoading:false success:^(NSDictionary *response) {
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
         NSLog(@"");
+        NSString* a=jsonDict[@"kd"];
+        NSDictionary *retDict = nil;
+        NSData *jsonData = [a dataUsingEncoding:NSUTF8StringEncoding];
+        retDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:NULL];
+
+        _checkList=[[NSMutableArray alloc] init];
+        //
+        for (NSDictionary* products in retDict[@"data"]) {
+            logisticModel* l=[logisticModel mj_objectWithKeyValues:products];
+            NSLog(@"");
+            //            [_topicList addObject:t];
+            [_checkList addObject:l];
+        }
+        //        weakself.segmentedControl.tapIndex=2;
+        [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"");
     }];
@@ -80,24 +80,25 @@
 -(void)postRecordUI
 {
     NSDictionary *params = @{
-                             @"openId" : [MySingleton sharedMySingleton].openId
+                             @"orderId" : @"1136150822208565250"
                              };
     WeakSelf(self)
-    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/useraddress/list"] params:params success:^(id responseObj) {
+    [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/sysexpressconfig/getExpressUser"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"page"][@"list"];
         _checkList=[[NSMutableArray alloc] init];
         //
         for (NSDictionary* products in responseObj[@"page"][@"list"]) {
-                        addressModel* t=[addressModel mj_objectWithKeyValues:products];
+            checkModel* t=[checkModel mj_objectWithKeyValues:products];
             NSLog(@"");
             //            [_topicList addObject:t];
-                        [_checkList addObject:t];
+            [_checkList addObject:t];
         }
         //        weakself.segmentedControl.tapIndex=2;
         [_tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"");
     }];
+    
 }
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -116,13 +117,36 @@
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
     if (cell==nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cellID"];
-//        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        
     }
-    addressModel* a=[_checkList objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@%@",a.nickname,a.receiptTelphone];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%@",a.provinceName,a.cityName,a.areaName,a.street];
-
-
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"第%d分区",indexPath.section];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"第%d行",indexPath.row];
+    //    cell.imageView.image= [UIImage imageNamed:@"image"];
+    //    cell.backgroundColor = [UIColor greenColor];
+    //    cell.showsReorderControl=YES;
+    //    cell.shouldIndentWhileEditing=YES;
+    //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    logisticModel* c=[_checkList objectAtIndex:indexPath.row];
+    cell.textLabel.text=c.context;
+    cell.detailTextLabel.text=c.time;
+    //
+    UILabel* label=[UILabel new];
+//    label.text=[NSString stringWithFormat:@"+%@",c.score];
+    label.font=[UIFont systemFontOfSize:20];
+    label.textColor=[UIColor orangeColor];
+    [label sizeToFit];
+    label.frame=CGRectMake(Main_Screen_Width-label.frame.size.width-15, 17, label.frame.size.width, label.frame.size.height);
+    [cell.contentView addSubview:label];
+    //    cell.detailTextLabel.text=c.signTime;
+    //    cell.
+    if (indexPath.row==0) {
+        PeTimeLine *time = [[PeTimeLine alloc]initWithFrame:CGRectMake(20, 120, 300, 100)];
+        NSArray *array  = [NSArray arrayWithObjects:@"未发货",@"已发货",@"已签收",nil];
+        time.allSteps = array;
+        time.nowStep=2;
+        [cell.contentView addSubview:time];
+    }
     return cell;
 }
 
@@ -131,7 +155,7 @@
     //    if (indexPath.section==0) {
     //        return 100;
     //    }else{
-    return 64;
+    return 104;
     //    }
 }
 //设置分区尾视图高度
@@ -168,21 +192,7 @@
 
 //选中cell时调用的方法
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    addressModel* a=[_checkList objectAtIndex:indexPath.row];
-    _province=a.provinceName;
-    _city=a.cityName;
-    _area=a.areaName;
-    _input=a.nickname;
-    _input1=a.receiptTelphone;
-    _input3=a.street;
-    NewAddressController* n=[NewAddressController new];
-    n.province=   _province;
-    n.city=_city;
-    n.area= _area;;
-    n.input=_input;
-    n.input1=_input1;
-    n.input3=_input3;
-    [self.navigationController pushViewController:n animated:YES];
+    
 }
 
 @end

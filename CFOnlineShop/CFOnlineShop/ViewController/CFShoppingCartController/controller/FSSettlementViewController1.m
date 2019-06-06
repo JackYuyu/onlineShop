@@ -6,14 +6,14 @@
 //  Copyright © 2018 Mac TAN. All rights reserved.
 //
 
-#import "FSSettlementViewController.h"
+#import "FSSettlementViewController1.h"
 #import "FSShoppingCartInfoCell.h"
 #import "PPNumberButton.h"
 #import "AddressListController.h"
 
 static NSString *const kOrderCellWithIdentifier = @"kOrderCellWithIdentifier";
 
-@interface FSSettlementViewController ()
+@interface FSSettlementViewController1 ()
 
 @property (weak, nonatomic) IBOutlet UILabel *telLabel;
 
@@ -40,7 +40,7 @@ static NSString *const kOrderCellWithIdentifier = @"kOrderCellWithIdentifier";
 @end
 static NSInteger num_;
 
-@implementation FSSettlementViewController
+@implementation FSSettlementViewController1
 
 - (NSMutableArray *)addressResult {
     
@@ -56,10 +56,10 @@ static NSInteger num_;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"确认订单";
+    self.title = @"订单详情";
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    _detailTitles = @[@"配送方式",@"买家留言:",@"积分 共10",@"商品总额",@"运费",@"积分"];
-    _rightTitles = @[@"快递公司",@"本次交易的说明:",@"当前使用积分 0",@"75",@"+10",@"-0"];
+    _detailTitles = @[@"积分 共10",@"商品总额:",@"运费",@"积分",@"运费",@"积分"];
+    _rightTitles = @[@"当前使用积分 0",@"75",@"+10",@"-10",@"+10",@"-0"];
 
     [self initSubview];
     [self requestAddress];
@@ -95,13 +95,20 @@ static NSInteger num_;
     self.curTabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.curTabView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.curTabView registerNib:[UINib nibWithNibName:@"FSShoppingCartInfoCell" bundle:nil] forCellReuseIdentifier:kOrderCellWithIdentifier];
+    UIView* u=[[UIView alloc] initWithFrame:CGRectMake(0, 0, Main_Screen_Width, 44)];
+    u.backgroundColor=[UIColor whiteColor];
+    UILabel* l=[[UILabel alloc] initWithFrame:CGRectMake(20, 5, 150, 40)];
+    l.text=@"等待付款";
+    [l setFont:[UIFont systemFontOfSize:16]];
+    [u addSubview:l];
+//    self.curTabView.tableHeaderView=u;
 }
 -(void)initAddress
 {
     NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
-    _nameLabel.text=[userd objectForKey:@"nickname"];
+    _nameLabel.text=[NSString stringWithFormat:@"收货人:",[userd objectForKey:@"nickname"] ];
     _telLabel.text=[userd objectForKey:@"phone"];
-    _addressLabel.text=[NSString stringWithFormat:@"%@%@",[userd objectForKey:@"address"],[userd objectForKey:@"street"]];
+    _addressLabel.text=[NSString stringWithFormat:@"收货地址:%@%@",[userd objectForKey:@"address"],[userd objectForKey:@"street"]];
 }
 
 #pragma mark - Request
@@ -178,18 +185,15 @@ static NSInteger num_;
     if (section==0)
         return self.dataSource.count;
     else if (section==1) {
-        return 2;
-    }
-    else if (section==2) {
-        return 1;
+        return 4;
     }
     else {
-        return 4;
+        return 3;
     }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return 3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section==0) {
@@ -242,6 +246,18 @@ static NSInteger num_;
             fsc=self.dataSource[0];
             cell.detailTextLabel.text=fsc.productPrice;
 
+        }
+        if (indexPath.section>1&& indexPath.row==0) {
+            cell.textLabel.text=[NSString stringWithFormat:@"订单编号:%@",_entity.orderNo];
+            cell.detailTextLabel.text=@"";
+        }
+        if (indexPath.section>1&& indexPath.row==1) {
+            cell.textLabel.text=[NSString stringWithFormat:@"提交时间:%@",_entity.createTime];
+            cell.detailTextLabel.text=@"";
+        }
+        if (indexPath.section>1&& indexPath.row==2) {
+            cell.textLabel.text=@"支付方式:微信支付";
+            cell.detailTextLabel.text=@"";
         }
         return cell;
     }

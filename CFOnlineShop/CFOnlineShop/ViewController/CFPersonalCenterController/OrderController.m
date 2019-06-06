@@ -12,9 +12,15 @@
 #import "OrderCell.h"
 #import "OrderModel.h"
 #import "OrderEntity.h"
+#import "FSSettlementViewController1.h"
+#import "productModel.h"
+#import "LogisticController.h"
+
 @interface OrderController ()<UITableViewDataSource,UITableViewDelegate,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic, strong) CFSegmentedControl *segmentedControl;
+@property (nonatomic,strong) NSMutableArray* productList;
+
 @property (nonatomic,strong) NSMutableArray* checkList;
 @property (nonatomic,strong) UITableView* tableView;
 @end
@@ -70,7 +76,7 @@
 
 - (void)control:(CFSegmentedControl *)control didSelectAtIndex:(NSInteger)index
 {
-    if (index==1) {
+    if (index==0) {
         [self postRecordUI];
     }
     if (index==1) {
@@ -95,13 +101,23 @@
     [HttpTool get:[NSString stringWithFormat:@"renren-fast/mall/goodsorder/querylist"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"result"];
         _checkList=[[NSMutableArray alloc] init];
+        _productList=[[NSMutableArray alloc] init];
+
         //
         for (NSDictionary* products in responseObj[@"result"]) {
             OrderModel* t=[OrderModel mj_objectWithKeyValues:products];
             OrderEntity* e=[OrderEntity mj_objectWithKeyValues:t.goodsOrderEntity];
+            NSMutableArray* tm=[NSMutableArray new];
+            for (NSDictionary* m in t.goodsOrderItemVO) {
+                productModel* p=[productModel mj_objectWithKeyValues:m];
+                NSLog(@"");
+                [tm addObject:p];
+            }
+            e.productLists=tm;
             NSLog(@"");
             //            [_topicList addObject:t];
             [_checkList addObject:e];
+            
         }
 //        weakself.segmentedControl.tapIndex=2;
         [_tableView reloadData];
@@ -216,15 +232,39 @@
     else
         cell.status.text=@"已支付";
 //    cell.status.text=[NSString stringWithFormat:@"订单号: %@",e.orderNo];
-    cell.payprice.text=[NSString stringWithFormat:@"应付款: ¥:%@",e.orderNo];
+    cell.payprice.text=[NSString stringWithFormat:@"应付款: ¥:%@",e.totalPrice];
     [cell.paybtn setBackgroundColor:[UIColor redColor]];
     [cell.paybtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [cell.paybtn addTarget:self action:@selector(logi:) forControlEvents:UIControlEventTouchUpInside];
+
     [cell.cancel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [cell.cancel addTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
+    cell.cancel.tag=indexPath.row;
 //    cell.detailTextLabel.text=c.signTime;
     //    cell.
     return cell;
 }
+-(void)logi:(UIButton*)sender
+{
+    LogisticController* logi=[LogisticController new];
+    [self.navigationController pushViewController:logi animated:YES ];
+}
+-(void)delete:(UIButton*)sender
+{
+    OrderEntity* e=[_checkList objectAtIndex:sender.tag];
 
+    NSDictionary *params = @{
+                             @"id" : e.orderNo
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/goodsorder/delete"] body:data showLoading:false success:^(NSDictionary *response) {
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"");
+        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+    }];
+}
 //设置行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     //    if (indexPath.section==0) {
@@ -267,7 +307,23 @@
 
 //选中cell时调用的方法
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    FSSettlementViewController1* confirmOrder=[[FSSettlementViewController1 alloc] initWithNibName:@"FSSettlementViewController" bundle:nil];
+    OrderEntity* e=[_checkList objectAtIndex:indexPath.row];
+    confirmOrder.entity=e;
+    NSMutableArray* source=[NSMutableArray new];
+    for (productModel* p in e.productLists) {
+        FSShopCartList *newCart = [FSShopCartList new];
+        newCart.num = [NSString stringWithFormat:@"%ld", 1.0];
+        newCart.logo = p.logo;
+        newCart.name = p.name;
+        newCart.productPrice=p.priceName;
+        newCart.goodNorm=p.goodNorm;
+        newCart.idField = @"11111";
+        [source addObject:newCart];
+    }
     
+    confirmOrder.dataSource = source;
+    [self.navigationController pushViewController:confirmOrder animated:YES];
 }
 
 @end

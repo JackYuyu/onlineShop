@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * payStatus;
 @property (nonatomic, copy) NSString * totalPrice;
 @property (nonatomic, copy) NSString * logisticsCode;
-//@property (nonatomic, copy) NSString * productName;
+@property (nonatomic, copy) NSMutableArray * productLists;
 
 @end
 

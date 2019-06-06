@@ -11,6 +11,7 @@
 #import "math.h"
 #import "CFSegmentedControl.h"
 #import "checkModel.h"
+#define COLOR1 [UIColor colorWithRed:1.0 green:0.2 blue:0.31 alpha:1.0]
 
 @interface HomeCheckController ()<UITableViewDataSource,UITableViewDelegate,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, weak) ZWProgressPointBtn *progressView1;
@@ -28,7 +29,7 @@
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStyleGrouped];
     UIView* uv=[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 260)];
     [uv setBackgroundColor:RGBCOLOR(250, 121, 113)];
-    ZWProgressPointBtn *progressView1 = [[ZWProgressPointBtn alloc]initWithFrame:CGRectMake((uv.frame.size.width - 90)/2, uv.frame.size.height/2-45, 90  , 90)];
+    ZWProgressPointBtn *progressView1 = [[ZWProgressPointBtn alloc]initWithFrame:CGRectMake((uv.frame.size.width - 120)/2, uv.frame.size.height/2-60, 120  , 120)];
     progressView1.indexCount=0;
     [self.view addSubview:progressView1];
     progressView1.progressLineWidth = 5;
@@ -38,6 +39,17 @@
     progressView1.pointColor = RGBCOLOR(238, 188, 90);
     [progressView1.centerBtn setImage:[self createImageWithColor:[UIColor whiteColor]] forState:0];
     [progressView1.centerBtn addTarget:self action:@selector(clickToDo:) forControlEvents:UIControlEventTouchUpInside];
+    
+    CAShapeLayer *solidLine =  [CAShapeLayer layer];
+    CGMutablePathRef solidPath =  CGPathCreateMutable();
+    solidLine.lineWidth = 1.0f ;
+    solidLine.strokeColor = [UIColor blueColor].CGColor;
+    solidLine.fillColor = [UIColor clearColor].CGColor;
+    CGPathAddEllipseInRect(solidPath, nil, CGRectMake(2.30f,  2.0f, 100.0f, 100.0f));
+    solidLine.path = solidPath;
+    CGPathRelease(solidPath);
+    [progressView1.centerBtn.layer addSublayer:solidLine];
+    
     self.progressView1 = progressView1;
 
     [uv addSubview:progressView1];
@@ -53,6 +65,7 @@
     [self showLeftBackButton];
     _segmentTitles = @[@"积分规则",@"获得记录"];
     _current=0;
+    
 }
 -(void)postUI
 {
@@ -63,7 +76,11 @@
     [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/usersigininfo/save"] body:data showLoading:false success:^(NSDictionary *response) {
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
         NSLog(@"");
-        self.progressView1.check.text=@"已签到";
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            self.progressView1.check.text=@"已签到";
+            [self.progressView1 reload];
+        });
     } failure:^(NSError *error) {
         NSLog(@"");
     }];

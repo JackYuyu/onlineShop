@@ -12,14 +12,7 @@
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic,strong) NSMutableArray* checkList;
 @property (nonatomic,strong) UITableView* tableView;
-@property (nonatomic,strong) NSString* province;
-@property (nonatomic,strong) NSString* city;
-@property (nonatomic,strong) NSString* area;
-@property (nonatomic,strong) NSString* addressInfo;
 
-@property (nonatomic,strong) NSString* input;
-@property (nonatomic,strong) NSString* input1;
-@property (nonatomic,strong) NSString* input3;
 
 @end
 
@@ -80,6 +73,13 @@
     NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
     [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/useraddress/save"] body:data showLoading:false success:^(NSDictionary *response) {
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        
+        NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+        [userd setObject:_input1 forKey:@"nickname"];
+        [userd setObject:[NSString stringWithFormat:@"%@-%@-%@",_province,_city,_area] forKey:@"address"];
+        [userd setObject:_input3 forKey:@"street"];
+
+        [userd synchronize];
         NSLog(@"");
     } failure:^(NSError *error) {
         NSLog(@"");
@@ -117,7 +117,7 @@
         NSLog(@"");
     }];
 }
--(void)textFieldDidBeginEditing:(UITextField *)textField {
+-(void)textFieldDidEndEditing:(UITextField *)textField {
     int b=textField.tag;
     if (b==0) {
         _input=textField.text;
@@ -160,6 +160,9 @@
         if (self.addressInfo) {
             cell.detailTextLabel.text = self.addressInfo;
         }
+        if (_province) {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@-%@-%@",_province,_city,_area];
+        }
     }
     else
     {
@@ -169,11 +172,22 @@
         input.tag=indexPath.row;
         input.delegate=self;
         [cell.contentView addSubview: input];
+            if (_input) {
+                if (indexPath.row==0) {
+                    input.text=_input;
+                }
+                if (indexPath.row==1) {
+                    input.text=_input1;
+                }
+                if (indexPath.row==3) {
+                    input.text=_input3;
+                }
+            }
         }
         if (indexPath.row==4) {
-                    cell.accessoryType=UITableViewCellAccessoryCheckmark;
-
+            cell.accessoryType=UITableViewCellAccessoryCheckmark;
         }
+        
     }
     //    cell.imageView.image= [UIImage imageNamed:@"image"];
     //    cell.backgroundColor = [UIColor greenColor];

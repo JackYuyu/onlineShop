@@ -12,7 +12,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NewAddressController : CFBaseController
+@property (nonatomic,strong) NSString* province;
+@property (nonatomic,strong) NSString* city;
+@property (nonatomic,strong) NSString* area;
+@property (nonatomic,strong) NSString* addressInfo;
 
+@property (nonatomic,strong) NSString* input;
+@property (nonatomic,strong) NSString* input1;
+@property (nonatomic,strong) NSString* input3;
 @end
 
 NS_ASSUME_NONNULL_END

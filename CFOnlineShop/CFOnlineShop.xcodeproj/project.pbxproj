@@ -80,6 +80,17 @@
 		DD759DB3229C16E900B71414 /* DCVerificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD759DB0229C16E800B71414 /* DCVerificationView.xib */; };
 		DD759DB4229C16E900B71414 /* DCVerificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD759DB2229C16E900B71414 /* DCVerificationView.m */; };
 		DD759DB7229CC48700B71414 /* UIView+DCRolling.m in Sources */ = {isa = PBXBuildFile; fileRef = DD759DB6229CC48700B71414 /* UIView+DCRolling.m */; };
+		DDD278F522A751CA00D5419E /* forgetPassWardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD278E922A751C900D5419E /* forgetPassWardViewController.m */; };
+		DDD278F622A751CA00D5419E /* MMZCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD278EC22A751C900D5419E /* MMZCViewController.m */; };
+		DDD278F722A751CA00D5419E /* MMZCHMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD278ED22A751C900D5419E /* MMZCHMViewController.m */; };
+		DDD278F822A751CA00D5419E /* settinhHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD278EE22A751C900D5419E /* settinhHeaderViewController.m */; };
+		DDD278F922A751CA00D5419E /* newPassWardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD278EF22A751C900D5419E /* newPassWardViewController.m */; };
+		DDD278FA22A751CA00D5419E /* settingPassWardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD278F422A751CA00D5419E /* settingPassWardViewController.m */; };
+		DDD278FE22A7A28500D5419E /* FSSettlementViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD278FB22A7A28200D5419E /* FSSettlementViewController1.m */; };
+		DDD278FF22A7A28500D5419E /* FSSettlementViewController1.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDD278FD22A7A28500D5419E /* FSSettlementViewController1.xib */; };
+		DDD2790222A7C47400D5419E /* LogisticController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD2790122A7C47400D5419E /* LogisticController.m */; };
+		DDD2790622A7C7AE00D5419E /* PeTimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD2790522A7C7AE00D5419E /* PeTimeLine.m */; };
+		DDD2790922A7D31F00D5419E /* logisticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD2790822A7D31F00D5419E /* logisticModel.m */; };
 		DDE43130229E7E8600F58DEA /* productModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE4312F229E7E8600F58DEA /* productModel.m */; };
 		DDE43133229F69E500F58DEA /* topicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE43132229F69E500F58DEA /* topicModel.m */; };
 		DDE43137229F875C00F58DEA /* classifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE43136229F875C00F58DEA /* classifyModel.m */; };
@@ -235,6 +246,27 @@
 		DD759DB2229C16E900B71414 /* DCVerificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCVerificationView.m; sourceTree = "<group>"; };
 		DD759DB5229CC48700B71414 /* UIView+DCRolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DCRolling.h"; sourceTree = "<group>"; };
 		DD759DB6229CC48700B71414 /* UIView+DCRolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCRolling.m"; sourceTree = "<group>"; };
+		DDD278E922A751C900D5419E /* forgetPassWardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = forgetPassWardViewController.m; sourceTree = "<group>"; };
+		DDD278EA22A751C900D5419E /* settingPassWardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settingPassWardViewController.h; sourceTree = "<group>"; };
+		DDD278EB22A751C900D5419E /* forgetPassWardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = forgetPassWardViewController.h; sourceTree = "<group>"; };
+		DDD278EC22A751C900D5419E /* MMZCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMZCViewController.m; sourceTree = "<group>"; };
+		DDD278ED22A751C900D5419E /* MMZCHMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMZCHMViewController.m; sourceTree = "<group>"; };
+		DDD278EE22A751C900D5419E /* settinhHeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settinhHeaderViewController.m; sourceTree = "<group>"; };
+		DDD278EF22A751C900D5419E /* newPassWardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newPassWardViewController.m; sourceTree = "<group>"; };
+		DDD278F022A751CA00D5419E /* MMZCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMZCViewController.h; sourceTree = "<group>"; };
+		DDD278F122A751CA00D5419E /* settinhHeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settinhHeaderViewController.h; sourceTree = "<group>"; };
+		DDD278F222A751CA00D5419E /* MMZCHMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMZCHMViewController.h; sourceTree = "<group>"; };
+		DDD278F322A751CA00D5419E /* newPassWardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newPassWardViewController.h; sourceTree = "<group>"; };
+		DDD278F422A751CA00D5419E /* settingPassWardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settingPassWardViewController.m; sourceTree = "<group>"; };
+		DDD278FB22A7A28200D5419E /* FSSettlementViewController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSSettlementViewController1.m; sourceTree = "<group>"; };
+		DDD278FC22A7A28400D5419E /* FSSettlementViewController1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSSettlementViewController1.h; sourceTree = "<group>"; };
+		DDD278FD22A7A28500D5419E /* FSSettlementViewController1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSSettlementViewController1.xib; sourceTree = "<group>"; };
+		DDD2790022A7C47400D5419E /* LogisticController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticController.h; sourceTree = "<group>"; };
+		DDD2790122A7C47400D5419E /* LogisticController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticController.m; sourceTree = "<group>"; };
+		DDD2790422A7C7AE00D5419E /* PeTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeTimeLine.h; sourceTree = "<group>"; };
+		DDD2790522A7C7AE00D5419E /* PeTimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeTimeLine.m; sourceTree = "<group>"; };
+		DDD2790722A7D31F00D5419E /* logisticModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = logisticModel.h; sourceTree = "<group>"; };
+		DDD2790822A7D31F00D5419E /* logisticModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = logisticModel.m; sourceTree = "<group>"; };
 		DDE4312E229E7E8600F58DEA /* productModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = productModel.h; sourceTree = "<group>"; };
 		DDE4312F229E7E8600F58DEA /* productModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = productModel.m; sourceTree = "<group>"; };
 		DDE43131229F69E500F58DEA /* topicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = topicModel.h; sourceTree = "<group>"; };
@@ -273,6 +305,8 @@
 				04014B9722A66BFC00A16C66 /* OrderModel.m */,
 				04014B9922A673C200A16C66 /* OrderEntity.h */,
 				04014B9A22A673C200A16C66 /* OrderEntity.m */,
+				DDD2790722A7D31F00D5419E /* logisticModel.h */,
+				DDD2790822A7D31F00D5419E /* logisticModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -396,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				0464A6DF229A33A3004381DF /* Tool */,
+				DDD2790322A7C7AE00D5419E /* PeTimeLine */,
 				DD09D87622A61DC10088264E /* JYAddressPicker */,
 				DD561DCB2297DDF200DE4DAF /* PPNumberButton */,
 				DD561DC12297A28D00DE4DAF /* ZWProgressPointBtn */,
@@ -416,6 +451,8 @@
 				0CCF56A320FEE46B00B8FE09 /* CFPersonalCenterController.m */,
 				04ECF67E22A5674100C25026 /* OrderController.h */,
 				04ECF67F22A5674100C25026 /* OrderController.m */,
+				DDD2790022A7C47400D5419E /* LogisticController.h */,
+				DDD2790122A7C47400D5419E /* LogisticController.m */,
 				04ECF68122A5676A00C25026 /* MyPointController.h */,
 				04ECF68222A5676A00C25026 /* MyPointController.m */,
 				04ECF68422A5694400C25026 /* MyFootController.h */,
@@ -649,6 +686,9 @@
 				DD759D9D229BC3A900B71414 /* FSSettlementViewController.h */,
 				DD759D9B229BC3A900B71414 /* FSSettlementViewController.m */,
 				DD759D9C229BC3A900B71414 /* FSSettlementViewController.xib */,
+				DDD278FC22A7A28400D5419E /* FSSettlementViewController1.h */,
+				DDD278FB22A7A28200D5419E /* FSSettlementViewController1.m */,
+				DDD278FD22A7A28500D5419E /* FSSettlementViewController1.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -683,8 +723,29 @@
 				DD759DB1229C16E900B71414 /* DCVerificationView.h */,
 				DD759DB2229C16E900B71414 /* DCVerificationView.m */,
 				DD759DB0229C16E800B71414 /* DCVerificationView.xib */,
+				DDD278F022A751CA00D5419E /* MMZCViewController.h */,
+				DDD278EC22A751C900D5419E /* MMZCViewController.m */,
+				DDD278F222A751CA00D5419E /* MMZCHMViewController.h */,
+				DDD278ED22A751C900D5419E /* MMZCHMViewController.m */,
+				DDD278EA22A751C900D5419E /* settingPassWardViewController.h */,
+				DDD278F422A751CA00D5419E /* settingPassWardViewController.m */,
+				DDD278EB22A751C900D5419E /* forgetPassWardViewController.h */,
+				DDD278E922A751C900D5419E /* forgetPassWardViewController.m */,
+				DDD278F322A751CA00D5419E /* newPassWardViewController.h */,
+				DDD278EF22A751C900D5419E /* newPassWardViewController.m */,
+				DDD278F122A751CA00D5419E /* settinhHeaderViewController.h */,
+				DDD278EE22A751C900D5419E /* settinhHeaderViewController.m */,
 			);
 			path = LoginViewController;
+			sourceTree = "<group>";
+		};
+		DDD2790322A7C7AE00D5419E /* PeTimeLine */ = {
+			isa = PBXGroup;
+			children = (
+				DDD2790422A7C7AE00D5419E /* PeTimeLine.h */,
+				DDD2790522A7C7AE00D5419E /* PeTimeLine.m */,
+			);
+			path = PeTimeLine;
 			sourceTree = "<group>";
 		};
 		DDE43134229F873300F58DEA /* model */ = {
@@ -755,6 +816,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDD278FF22A7A28500D5419E /* FSSettlementViewController1.xib in Resources */,
 				0CCF566D20FED2F900B8FE09 /* LaunchScreen.storyboard in Resources */,
 				0CCF566A20FED2F900B8FE09 /* Assets.xcassets in Resources */,
 				DD759DA5229BC43D00B71414 /* FSShoppingCartInfoCell.xib in Resources */,
@@ -818,8 +880,10 @@
 				DD759DB4229C16E900B71414 /* DCVerificationView.m in Sources */,
 				0C73E0852118499500D413A4 /* CFActivityController.m in Sources */,
 				0C79152D2109BDBE00D23547 /* CFTabBarItem.m in Sources */,
+				DDD278F722A751CA00D5419E /* MMZCHMViewController.m in Sources */,
 				0CCF56A420FEE46B00B8FE09 /* CFPersonalCenterController.m in Sources */,
 				0CA8CB5121085F9C00DC7DF6 /* CFShoppingCartCell1.m in Sources */,
+				DDD278FA22A751CA00D5419E /* settingPassWardViewController.m in Sources */,
 				DDE43130229E7E8600F58DEA /* productModel.m in Sources */,
 				0CCF567020FED2F900B8FE09 /* main.m in Sources */,
 				DDE4314722A0C74100F58DEA /* ProductInfoCell.m in Sources */,
@@ -833,8 +897,10 @@
 				DDE4313A229FA70B00F58DEA /* ClassificationDetailController.m in Sources */,
 				04ECF68322A5676A00C25026 /* MyPointController.m in Sources */,
 				0CCF56A120FEE3A200B8FE09 /* CFHomePageController.m in Sources */,
+				DDD2790622A7C7AE00D5419E /* PeTimeLine.m in Sources */,
 				DD27DD4222A4EEF400A96EFF /* DCRegisteredViewController.m in Sources */,
 				04ECF69222A57B1B00C25026 /* NewAddressController.m in Sources */,
+				DDD278F822A751CA00D5419E /* settinhHeaderViewController.m in Sources */,
 				DDE43137229F875C00F58DEA /* classifyModel.m in Sources */,
 				DD09D87B22A61DC10088264E /* JYAddressPicker.m in Sources */,
 				DD561DB72296D0A900DE4DAF /* FSBaseModel.m in Sources */,
@@ -847,6 +913,7 @@
 				0C4754F7210033BE007DC738 /* CFHomeCollectionHeader.m in Sources */,
 				04ECF68F22A57AFF00C25026 /* AddressListController.m in Sources */,
 				DD561DD22297E16500DE4DAF /* DCFeatureChoseTopCell.m in Sources */,
+				DDD278F522A751CA00D5419E /* forgetPassWardViewController.m in Sources */,
 				DD759D9E229BC3A900B71414 /* FSSettlementViewController.m in Sources */,
 				DD561DC92297A28D00DE4DAF /* ZWProgressCenterBtn.m in Sources */,
 				0C33B89C210707B600A18FD8 /* CFEditCollectionCell.m in Sources */,
@@ -861,6 +928,7 @@
 				0C80ACB22101A92D00703876 /* CFSegmentedControl.m in Sources */,
 				0CCF569820FEE27A00B8FE09 /* CFBaseController.m in Sources */,
 				DD759DB7229CC48700B71414 /* UIView+DCRolling.m in Sources */,
+				DDD278F622A751CA00D5419E /* MMZCViewController.m in Sources */,
 				0464A6E2229A33BC004381DF /* HttpTool.m in Sources */,
 				04014B9B22A673C200A16C66 /* OrderEntity.m in Sources */,
 				0CCF566220FED2F800B8FE09 /* AppDelegate.m in Sources */,
@@ -870,10 +938,13 @@
 				04ECF68022A5674100C25026 /* OrderController.m in Sources */,
 				0CCF56BB20FF34F600B8FE09 /* PurchaseCarAnimationTool.m in Sources */,
 				0C82C8572105ABCD0063735E /* CFHomeCollectionHeaderTwo.m in Sources */,
+				DDD278FE22A7A28500D5419E /* FSSettlementViewController1.m in Sources */,
 				04ECF68922A5695C00C25026 /* MyFavController.m in Sources */,
 				DD561DB32296655600DE4DAF /* CollectionCatHeader.m in Sources */,
+				DDD2790222A7C47400D5419E /* LogisticController.m in Sources */,
 				DD561DBD2296D52000DE4DAF /* UIImageView+SDWebImage.m in Sources */,
 				DD759DA4229BC43D00B71414 /* FSShoppingCartInfoCell.m in Sources */,
+				DDD2790922A7D31F00D5419E /* logisticModel.m in Sources */,
 				0CCF56AF20FF139300B8FE09 /* CALayer+CFAnimation.m in Sources */,
 				DD09D87E22A646630088264E /* addressModel.m in Sources */,
 				DD27DD3F22A4C0C400A96EFF /* StarView.m in Sources */,
@@ -884,6 +955,7 @@
 				DD759DAE229C161100B71414 /* DCLoginViewController.m in Sources */,
 				04014B9822A66BFC00A16C66 /* OrderModel.m in Sources */,
 				0C82C85A2105AC380063735E /* CFHomeHeaderTwoCell.m in Sources */,
+				DDD278F922A751CA00D5419E /* newPassWardViewController.m in Sources */,
 				0C4754FD21008BCA007DC738 /* CFDetailInfoController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

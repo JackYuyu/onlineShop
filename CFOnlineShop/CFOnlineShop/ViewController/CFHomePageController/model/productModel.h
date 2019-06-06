@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * marketPrice;
 @property (nonatomic, copy) NSString * detailInfo;
 
+@property (nonatomic, copy) NSString * name;
+@property (nonatomic, copy) NSString * goodNorm;
+
 @end
 
 NS_ASSUME_NONNULL_END

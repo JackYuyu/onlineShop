@@ -30,6 +30,23 @@
         ZWProgressCenterBtn *centerBtn = [[ZWProgressCenterBtn alloc]initWithFrame:CGRectMake(self.progressLineWidth + self.progressLineWidth/2, self.progressLineWidth + self.progressLineWidth/2, self.frame.size.width-self.progressLineWidth*2 - self.progressLineWidth*2, self.frame.size.height-self.progressLineWidth*2 - self.progressLineWidth*2)];
         [self addSubview:centerBtn];
         self.centerBtn = centerBtn;
+        
+        _check=[[UILabel alloc] initWithFrame:CGRectMake(30, 0, 120, 60)];
+        _check.text=@"未签到";
+        [_check setFont:[UIFont systemFontOfSize:18]];
+        [_check setTextColor:[UIColor blueColor]];
+        [self.centerBtn addSubview:_check];
+        
+        UIView* line=[[UIView alloc] initWithFrame:CGRectMake(0, 60, 120, 0.5)];
+        [line setBackgroundColor:[UIColor blueColor]];
+        [self.centerBtn addSubview:line];
+        
+        _check1=[[UILabel alloc] initWithFrame:CGRectMake(30, 50, 120, 60)];
+        _check1.text=@"连续1天";
+        [_check1 setFont:[UIFont systemFontOfSize:14]];
+        [_check1 setTextColor:[UIColor blueColor]];
+        
+        [self.centerBtn addSubview:_check1];
     }
     return self;
 }
@@ -45,22 +62,7 @@
         self.centerBtn.layer.rasterizationScale = [UIScreen mainScreen].scale;
         [self.centerBtn setBackgroundColor:[UIColor whiteColor]];
         
-        _check=[[UILabel alloc] initWithFrame:CGRectMake(10, 0, 120, 60)];
-        _check.text=@"未签到";
-        [_check setFont:[UIFont systemFontOfSize:18]];
-        [_check setTextColor:[UIColor blueColor]];
-        [self.centerBtn addSubview:_check];
         
-        UIView* line=[[UIView alloc] initWithFrame:CGRectMake(0, 40, 120, 0.5)];
-        [line setBackgroundColor:[UIColor blueColor]];
-        [self.centerBtn addSubview:line];
-        
-        _check1=[[UILabel alloc] initWithFrame:CGRectMake(10, 30, 120, 60)];
-        _check1.text=@"连续1天";
-        [_check1 setFont:[UIFont systemFontOfSize:14]];
-        [_check1 setTextColor:[UIColor blueColor]];
-
-        [self.centerBtn addSubview:_check1];
         
 //        [check mas_makeConstraints:^(MASConstraintMaker *make) {
 //            make.centerX.mas_equalTo(self.centerBtn).mas_offset(0);
@@ -98,6 +100,8 @@
 
     self.progressView = progressView;
     [self addSubview:progressView];
+    
+    
     
     [self bringSubviewToFront:self.centerBtn];
 }

@@ -13,6 +13,7 @@
 #import "MyFavController.h"
 #import "MyFootController.h"
 #import "MySettingController.h"
+#import "MMZCViewController.h"
 @interface CFPersonalCenterController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UIImageView *bgImageView;
@@ -31,8 +32,8 @@
     // Do any additional setup after loading the view.
     
     [self setTitle:@"我的"];
-    _myTitles = @[@"绑定手机号",@"全部订单",@"我的积分",@"我的足迹",@"我的收藏",@"我的消息",@"设置"];
-    _myIcons = @[@"icon_my_01",@"icon_my_02",@"icon_my_03",@"icon_my_04",@"icon_my_05",@"icon_my_06",@"icon_my_07"];
+    _myTitles = @[@"绑定手机号",@"全部订单",@"我的积分",@"我的足迹",@"我的收藏",@"我的消息",@"设置",@"退出"];
+    _myIcons = @[@"icon_my_01",@"icon_my_02",@"icon_my_03",@"icon_my_04",@"icon_my_05",@"icon_my_06",@"icon_my_07",@"icon_my_07"];
 
     self.navigationView.backgroundColor = kWhiteColor;
     [self setUI];
@@ -77,12 +78,17 @@
     label.textColor = KDarkTextColor;
     label.font = SYSTEMFONT(16);
     label.text = @"黄金脆皮鱼";
+    NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+    if ([userd objectForKey:@"phone"]) {
+        label.text=[userd objectForKey:@"phone"];
+    }
     [_tableView addSubview:label];
     
 }
 -(void)menuTapped
 {
-    DCLoginViewController* login=[DCLoginViewController new];
+//    DCLoginViewController* login=[DCLoginViewController new];
+    MMZCViewController *login=[[MMZCViewController alloc]init];
     [self.navigationController pushViewController:login animated:YES];
 }
 
@@ -100,7 +106,7 @@
     }
     else
     {
-    return 2;
+    return 3;
     }
 }
 
@@ -181,6 +187,13 @@
     if (indexPath.section==1&&indexPath.row==1) {
         MySettingController* o=[MySettingController new];
         [self.navigationController pushViewController:o animated:YES];
+    }
+    if (indexPath.section==1&&indexPath.row==2) {
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        [user removeObjectForKey:@"openid"];
+        [user synchronize];
+        MMZCViewController *login=[[MMZCViewController alloc]init];
+        [self.navigationController pushViewController:login animated:YES];
     }
 }
 

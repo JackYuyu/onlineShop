@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface addressModel : FSBaseModel
 @property (nonatomic, copy) NSString * nickname;
+@property (nonatomic, copy) NSString * receiptName;
+
 @property (nonatomic, copy) NSString * receiptTelphone;
 @property (nonatomic, copy) NSString * provinceName;
 @property (nonatomic, copy) NSString * cityName;

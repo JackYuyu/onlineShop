@@ -15,7 +15,7 @@
 #import "FSSettlementViewController1.h"
 #import "productModel.h"
 #import "LogisticController.h"
-
+#import "CommentController.h"
 @interface OrderController ()<UITableViewDataSource,UITableViewDelegate,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic, strong) CFSegmentedControl *segmentedControl;
@@ -93,6 +93,9 @@
 }
 -(void)postRecordUI
 {
+    if (![MySingleton sharedMySingleton].openId) {
+        return;
+    }
     NSDictionary *params = @{
                              @"openId" : @"olEaQ4jE4SkGd1FdU73v4a0IgCD8",
                              @"payStatus" : @"-1"
@@ -226,28 +229,61 @@
     OrderEntity* e=[_checkList objectAtIndex:indexPath.row];
     cell.orderno.text=[NSString stringWithFormat:@"订单号: %@",e.orderNo];
     cell.date.text=[NSString stringWithFormat:@"提交时间: %@",e.createTime];
-    if ([e.payStatus isEqualToString:@"0"]) {
-        cell.status.text=@"待支付";
-    }
-    else
-        cell.status.text=@"已支付";
+    
 //    cell.status.text=[NSString stringWithFormat:@"订单号: %@",e.orderNo];
     cell.payprice.text=[NSString stringWithFormat:@"应付款: ¥:%@",e.totalPrice];
     [cell.paybtn setBackgroundColor:[UIColor redColor]];
     [cell.paybtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [cell.paybtn addTarget:self action:@selector(logi:) forControlEvents:UIControlEventTouchUpInside];
-
+    cell.paybtn.tag=indexPath.row;
+    
     [cell.cancel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [cell.cancel addTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
     cell.cancel.tag=indexPath.row;
 //    cell.detailTextLabel.text=c.signTime;
     //    cell.
+    [cell.paybtn.layer setMasksToBounds:YES]; [cell.paybtn.layer setCornerRadius:3.0];
+    [cell.cancel.layer setMasksToBounds:YES]; [cell.cancel.layer setCornerRadius:3.0];
+    if ([e.payStatus isEqualToString:@"0"]) {
+        cell.status.text=@"待支付";
+
+    }
+    else{
+        cell.status.text=@"已支付";
+        [cell.cancel setBackgroundColor:[UIColor redColor]];
+        [cell.cancel setTitle:@"申请退款" forState:UIControlStateNormal];
+        [cell.cancel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cell.paybtn setBackgroundColor:[UIColor whiteColor]];
+        [cell.paybtn setTitle:@"暂未发货" forState:UIControlStateNormal];
+        [cell.paybtn setTitleColor:KDarkTextColor forState:UIControlStateNormal];
+    }
     return cell;
 }
 -(void)logi:(UIButton*)sender
 {
+    NSInteger a=sender.tag;
+    if (sender.tag==0) {
+        CommentController* c=[CommentController new];
+        
+        OrderEntity* e=[_checkList objectAtIndex:sender.tag];
+        NSMutableArray* source=[NSMutableArray new];
+        for (productModel* p in e.productLists) {
+            FSShopCartList *newCart = [FSShopCartList new];
+            newCart.num = [NSString stringWithFormat:@"%ld", 1.0];
+            newCart.logo = p.logo;
+            newCart.name = p.name;
+            newCart.productPrice=p.priceName;
+            newCart.goodNorm=p.goodNorm;
+            newCart.idField = @"11111";
+            [source addObject:newCart];
+        }
+        c.dataSource=source;
+        [self.navigationController pushViewController:c animated:YES];
+    }
+    else{
     LogisticController* logi=[LogisticController new];
     [self.navigationController pushViewController:logi animated:YES ];
+    }
 }
 -(void)delete:(UIButton*)sender
 {
@@ -307,7 +343,7 @@
 
 //选中cell时调用的方法
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    FSSettlementViewController1* confirmOrder=[[FSSettlementViewController1 alloc] initWithNibName:@"FSSettlementViewController" bundle:nil];
+    FSSettlementViewController1* confirmOrder=[[FSSettlementViewController1 alloc] initWithNibName:@"FSSettlementViewController1" bundle:nil];
     OrderEntity* e=[_checkList objectAtIndex:indexPath.row];
     confirmOrder.entity=e;
     NSMutableArray* source=[NSMutableArray new];
@@ -323,6 +359,7 @@
     }
     
     confirmOrder.dataSource = source;
+    confirmOrder.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:confirmOrder animated:YES];
 }
 

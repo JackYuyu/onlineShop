@@ -78,6 +78,9 @@
 }
 -(void)postRecordUI
 {
+    if (![MySingleton sharedMySingleton].openId) {
+        return;
+    }
     NSDictionary *params = @{
                              @"openId" : [MySingleton sharedMySingleton].openId,
                              @"todayScore" : @"1",

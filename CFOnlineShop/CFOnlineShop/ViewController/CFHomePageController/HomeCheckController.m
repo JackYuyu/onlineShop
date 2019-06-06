@@ -106,6 +106,9 @@
 }
 -(void)postRecordUI
 {
+    if (![MySingleton sharedMySingleton].openId) {
+        return;
+    }
     NSDictionary *params = @{
                              @"openId" : [MySingleton sharedMySingleton].openId,
                              @"todayScore" : @"1",
@@ -164,7 +167,7 @@
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     checkModel* c=[_checkList objectAtIndex:indexPath.row];
     cell.textLabel.text=@"每日签到获得";
-    cell.detailTextLabel.text=c.signTime;
+    cell.detailTextLabel.text=c.createdDt;
     //
     UILabel* label=[UILabel new];
     label.text=[NSString stringWithFormat:@"+%@",c.todayScore];

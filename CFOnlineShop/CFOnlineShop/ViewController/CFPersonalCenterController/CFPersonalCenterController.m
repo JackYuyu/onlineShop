@@ -192,8 +192,9 @@
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         [user removeObjectForKey:@"openid"];
         [user synchronize];
-        MMZCViewController *login=[[MMZCViewController alloc]init];
-        [self.navigationController pushViewController:login animated:YES];
+        [MySingleton sharedMySingleton].openId=nil;
+        [self.tabBarController setSelectedIndex:0];
+
     }
 }
 

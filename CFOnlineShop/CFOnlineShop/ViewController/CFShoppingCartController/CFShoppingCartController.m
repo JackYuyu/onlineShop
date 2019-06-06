@@ -35,6 +35,10 @@ static NSInteger num_;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    if (![MySingleton sharedMySingleton].openId) {
+        [_productList removeAllObjects];
+        return;
+    }
     [self postUI];
 }
 - (void)setCollectionView

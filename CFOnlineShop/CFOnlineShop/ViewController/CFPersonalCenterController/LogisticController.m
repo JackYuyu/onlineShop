@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _orderNo=@"1136150822208565250";
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, TopHeight, self.view.bounds.size.width, self.view.bounds.size.height-40) style:UITableViewStyleGrouped];
     
     tableView.delegate=self;
@@ -32,7 +33,13 @@
     UIImageView* img=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 80, 80)];
     [img setImage:[UIImage imageNamed:@"logistic"]];
     [v addSubview:img];
+    UILabel* orderno= [[UILabel alloc] initWithFrame:CGRectMake(100, 50, Main_Screen_Width-110, 40)];
+    [orderno setTextColor:[UIColor whiteColor]];
+    orderno.font=[UIFont systemFontOfSize:16];
+    orderno.text=[NSString stringWithFormat:@"运单号:%@",_orderNo];
+    [v addSubview:orderno];
     _tableView.tableHeaderView=v;
+    
     
     [self.view addSubview:tableView];
     self.navigationBgView.backgroundColor = kWhiteColor;
@@ -45,7 +52,7 @@
 {
     NSDictionary *params = @{
                              @"openId" : [MySingleton sharedMySingleton].openId,
-                             @"orderId" : @"1136150822208565250"
+                             @"orderId" : _orderNo
                              };
     NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
     [HttpTool postWithUrl:[NSString stringWithFormat:@"renren-fast/mall/sysexpressconfig/getExpressUser"] body:data showLoading:false success:^(NSDictionary *response) {
@@ -103,7 +110,7 @@
 //设置表格视图有多少行
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    if (section==0) {
-    return [_checkList count];
+    return [_checkList count]+1;
     //    }else{
     //        return 10;
     //    }
@@ -114,12 +121,20 @@
 }
 //设置每行的UITableViewCell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
-    if (cell==nil) {
+    UITableViewCell * cell=[UITableViewCell new];;
+//    if (cell==nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cellID"];
         
+//    }
+    if (indexPath.row==0) {
+        PeTimeLine *time = [[PeTimeLine alloc]initWithFrame:CGRectMake(20, 20, 300, 100)];
+        NSArray *array  = [NSArray arrayWithObjects:@"未发货",@"已发货",@"已签收",nil];
+        time.allSteps = array;
+        time.nowStep=2;
+        [cell.contentView addSubview:time];
+        return cell;
     }
-    
+    else{
     cell.textLabel.text = [NSString stringWithFormat:@"第%d分区",indexPath.section];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"第%d行",indexPath.row];
     //    cell.imageView.image= [UIImage imageNamed:@"image"];
@@ -127,12 +142,12 @@
     //    cell.showsReorderControl=YES;
     //    cell.shouldIndentWhileEditing=YES;
     //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    logisticModel* c=[_checkList objectAtIndex:indexPath.row];
+    logisticModel* c=[_checkList objectAtIndex:indexPath.row-1];
     cell.textLabel.text=c.context;
     cell.detailTextLabel.text=c.time;
     //
     UILabel* label=[UILabel new];
-//    label.text=[NSString stringWithFormat:@"+%@",c.score];
+//    label.text=[NSString stringWithFormat:@"+%i",indexPath.row];
     label.font=[UIFont systemFontOfSize:20];
     label.textColor=[UIColor orangeColor];
     [label sizeToFit];
@@ -140,12 +155,7 @@
     [cell.contentView addSubview:label];
     //    cell.detailTextLabel.text=c.signTime;
     //    cell.
-    if (indexPath.row==0) {
-        PeTimeLine *time = [[PeTimeLine alloc]initWithFrame:CGRectMake(20, 120, 300, 100)];
-        NSArray *array  = [NSArray arrayWithObjects:@"未发货",@"已发货",@"已签收",nil];
-        time.allSteps = array;
-        time.nowStep=2;
-        [cell.contentView addSubview:time];
+        return cell;
     }
     return cell;
 }

@@ -104,6 +104,14 @@
     if (indexPath.row==2) {
         cell.detailTextLabel.text = @"更改地址";
     }
+    if (indexPath.row==0) {
+        NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+        cell.detailTextLabel.text=[userd objectForKey:@"nickname"];
+    }
+    if (indexPath.row==1) {
+        NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+        cell.detailTextLabel.text=[userd objectForKey:@"phone"];
+    }
     //    cell.imageView.image= [UIImage imageNamed:@"image"];
     //    cell.backgroundColor = [UIColor greenColor];
     //    cell.showsReorderControl=YES;

@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * todayScore;
 @property (nonatomic, copy) NSString * score;
 @property (nonatomic, copy) NSString * signTime;
+@property (nonatomic, copy) NSString * createdDt;
+
 @end
 
 NS_ASSUME_NONNULL_END

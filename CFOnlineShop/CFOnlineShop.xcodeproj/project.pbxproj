@@ -69,6 +69,9 @@
 		DD561DCA2297A28D00DE4DAF /* ZWProgressPointBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DC72297A28D00DE4DAF /* ZWProgressPointBtn.m */; };
 		DD561DCE2297DDF200DE4DAF /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DCD2297DDF200DE4DAF /* PPNumberButton.m */; };
 		DD561DD22297E16500DE4DAF /* DCFeatureChoseTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD561DD12297E16500DE4DAF /* DCFeatureChoseTopCell.m */; };
+		DD690E8322A8F32600595D6C /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD690E8222A8F32600595D6C /* CommentController.m */; };
+		DD690E8622A9071500595D6C /* commModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DD690E8522A9071500595D6C /* commModel.m */; };
+		DD690E8922A90E3F00595D6C /* commList.m in Sources */ = {isa = PBXBuildFile; fileRef = DD690E8822A90E3F00595D6C /* commList.m */; };
 		DD759D99229BAC2E00B71414 /* CFHomeCollectionHeaderthree.m in Sources */ = {isa = PBXBuildFile; fileRef = DD759D98229BAC2E00B71414 /* CFHomeCollectionHeaderthree.m */; };
 		DD759D9E229BC3A900B71414 /* FSSettlementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD759D9B229BC3A900B71414 /* FSSettlementViewController.m */; };
 		DD759D9F229BC3A900B71414 /* FSSettlementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD759D9C229BC3A900B71414 /* FSSettlementViewController.xib */; };
@@ -228,6 +231,12 @@
 		DD561DCD2297DDF200DE4DAF /* PPNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNumberButton.m; sourceTree = "<group>"; };
 		DD561DD02297E16500DE4DAF /* DCFeatureChoseTopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCFeatureChoseTopCell.h; sourceTree = "<group>"; };
 		DD561DD12297E16500DE4DAF /* DCFeatureChoseTopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCFeatureChoseTopCell.m; sourceTree = "<group>"; };
+		DD690E8122A8F32600595D6C /* CommentController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentController.h; sourceTree = "<group>"; };
+		DD690E8222A8F32600595D6C /* CommentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentController.m; sourceTree = "<group>"; };
+		DD690E8422A9071500595D6C /* commModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = commModel.h; sourceTree = "<group>"; };
+		DD690E8522A9071500595D6C /* commModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = commModel.m; sourceTree = "<group>"; };
+		DD690E8722A90E3F00595D6C /* commList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = commList.h; sourceTree = "<group>"; };
+		DD690E8822A90E3F00595D6C /* commList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = commList.m; sourceTree = "<group>"; };
 		DD759D97229BAC2E00B71414 /* CFHomeCollectionHeaderthree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFHomeCollectionHeaderthree.h; sourceTree = "<group>"; };
 		DD759D98229BAC2E00B71414 /* CFHomeCollectionHeaderthree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFHomeCollectionHeaderthree.m; sourceTree = "<group>"; };
 		DD759D9B229BC3A900B71414 /* FSSettlementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSSettlementViewController.m; sourceTree = "<group>"; };
@@ -307,6 +316,10 @@
 				04014B9A22A673C200A16C66 /* OrderEntity.m */,
 				DDD2790722A7D31F00D5419E /* logisticModel.h */,
 				DDD2790822A7D31F00D5419E /* logisticModel.m */,
+				DD690E8422A9071500595D6C /* commModel.h */,
+				DD690E8522A9071500595D6C /* commModel.m */,
+				DD690E8722A90E3F00595D6C /* commList.h */,
+				DD690E8822A90E3F00595D6C /* commList.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -334,10 +347,10 @@
 		0C7915282109BDBD00D23547 /* CFTabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				0C7915292109BDBE00D23547 /* CFTabBarItem.m */,
-				0C79152A2109BDBE00D23547 /* CFTabBarController.m */,
-				0C79152B2109BDBE00D23547 /* CFTabBarController.h */,
 				0C79152C2109BDBE00D23547 /* CFTabBarItem.h */,
+				0C7915292109BDBE00D23547 /* CFTabBarItem.m */,
+				0C79152B2109BDBE00D23547 /* CFTabBarController.h */,
+				0C79152A2109BDBE00D23547 /* CFTabBarController.m */,
 			);
 			path = CFTabBarController;
 			sourceTree = "<group>";
@@ -453,6 +466,8 @@
 				04ECF67F22A5674100C25026 /* OrderController.m */,
 				DDD2790022A7C47400D5419E /* LogisticController.h */,
 				DDD2790122A7C47400D5419E /* LogisticController.m */,
+				DD690E8122A8F32600595D6C /* CommentController.h */,
+				DD690E8222A8F32600595D6C /* CommentController.m */,
 				04ECF68122A5676A00C25026 /* MyPointController.h */,
 				04ECF68222A5676A00C25026 /* MyPointController.m */,
 				04ECF68422A5694400C25026 /* MyFootController.h */,
@@ -889,14 +904,17 @@
 				DDE4314722A0C74100F58DEA /* ProductInfoCell.m in Sources */,
 				DD561DAD2296492C00DE4DAF /* CategoryInfoController.m in Sources */,
 				0C79152721095E0A00D23547 /* CFShoppingCartHeaderView.m in Sources */,
+				DD690E8322A8F32600595D6C /* CommentController.m in Sources */,
 				DD561DCA2297A28D00DE4DAF /* ZWProgressPointBtn.m in Sources */,
 				0CCF56B720FF2ABA00B8FE09 /* CFHomeCollectionCell.m in Sources */,
 				0CA8CB5421085FF200DC7DF6 /* CFShoppingCartCell2.m in Sources */,
 				0C73E088211849D700D413A4 /* CFOthersController.m in Sources */,
+				DD690E8922A90E3F00595D6C /* commList.m in Sources */,
 				DDE43133229F69E500F58DEA /* topicModel.m in Sources */,
 				DDE4313A229FA70B00F58DEA /* ClassificationDetailController.m in Sources */,
 				04ECF68322A5676A00C25026 /* MyPointController.m in Sources */,
 				0CCF56A120FEE3A200B8FE09 /* CFHomePageController.m in Sources */,
+				DD690E8622A9071500595D6C /* commModel.m in Sources */,
 				DDD2790622A7C7AE00D5419E /* PeTimeLine.m in Sources */,
 				DD27DD4222A4EEF400A96EFF /* DCRegisteredViewController.m in Sources */,
 				04ECF69222A57B1B00C25026 /* NewAddressController.m in Sources */,

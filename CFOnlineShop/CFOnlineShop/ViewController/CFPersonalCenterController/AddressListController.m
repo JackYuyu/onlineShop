@@ -79,6 +79,9 @@
 
 -(void)postRecordUI
 {
+    if (![MySingleton sharedMySingleton].openId) {
+        return;
+    }
     NSDictionary *params = @{
                              @"openId" : [MySingleton sharedMySingleton].openId
                              };
@@ -119,7 +122,7 @@
 //        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     }
     addressModel* a=[_checkList objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@%@",a.nickname,a.receiptTelphone];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@%@",a.receiptName,a.receiptTelphone];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%@",a.provinceName,a.cityName,a.areaName,a.street];
 
 
@@ -172,7 +175,7 @@
     _province=a.provinceName;
     _city=a.cityName;
     _area=a.areaName;
-    _input=a.nickname;
+    _input=a.receiptName;
     _input1=a.receiptTelphone;
     _input3=a.street;
     NewAddressController* n=[NewAddressController new];

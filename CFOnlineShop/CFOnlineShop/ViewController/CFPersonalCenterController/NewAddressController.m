@@ -75,11 +75,12 @@
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
         
         NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
-        [userd setObject:_input1 forKey:@"nickname"];
+        [userd setObject:_input forKey:@"nickname"];
         [userd setObject:[NSString stringWithFormat:@"%@-%@-%@",_province,_city,_area] forKey:@"address"];
         [userd setObject:_input3 forKey:@"street"];
 
         [userd synchronize];
+        [self.navigationController popViewControllerAnimated:YES];
         NSLog(@"");
     } failure:^(NSError *error) {
         NSLog(@"");

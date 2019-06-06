@@ -44,7 +44,7 @@
     self.navigationBgView.backgroundColor = kWhiteColor;
     self.navigationBgView.alpha = 0;
     [self showLeftBackButton];
-    
+    self.title=@"搜索";
     [self setUI];
 //    [self postUI];
 }
